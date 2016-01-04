@@ -1,0 +1,40 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.danielbordig.studyssmartfragment.Main_frag">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logoStudySmartMain"
+        android:layout_gravity="center_horizontal|top"
+        android:src="@mipmap/studysmartlogo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="University"
+        android:id="@+id/headerMain"
+        android:layout_gravity="center_horizontal|top" />
+
+    <ImageView
+        android:layout_width="122dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/logoDTU"
+        android:layout_gravity="center"
+        android:src="@mipmap/dtu" />
+
+    <ImageView
+        android:layout_width="122dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/logoCBS"
+        android:layout_gravity="center_horizontal|bottom"
+        android:src="@mipmap/cbs" />
+
+</FrameLayout>

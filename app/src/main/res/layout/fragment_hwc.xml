@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/headerHWC"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Homework Calendar"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:text="This Week"
+            android:textAllCaps="false"
+            android:layout_marginLeft="75dp"
+            android:id="@+id/weekBut"
+            android:clickable="false" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:text="All Classes"
+            android:textAllCaps="false"
+            android:layout_marginLeft="8dp"
+            android:id="@+id/allClassBut"
+             />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listHWC"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+</LinearLayout>

@@ -1,0 +1,48 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.danielbordig.studyssmartfragment.Login_frag">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logoStudySmartLogin"
+        android:layout_gravity="center_horizontal|top"
+        android:src="@mipmap/studysmartlogo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="First time login"
+        android:id="@+id/headerLogin"
+        android:layout_gravity="center_horizontal|top" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:id="@+id/nameText"
+        android:layout_gravity="center" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:inputType="textPassword"
+        android:id="@+id/passwordText"
+        android:layout_gravity="center" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="150dp"
+        android:text="Login"
+        android:id="@+id/loginBut"
+        android:layout_gravity="center_horizontal|bottom" />
+
+</FrameLayout>
