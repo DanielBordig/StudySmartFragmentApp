@@ -3,9 +3,6 @@ package com.example.danielbordig.studyssmartfragment;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by Daniel Bordig on 03-01-2016.
- */
 public class CalendarController {
 
     public ArrayList calenderCreate(int[] courses, String[] descriptions) {

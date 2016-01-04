@@ -1,8 +1,5 @@
 package com.example.danielbordig.studyssmartfragment;
 
-/**
- * Created by Daniel Bordig on 30-11-2015.
- */
 public class StudentDTO {
 
     String name, password;

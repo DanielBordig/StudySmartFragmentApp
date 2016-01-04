@@ -2,9 +2,6 @@ package com.example.danielbordig.studyssmartfragment;
 
 import java.util.ArrayList;
 
-/**
- * Created by Daniel Bordig on 30-11-2015.
- */
 public class StudentDAO {
 
     ArrayList<StudentDTO> studentList;
