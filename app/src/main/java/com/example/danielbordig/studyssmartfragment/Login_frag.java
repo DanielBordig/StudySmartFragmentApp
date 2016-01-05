@@ -53,6 +53,10 @@ public class Login_frag extends Fragment implements View.OnClickListener {
         name.setHint("Userame");
         password.setHint("Password");
 
+        // gør vores login hugtigere, skal slettes senere
+        name.setText("q");
+        password.setText("q");
+
         loginBut.setOnClickListener(this);
         loginBut.setBackgroundColor(Color.BLUE);
         loginBut.setTextColor(Color.WHITE);
