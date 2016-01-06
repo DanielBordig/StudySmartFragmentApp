@@ -1,6 +1,7 @@
 package com.example.danielbordig.studyssmartfragment;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +27,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
 
     ListView homeworkCalendarList;
     ArrayList<HashMap<String,String>> hwcList;
-    Button weekBut, allClassBut;
+    Button weekBut, allHomeworkBut;
     CalendarController cc = new CalendarController();
 
     // Array of integers pointing to course images
@@ -111,8 +113,8 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
         weekBut.setTextColor(Color.WHITE);
         weekBut.setBackgroundColor(Color.BLUE);
         weekBut.setOnClickListener(this);
-        allClassBut = (Button) root.findViewById(R.id.allClassBut);
-        allClassBut.setOnClickListener(this);
+        allHomeworkBut = (Button) root.findViewById(R.id.allHomeworkBut);
+        allHomeworkBut.setOnClickListener(this);
 
         // Each row in the list stores course image and description
         hwcList = cc.calenderCreate(coursesWeek, descriptionsWeek);
@@ -140,35 +142,45 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            String deta = detailsAll[position];
+        String deta = detailsAll[position];
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        dialog.setTitle("Homework details:");
+        dialog.setMessage(deta);
+        dialog.setNegativeButton("Done", new AlertDialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getActivity(), "trylle trylle og nu er lektien væk...\n...\nnæsten", Toast.LENGTH_LONG).show();
+            }
+        });
+        dialog.setPositiveButton("Read Later", new AlertDialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getActivity(), "trylle trylle og nu er lektien udskudt... næsten", Toast.LENGTH_LONG).show();
+            }
+        });
+        dialog.show();
 
-            Intent intentBundle = new Intent(getActivity(), HomeworkDetails.class);
-            Bundle bundle = new Bundle();
-
-            bundle.putString("detail", deta);
-            intentBundle.putExtra("detailBundle", bundle);
-            startActivity(new Intent(intentBundle));
     }
 
     @Override
     public void onClick(View v) {
         if(v==weekBut){
-            allClassBut.setTextColor(Color.BLACK);
-            allClassBut.setBackgroundColor(Color.WHITE);
-            allClassBut.setClickable(true);
+            allHomeworkBut.setTextColor(Color.BLACK);
+            allHomeworkBut.setBackgroundColor(Color.WHITE);
+            allHomeworkBut.setClickable(true);
             weekBut.setTextColor(Color.WHITE);
             weekBut.setBackgroundColor(Color.BLUE);
             weekBut.setClickable(false);
             hwcList = cc.calenderCreate(coursesWeek, descriptionsWeek);
             updateCalender(hwcList);
         }
-        if(v==allClassBut) {
+        if(v== allHomeworkBut) {
             weekBut.setTextColor(Color.BLACK);
             weekBut.setBackgroundColor(Color.WHITE);
             weekBut.setClickable(true);
-            allClassBut.setTextColor(Color.WHITE);
-            allClassBut.setBackgroundColor(Color.BLUE);
-            allClassBut.setClickable(false);
+            allHomeworkBut.setTextColor(Color.WHITE);
+            allHomeworkBut.setBackgroundColor(Color.BLUE);
+            allHomeworkBut.setClickable(false);
             hwcList = cc.calenderCreate(coursesAll, descriptionAll);
             updateCalender(hwcList);
         }
