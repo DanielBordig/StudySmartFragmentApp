@@ -30,7 +30,6 @@ public class SGM_frag extends Fragment implements AdapterView.OnItemClickListene
 
 
 
-
     public SGM_frag() {
         // Required empty public constructor
     }
