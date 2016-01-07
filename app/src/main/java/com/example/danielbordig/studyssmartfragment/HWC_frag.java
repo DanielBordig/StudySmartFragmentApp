@@ -114,6 +114,8 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
         weekBut.setBackgroundColor(Color.BLUE);
         weekBut.setOnClickListener(this);
         allHomeworkBut = (Button) root.findViewById(R.id.allHomeworkBut);
+        allHomeworkBut.setTextColor(Color.BLACK);
+        allHomeworkBut.setBackgroundColor(Color.WHITE);
         allHomeworkBut.setOnClickListener(this);
 
         // Each row in the list stores course image and description

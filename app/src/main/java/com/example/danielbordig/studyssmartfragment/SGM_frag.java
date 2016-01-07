@@ -46,12 +46,24 @@ public class SGM_frag extends Fragment implements AdapterView.OnItemClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_sgm, container, false);
-        System.out.println("oncreateview");
 
         Header = (TextView) root.findViewById(R.id.headerSGM);
         UnderHeader = (TextView) root.findViewById(R.id.underheaderSGM);
         GroupList = ( ListView ) root.findViewById(R.id.listSGM);
 
+        NewGameItem[] data = new NewGameItem[] {
+                new NewGameItem(R.drawable.ns_big),
+                new NewGameItem(R.drawable.ns_big),
+                new NewGameItem(R.drawable.ns_big),
+                new NewGameItem(R.drawable.bmp_big),
+                new NewGameItem(R.drawable.bmp_big),
+                new NewGameItem(R.drawable.bmp_big),
+                new NewGameItem(R.drawable.bmp_big),
+                new NewGameItem(R.drawable.bmp_big),
+                new NewGameItem(R.drawable.bmp_big)
+        };
+
+        NewGameAdapter newGameAdapter = new NewGameAdapter(getActivity(), R.layout.new_game_list_row, data);
 
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.listview_layout, R.id.txt, Emne) {
             @Override
@@ -65,7 +77,7 @@ public class SGM_frag extends Fragment implements AdapterView.OnItemClickListene
                 return view;
             }
         };
-        GroupList.setAdapter(adapter);
+        GroupList.setAdapter(newGameAdapter);
         return root;
     }
 
