@@ -37,9 +37,6 @@ public class SGM_frag extends Fragment implements AdapterView.OnItemClickListene
             "Itme 4",
             "Item 5",
             "Item 6",
-            "Itme 7",
-            "Item 8",
-            "Item 9",
     };
 
     public SGM_frag() {
