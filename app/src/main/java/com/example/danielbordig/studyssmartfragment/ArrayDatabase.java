@@ -7,170 +7,29 @@ import java.util.ArrayList;
  */
 public class ArrayDatabase {
 
-    int[] coursesWeek = new int[]{
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp
-    };
 
-    int[] coursesAll = new int[]{
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.ns
-    };
-
-    int[] GroupsAll = {
-            R.drawable.bmp,
-            R.drawable.ns,
-    };
-
-    int[] Groups = {
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.ns,
-    };
-
-    int[] GroupsDone = {
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.ns,
-    };
-
-    int[] GroupsReadLater = {
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.ns,
-    };
-
-    // Array of strings storing descriptions for one week of homework
-    String[] descriptionsWeek = new String[] {
-            "Monday - 39 Aug.\n" +
-                    "Session 3 - 13682 pages",
-            "Wednesday - 56 Okt.\n" +
-                    "Session 6 - 583 pages",
-            "Missing description 0"
-    };
-
-    // Array of strings storing descriptions all homework
-    String[] descriptionAll = new String[] {
-            "Monday - 39 Aug.\n" +
-                    "Session 3 - 13682 pages",
-            "Wednesday - 56 Okt.\n" +
-                    "Session 6 - 583 pages",
-            "Missing description 0",
-            "Missing description 1",
-            "Missing description 2",
-            "Missing description 3",
-            "Missing description 4",
-            "Missing description 5",
-            "Missing description 6",
-            "Missing description 7",
-            "Missing description 8"
-    };
-
-    // Array of strings storing details for one week of homework
-    String[] detailsAll = new String[] {
-            "This homework is awesome, you better read it.\nBook: Naruto 1-72",
-            "This homework sucks, and is not recommended as necessary.\nBook: Fifty Shades of Grey",
-            "Missing details 0",
-            "Missing details 1",
-            "Missing details 2",
-            "Missing details 3",
-            "Missing details 4",
-            "Missing details 5",
-            "Missing details 6",
-            "Missing details 7",
-            "Missing details 8"
-    };
-
-    String[] EmneAll = {
-            " ",
-            " ",
-    };
-
-    String[] Emne = {
-            "Monday - 39 Aug.\n" +
-                    "Session 3 - 13682 pages",
-            "Wednesday - 56 Okt.\n" +
-                    "Session 6 - 583 pages",
-            "Missing description 0",
-            "Missing description 1",
-            "Missing description 2",
-            "Missing description 3",
-            "Missing description 4",
-            "Missing description 5",
-            "Missing description 6",
-            "Missing description 7",
-            "Missing description 8",
-    };
-
-    String[] EmneDone = {
-            "Monday - 39 Aug.\n" +
-                    "Session 3 - 13682 pages",
-            "Wednesday - 56 Okt.\n" +
-                    "Session 6 - 583 pages",
-            "Missing description 0",
-            "Missing description 1",
-            "Missing description 2",
-            "Missing description 3",
-            "Missing description 4",
-            "Missing description 5",
-            "Missing description 6",
-            "Missing description 7",
-            "Missing description 8",
-    };
-
-    String[] EmneReadLater = {
-            "Monday - 39 Aug.\n" +
-                    "Session 3 - 13682 pages",
-            "Wednesday - 56 Okt.\n" +
-                    "Session 6 - 583 pages",
-            "Missing description 0",
-            "Missing description 1",
-            "Missing description 2",
-            "Missing description 3",
-            "Missing description 4",
-            "Missing description 5",
-            "Missing description 6",
-            "Missing description 7",
-            "Missing description 8",
-    };
-
+    //Other ArrayList's
     ArrayList<StudentDTO> studentList;
+    //Integer ArrayList's
+    ArrayList<Integer> coursesAll = new ArrayList<Integer>();
+    ArrayList<Integer> coursesWeek = new ArrayList<Integer>();
+    ArrayList<Integer> done = new ArrayList<Integer>();
+    ArrayList<Integer> groups = new ArrayList<Integer>();
+    ArrayList<Integer> groupsAll = new ArrayList<Integer>();
+    ArrayList<Integer> readLater = new ArrayList<Integer>();
+    //String ArrayList's
+    ArrayList<String> descriptionsAll = new ArrayList<String>();
+    ArrayList<String> descriptionsWeek = new ArrayList<String>();
+    ArrayList<String> detailsAll = new ArrayList<String>();
+    ArrayList<String> emner = new ArrayList<String>();
+    ArrayList<String> emnerAll = new ArrayList<String>();
+    ArrayList<String> emnerDone = new ArrayList<String>();
+    ArrayList<String> emnerReadLater = new ArrayList<String>();
 
-    public void Students(){
+
+    public void AllArrays() {
+        //Array's containing different types
+        //student info
         studentList = new ArrayList<StudentDTO>();
         studentList.add(new StudentDTO(1, "Daniel", "qwert"));
         studentList.add(new StudentDTO(2, "Zohra", "12345"));
@@ -178,63 +37,202 @@ public class ArrayDatabase {
         studentList.add(new StudentDTO(4, "Nicklas", "zxcv"));
         studentList.add(new StudentDTO(5, "Bob", "trewq"));
         studentList.add(new StudentDTO(6, "q", "q"));
-    };
+        //Array's containing Integers
+        //coursesAll
+        coursesAll.add(R.drawable.bmp);
+        coursesAll.add(R.drawable.ns);
+        coursesAll.add(R.drawable.bmp);
+        coursesAll.add(R.drawable.ns);
+        coursesAll.add(R.drawable.bmp);
+        coursesAll.add(R.drawable.bmp);
+        coursesAll.add(R.drawable.ns);
+        coursesAll.add(R.drawable.bmp);
+        coursesAll.add(R.drawable.bmp);
+        coursesAll.add(R.drawable.ns);
+        coursesAll.add(R.drawable.ns);
+        //coursesWeek
+        coursesWeek.add(R.drawable.bmp);
+        coursesWeek.add(R.drawable.ns);
+        coursesWeek.add(R.drawable.bmp);
+        //Done
+        done.add(R.drawable.bmp);
+        done.add(R.drawable.ns);
+        done.add(R.drawable.bmp);
+        done.add(R.drawable.ns);
+        done.add(R.drawable.bmp);
+        done.add(R.drawable.bmp);
+        done.add(R.drawable.ns);
+        done.add(R.drawable.bmp);
+        done.add(R.drawable.bmp);
+        done.add(R.drawable.ns);
+        done.add(R.drawable.ns);
+        //Groups
+        groups.add(R.drawable.bmp);
+        groups.add(R.drawable.ns);
+        groups.add(R.drawable.bmp);
+        groups.add(R.drawable.ns);
+        groups.add(R.drawable.bmp);
+        groups.add(R.drawable.bmp);
+        groups.add(R.drawable.ns);
+        groups.add(R.drawable.bmp);
+        groups.add(R.drawable.bmp);
+        groups.add(R.drawable.ns);
+        groups.add(R.drawable.ns);
+        //GroupsAll
+        groupsAll.add(R.drawable.bmp);
+        groupsAll.add(R.drawable.ns);
+        //ReadLater
+        readLater.add(R.drawable.bmp);
+        readLater.add(R.drawable.ns);
+        readLater.add(R.drawable.bmp);
+        readLater.add(R.drawable.ns);
+        readLater.add(R.drawable.bmp);
+        readLater.add(R.drawable.bmp);
+        readLater.add(R.drawable.ns);
+        readLater.add(R.drawable.bmp);
+        readLater.add(R.drawable.bmp);
+        readLater.add(R.drawable.ns);
+        readLater.add(R.drawable.ns);
+        //Array's containing Strings
+        //DescriptionAll
+        descriptionsAll.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
+        descriptionsAll.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
+        descriptionsAll.add("Missing description 0");
+        descriptionsAll.add("Missing description 1");
+        descriptionsAll.add("Missing description 2");
+        descriptionsAll.add("Missing description 3");
+        descriptionsAll.add("Missing description 4");
+        descriptionsAll.add("Missing description 5");
+        descriptionsAll.add("Missing description 6");
+        descriptionsAll.add("Missing description 7");
+        descriptionsAll.add("Missing description 8");
+        //DescriptionWeek
+        descriptionsWeek.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
+        descriptionsWeek.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
+        descriptionsWeek.add("Missing description 0");
+        //DetailsAll
+        detailsAll.add("This homework is awesome, you better read it.\nBook: Naruto 1-72");
+        detailsAll.add("This homework sucks, and is not recommended as necessary.\nBook: Fifty Shades of Grey");
+        detailsAll.add("Missing details 0");
+        detailsAll.add("Missing details 1");
+        detailsAll.add("Missing details 2");
+        detailsAll.add("Missing details 3");
+        detailsAll.add("Missing details 4");
+        detailsAll.add("Missing details 5");
+        detailsAll.add("Missing details 6");
+        detailsAll.add("Missing details 7");
+        detailsAll.add("Missing details 8");
+        //Emner
+        emner.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
+        emner.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
+        emner.add("Missing description 0");
+        emner.add("Missing description 1");
+        emner.add("Missing description 2");
+        emner.add("Missing description 3");
+        emner.add("Missing description 4");
+        emner.add("Missing description 5");
+        emner.add("Missing description 6");
+        emner.add("Missing description 7");
+        emner.add("Missing description 8");
+        //EmnerAll
+        emnerAll.add("This homework is awesome, you better read it.\nBook: Naruto 1-72");
+        emnerAll.add("This homework sucks, and is not recommended as necessary.\nBook: Fifty Shades of Grey");
+        //EmnerDone
+        emnerDone.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
+        emnerDone.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
+        emnerDone.add("Missing description 0");
+        emnerDone.add("Missing description 1");
+        emnerDone.add("Missing description 2");
+        emnerDone.add("Missing description 3");
+        emnerDone.add("Missing description 4");
+        emnerDone.add("Missing description 5");
+        emnerDone.add("Missing description 6");
+        emnerDone.add("Missing description 7");
+        emnerDone.add("Missing description 8");
+        //EmnerReadLater
+        emnerReadLater.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
+        emnerReadLater.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
+        emnerReadLater.add("Missing description 0");
+        emnerReadLater.add("Missing description 1");
+        emnerReadLater.add("Missing description 2");
+        emnerReadLater.add("Missing description 3");
+        emnerReadLater.add("Missing description 4");
+        emnerReadLater.add("Missing description 5");
+        emnerReadLater.add("Missing description 6");
+        emnerReadLater.add("Missing description 7");
+        emnerReadLater.add("Missing description 8");
+
+    }
+
+    ;
+
 
 //All getters
-
-    public int[] getCoursesWeek() {
-        return coursesWeek;
-    }
-
-    public int[] getGroupsAll() {
-        return GroupsAll;
-    }
-
-    public int[] getCoursesAll() {
-        return coursesAll;
-    }
-
-    public int[] getGroups() {
-        return Groups;
-    }
-
-    public int[] getGroupsDone() {
-        return GroupsDone;
-    }
-
-    public int[] getGroupsReadLater() {
-        return GroupsReadLater;
-    }
-
-    public String[] getDescriptionAll() {
-        return descriptionAll;
-    }
-
-    public String[] getDescriptionsWeek() {
-        return descriptionsWeek;
-    }
-
-    public String[] getDetailsAll() {
-        return detailsAll;
-    }
-
-    public String[] getEmne() {
-        return Emne;
-    }
-
-    public String[] getEmneAll() {
-        return EmneAll;
-    }
-
-    public String[] getEmneDone() {
-        return EmneDone;
-    }
-
-    public String[] getEmneReadLater() {
-        return EmneReadLater;
-    }
+    //Other Getter's
 
     public ArrayList<StudentDTO> getStudentList() {
         return studentList;
     }
+
+    //Integer Getter's
+
+    public ArrayList<Integer> getCoursesAll() {
+        return coursesAll;
+    }
+
+    public ArrayList<Integer> getCoursesWeek() {
+        return coursesWeek;
+    }
+
+    public ArrayList<Integer> getDone() {
+        return done;
+    }
+
+    public ArrayList<Integer> getGroups() {
+        return groups;
+    }
+
+    public ArrayList<Integer> getGroupsAll() {
+        return groupsAll;
+    }
+
+    public ArrayList<Integer> getReadLater() {
+        return readLater;
+    }
+
+    //String Getter's
+
+    public ArrayList<String> getDescriptionAll() {
+        return descriptionsAll;
+    }
+
+    public ArrayList<String> getDescriptionsWeek() {
+        return descriptionsWeek;
+    }
+
+    public ArrayList<String> getDetailsAll() {
+        return detailsAll;
+    }
+
+    public ArrayList<String> getEmner() {
+        return emner;
+    }
+
+    public ArrayList<String> getEmnerAll() {
+        return emnerAll;
+    }
+
+    public ArrayList<String> getEmnerDone() {
+        return emnerDone;
+    }
+
+    public ArrayList<String> getemnerReadLater() {
+        return emnerReadLater;
+    }
+
+//All Adders
+
+//All Removers
+
+
 }
