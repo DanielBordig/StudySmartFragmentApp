@@ -236,10 +236,125 @@ public class ArrayDatabase {
         studentList.add(new StudentDTO(a, b, c));
     }
 
+    //Integer adder's
+
+    public void addCoursesAll(int a) {
+        coursesAll.add(a);
+    }
+
+    public void addCoursesWeek(int a) {
+        coursesWeek.add(a);
+    }
+
+    public void addDone(int a) {
+        done.add(a);
+    }
+
+    public void addGroups(int a) {
+        groups.add(a);
+    }
+
+    public void addGroupsAll(int a) {
+        groupsAll.add(a);
+    }
+
+    public void addReadLater(int a) {
+        readLater.add(a);
+    }
+
+    //String adder's
+
+    public void addDescriptionsAll(String a) {
+        descriptionsAll.add(a);
+    }
+
+    public void addDescriptionsWeek(String a) {
+        descriptionsWeek.add(a);
+    }
+
+    public void addDetailsAll(String a) {
+        detailsAll.add(a);
+    }
+
+    public void addEmner(String a) {
+        emner.add(a);
+    }
+
+    public void addEmnerAll(String a) {
+        emnerAll.add(a);
+    }
+
+    public void addEmnerDone(String a) {
+        emnerDone.add(a);
+    }
+
+    public void addEmnerReadLater(String a) {
+        emnerReadLater.add(a);
+    }
+
+
+
 //All Removers
 
-    public void removeStudentList(int a, String b, String c) {
-        studentList.remove(new StudentDTO(a, b, c));
+    //Other Remover's
+    public void removeStudentList(int position) {
+        studentList.remove(position);
     }
+
+    //Integer Remover's
+    public void removeCoursesAll(int position) {
+        coursesAll.remove(position);
+    }
+
+    public void removeCoursesWeek(int position) {
+        coursesWeek.remove(position);
+    }
+
+    public void removeDone(int position) {
+        done.remove(position);
+    }
+
+    public void removeGroups(int position) {
+        groups.remove(position);
+    }
+
+    public void removeGroupsAll(int position) {
+        groupsAll.remove(position);
+    }
+
+    public void removeReadLater(int position) {
+        readLater.remove(position);
+    }
+
+    //String Remover's
+
+    public void removeDescriptionsAll(String position) {
+        descriptionsAll.remove(position);
+    }
+
+    public void removeDescriptionsWeek(String position) {
+        descriptionsWeek.remove(position);
+    }
+
+    public void removeDetailsAll(String position) {
+        detailsAll.remove(position);
+    }
+
+    public void removeEmner(String position) {
+        emner.remove(position);
+    }
+
+    public void removeEmnerAll(String position) {
+        emnerAll.remove(position);
+    }
+
+    public void removeEmnerDone(String position) {
+        emnerDone.remove(position);
+    }
+
+    public void removeEmnerReadLater(String position) {
+        emnerReadLater.remove(position);
+    }
+
 
 }
