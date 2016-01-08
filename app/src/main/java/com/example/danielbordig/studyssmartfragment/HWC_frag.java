@@ -48,7 +48,10 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
             R.drawable.bmp,
             R.drawable.bmp,
             R.drawable.ns,
-            R.drawable.ns
+            R.drawable.ns,
+            R.mipmap.fin,
+            R.mipmap.ds,
+            R.mipmap.mo,
     };
 
     // Array of strings storing descriptions for one week of homework
