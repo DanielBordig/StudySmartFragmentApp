@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class SGM_frag extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class SGM_frag extends Fragment implements View.OnClickListener {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -107,16 +107,16 @@ public class SGM_frag extends Fragment implements AdapterView.OnItemClickListene
     }
 
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String hmover = homeworkoverview[position];
-
-        Intent intentBundle = new Intent(getActivity(), HomeworkDetails.class);
-        Bundle bundle = new Bundle();
-
-        bundle.putString("detail", hmover);
-        intentBundle.putExtra("detailBundle", bundle);
-        startActivity(new Intent(intentBundle));
-
-    }
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        String hmover = homeworkoverview[position];
+//
+//        Intent intentBundle = new Intent(getActivity(), HomeworkDetails.class);
+//        Bundle bundle = new Bundle();
+//
+//        bundle.putString("detail", hmover);
+//        intentBundle.putExtra("detailBundle", bundle);
+//        startActivity(new Intent(intentBundle));
+//
+//    }
 }

@@ -33,8 +33,14 @@
             android:text="All Homework"
             android:textAllCaps="false"
             android:layout_marginLeft="8dp"
-            android:id="@+id/allHomeworkBut"
-             />
+            android:id="@+id/allHomeworkBut" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:textAllCaps="false"
+            android:id="@+id/donedone" />
 
     </LinearLayout>
 

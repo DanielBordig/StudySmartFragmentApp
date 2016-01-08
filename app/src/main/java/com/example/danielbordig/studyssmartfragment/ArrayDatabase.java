@@ -27,7 +27,7 @@ public class ArrayDatabase {
     ArrayList<String> emnerReadLater = new ArrayList<String>();
 
 
-    public void AllArrays() {
+    public ArrayDatabase() {
         //Array's containing different types
         //student info
         studentList = new ArrayList<StudentDTO>();
@@ -66,7 +66,7 @@ public class ArrayDatabase {
         done.add(R.drawable.bmp);
         done.add(R.drawable.ns);
         done.add(R.drawable.ns);
-        //Groups
+        //groups
         groups.add(R.drawable.bmp);
         groups.add(R.drawable.ns);
         groups.add(R.drawable.bmp);

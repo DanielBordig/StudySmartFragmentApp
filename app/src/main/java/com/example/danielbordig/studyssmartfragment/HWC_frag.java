@@ -26,59 +26,26 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
     private String mParam2;
 
     ListView homeworkCalendarList;
+    Button weekBut, allHomeworkBut, donedone;
     ArrayList<HashMap<String,String>> hwcList;
-    Button weekBut, allHomeworkBut;
+    ArrayList<HomeworkDTO> homeworkListWeek;
+    ArrayList<HomeworkDTO> homeworkListAll;
     CalendarController cc = new CalendarController();
+    ArrayDatabase arrayDatabase = new ArrayDatabase();
+    HomeworkDAO homeworkDAO = new HomeworkDAO();
+    Done_frag done = new Done_frag();
+    Fragment done_frag = new Done_frag();
 
     // Array of integers pointing to course images
-    int[] coursesWeek = new int[]{
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp
-    };
+    ArrayList<Integer> coursesWeek = new ArrayList<>();
 
-    int[] coursesAll = new int[]{
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.ns,
-            R.mipmap.fin,
-            R.mipmap.ds,
-            R.mipmap.mo,
-    };
+    ArrayList<Integer> coursesAll = new ArrayList<>();
 
     // Array of strings storing descriptions for one week of homework
-    String[] descriptionsWeek = new String[] {
-            "Monday - 39 Aug.\n" +
-                    "Session 3 - 13682 pages",
-            "Wednesday - 56 Okt.\n" +
-                    "Session 6 - 583 pages",
-            "Missing description 0"
-    };
+    ArrayList<String> descriptionsWeek = new ArrayList<>();
 
     // Array of strings storing descriptions all homework
-    String[] descriptionAll = new String[] {
-            "Monday - 39 Aug.\n" +
-                    "Session 3 - 13682 pages",
-            "Wednesday - 56 Okt.\n" +
-                    "Session 6 - 583 pages",
-            "Missing description 0",
-            "Missing description 1",
-            "Missing description 2",
-            "Missing description 3",
-            "Missing description 4",
-            "Missing description 5",
-            "Missing description 6",
-            "Missing description 7",
-            "Missing description 8"
-    };
+    ArrayList<String> descriptionsAll = new ArrayList<>();
 
     // Array of strings storing details for one week of homework
     String[] detailsAll = new String[] {
@@ -116,13 +83,64 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
         weekBut.setTextColor(Color.WHITE);
         weekBut.setBackgroundColor(Color.BLUE);
         weekBut.setOnClickListener(this);
+        weekBut.setClickable(false);
+
         allHomeworkBut = (Button) root.findViewById(R.id.allHomeworkBut);
         allHomeworkBut.setTextColor(Color.BLACK);
         allHomeworkBut.setBackgroundColor(Color.WHITE);
         allHomeworkBut.setOnClickListener(this);
 
+        donedone = (Button) root.findViewById(R.id.donedone);
+        donedone.setOnClickListener(this);
+
+        homeworkListWeek = new ArrayList<>();
+        homeworkListAll = new ArrayList<>();
+
+        for(int i = 0; i < arrayDatabase.getCoursesAll().size(); i++){
+            homeworkListAll.add(new HomeworkDTO(arrayDatabase.coursesAll.get(i), arrayDatabase.descriptionsAll.get(i), arrayDatabase.getDetailsAll().get(i)));
+        }
+
+        for(int i = 0; i < 3; i++){
+            homeworkListWeek.add(new HomeworkDTO(arrayDatabase.coursesAll.get(i), arrayDatabase.descriptionsAll.get(i), arrayDatabase.getDetailsAll().get(i)));
+        }
+
+        coursesWeek.add(R.drawable.bmp);
+        coursesWeek.add(R.drawable.ns);
+        coursesWeek.add(R.drawable.bmp);
+
+        coursesAll.add(R.drawable.bmp);
+        coursesAll.add(R.drawable.ns);
+        coursesAll.add(R.drawable.bmp);
+        coursesAll.add(R.drawable.ns);
+        coursesAll.add(R.drawable.bmp);
+        coursesAll.add(R.drawable.bmp);
+        coursesAll.add(R.drawable.ns);
+        coursesAll.add(R.drawable.bmp);
+        coursesAll.add(R.drawable.bmp);
+        coursesAll.add(R.drawable.ns);
+        coursesAll.add(R.drawable.ns);
+        coursesAll.add(R.mipmap.fin);
+        coursesAll.add(R.mipmap.ds);
+        coursesAll.add(R.mipmap.mo);
+
+        descriptionsWeek.add("Monday - 39 Aug.\nSession 3 - 13682 pages");
+        descriptionsWeek.add("Wednesday - 56 Okt.\nSession 6 - 583 pages");
+        descriptionsWeek.add("Missing description 0");
+
+        descriptionsAll.add("Monday - 39 Aug.\nSession 3 - 13682 pages");
+        descriptionsAll.add("Wednesday - 56 Okt.\nSession 6 - 583 pages");
+        descriptionsAll.add("Missing description 0");
+        descriptionsAll.add("Missing description 1");
+        descriptionsAll.add("Missing description 2");
+        descriptionsAll.add("Missing description 3");
+        descriptionsAll.add("Missing description 4");
+        descriptionsAll.add("Missing description 5");
+        descriptionsAll.add("Missing description 6");
+        descriptionsAll.add("Missing description 7");
+        descriptionsAll.add("Missing description 8");
+
         // Each row in the list stores course image and description
-        hwcList = cc.calenderCreate(coursesWeek, descriptionsWeek);
+        hwcList = cc.calenderCreate(homeworkListWeek);
 
         homeworkCalendarList = ( ListView ) root.findViewById(R.id.listHWC);
         updateCalender(hwcList);
@@ -146,15 +164,34 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String deta = detailsAll[position];
+    public void onItemClick(AdapterView<?> parent, View view, final int position, final long id) {
+        String deta = homeworkListAll.get(position).detail;
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         dialog.setTitle("Homework details:");
         dialog.setMessage(deta);
         dialog.setNegativeButton("Done", new AlertDialog.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(), "trylle trylle og nu er lektien væk...\n...\nnæsten", Toast.LENGTH_LONG).show();
+                HomeworkDTO homeworkMove = homeworkListAll.get(position);
+                homeworkListAll.remove(position);
+                if (position < homeworkListWeek.size()) homeworkListWeek.remove(position);
+
+//                int coursesMove = homeworkListAll.get(position).course;
+//                coursesAll.remove(position);
+//
+//                String descriptionMove = descriptionsAll.get(position);
+//                descriptionsAll.remove(position);
+//                if (position < descriptionsWeek.size()) descriptionsWeek.remove(position);
+
+                //done.update(coursesMove, descriptionMove);
+                if (!weekBut.isClickable())
+                    hwcList = cc.calenderCreate(homeworkListWeek);
+                else if (!allHomeworkBut.isClickable())
+                    hwcList = cc.calenderCreate(homeworkListAll);
+
+                updateCalender(hwcList);
+                done.update(homeworkMove.course, homeworkMove.description);
+                homeworkDAO.updateDoneHomework(homeworkMove);
             }
         });
         dialog.setPositiveButton("Read Later", new AlertDialog.OnClickListener() {
@@ -170,24 +207,27 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
     @Override
     public void onClick(View v) {
         if(v==weekBut){
-            allHomeworkBut.setTextColor(Color.BLACK);
-            allHomeworkBut.setBackgroundColor(Color.WHITE);
-            allHomeworkBut.setClickable(true);
             weekBut.setTextColor(Color.WHITE);
             weekBut.setBackgroundColor(Color.BLUE);
             weekBut.setClickable(false);
-            hwcList = cc.calenderCreate(coursesWeek, descriptionsWeek);
+            allHomeworkBut.setTextColor(Color.BLACK);
+            allHomeworkBut.setBackgroundColor(Color.WHITE);
+            allHomeworkBut.setClickable(true);
+            hwcList = cc.calenderCreate(homeworkListWeek);
             updateCalender(hwcList);
         }
         if(v== allHomeworkBut) {
-            weekBut.setTextColor(Color.BLACK);
-            weekBut.setBackgroundColor(Color.WHITE);
-            weekBut.setClickable(true);
             allHomeworkBut.setTextColor(Color.WHITE);
             allHomeworkBut.setBackgroundColor(Color.BLUE);
             allHomeworkBut.setClickable(false);
-            hwcList = cc.calenderCreate(coursesAll, descriptionAll);
+            weekBut.setTextColor(Color.BLACK);
+            weekBut.setBackgroundColor(Color.WHITE);
+            weekBut.setClickable(true);
+            hwcList = cc.calenderCreate(homeworkListAll);
             updateCalender(hwcList);
+        }
+        if(v==donedone){
+            getFragmentManager().beginTransaction().replace(R.id.mainFrame, done_frag).commit();
         }
     }
 }

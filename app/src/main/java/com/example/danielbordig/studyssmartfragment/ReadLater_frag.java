@@ -21,7 +21,7 @@ public class ReadLater_frag extends Fragment implements AdapterView.OnItemClickL
 
     TextView Header, UnderHeader;
     ListView GroupList;
-    // ArrayList<Integer> Groups = new ArrayList<Integer>();
+    // ArrayList<Integer> groups = new ArrayList<Integer>();
     int[] Groups = {
             R.drawable.bmp,
             R.drawable.ns,

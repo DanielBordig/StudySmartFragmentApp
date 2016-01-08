@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class Done_frag extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private static final String ARG_PARAM1 = "param1";
@@ -19,43 +21,17 @@ public class Done_frag extends Fragment implements AdapterView.OnItemClickListen
     private String mParam1;
     private String mParam2;
 
-    TextView Header, UnderHeader;
-    ListView GroupList;
-   // ArrayList<Integer> Groups = new ArrayList<Integer>();
-    int[] Groups = {
-           R.drawable.bmp,
-           R.drawable.ns,
-           R.drawable.bmp,
-           R.drawable.ns,
-           R.drawable.bmp,
-           R.drawable.bmp,
-           R.drawable.ns,
-           R.drawable.bmp,
-           R.drawable.bmp,
-           R.drawable.ns,
-           R.drawable.ns,
-   };
-
-    String[] Emne = {
-            "Monday - 39 Aug.\n" +
-                    "Session 3 - 13682 pages",
-            "Wednesday - 56 Okt.\n" +
-                    "Session 6 - 583 pages",
-            "Missing description 0",
-            "Missing description 1",
-            "Missing description 2",
-            "Missing description 3",
-            "Missing description 4",
-            "Missing description 5",
-            "Missing description 6",
-            "Missing description 7",
-            "Missing description 8",
-    };
-
-
+    TextView header, underHeader;
+    ListView groupList;
+    ArrayList<Integer> groups;
+    ArrayList<String> subject;
+    ArrayList<HomeworkDTO> test = new ArrayList<>();
+    HomeworkDAO homeworkDAO = new HomeworkDAO();
+    ArrayList<HomeworkDTO> doneHomeworkList = new ArrayList<>();
 
     public Done_frag() {
-        // Required empty public constructor
+        groups = new ArrayList<>();
+        subject = new ArrayList<>();
     }
 
     @Override
@@ -71,28 +47,35 @@ public class Done_frag extends Fragment implements AdapterView.OnItemClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_done, container, false);
 
+        header = (TextView) root.findViewById(R.id.headerDone);
+        underHeader = (TextView) root.findViewById(R.id.underheaderDone);
+        groupList = ( ListView ) root.findViewById(R.id.listDone);
+        doneHomeworkList = homeworkDAO.getDoneHomework();
+//        groups.add(doneHomeworkList.get(0).course);
+//        subject.add(doneHomeworkList.get(0).description);
 
-        Header = (TextView) root.findViewById(R.id.headerDone);
-        UnderHeader = (TextView) root.findViewById(R.id.underheaderDone);
-        GroupList = ( ListView ) root.findViewById(R.id.listDone);
+        underHeader.setText("" + doneHomeworkList.size());
 
-
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.listview_layout, R.id.txt, Emne) {
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.listview_layout, R.id.txt, subject) {
             @Override
             public View getView(int position, View cachedView, ViewGroup parent) {
                 View view = super.getView(position, cachedView, parent);
                 TextView beskrivelse = (TextView) view.findViewById(R.id.txt);
-                beskrivelse.setText(Emne[position]);
+                beskrivelse.setText(subject.get(position));
                 ImageView billede = (ImageView) view.findViewById(R.id.course);
-                billede.setImageResource(Groups[position]);
+                billede.setImageResource(groups.get(position));
                 return view;
             }
         };
-        GroupList.setAdapter(adapter);
+        groupList.setAdapter(adapter);
+
         return root;
     }
 
-
+    public void update(int course, String description) {
+        groups.add(course);
+        subject.add(description);
+    }
 
     @Override
     public void onClick(View v) {
