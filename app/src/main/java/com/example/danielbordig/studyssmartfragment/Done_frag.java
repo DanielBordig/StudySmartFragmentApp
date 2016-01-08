@@ -17,21 +17,18 @@ public class Done_frag extends Fragment implements AdapterView.OnItemClickListen
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     private String mParam1;
     private String mParam2;
 
     TextView header, underHeader;
-    ListView groupList;
-    ArrayList<Integer> groups;
-    ArrayList<String> subject;
-    ArrayList<HomeworkDTO> test = new ArrayList<>();
+    ListView doneHomeworkListView;
+    ArrayList<Integer> course = new ArrayList<>();
+    ArrayList<String> description = new ArrayList<>();
     HomeworkDAO homeworkDAO = new HomeworkDAO();
     ArrayList<HomeworkDTO> doneHomeworkList = new ArrayList<>();
 
     public Done_frag() {
-        groups = new ArrayList<>();
-        subject = new ArrayList<>();
+
     }
 
     @Override
@@ -49,32 +46,27 @@ public class Done_frag extends Fragment implements AdapterView.OnItemClickListen
 
         header = (TextView) root.findViewById(R.id.headerDone);
         underHeader = (TextView) root.findViewById(R.id.underheaderDone);
-        groupList = ( ListView ) root.findViewById(R.id.listDone);
+        doneHomeworkListView = ( ListView ) root.findViewById(R.id.listDone);
         doneHomeworkList = homeworkDAO.getDoneHomework();
-//        groups.add(doneHomeworkList.get(0).course);
-//        subject.add(doneHomeworkList.get(0).description);
+        for(int i = 0; i < doneHomeworkList.size(); i++){
+            course.add(doneHomeworkList.get(i).course);
+            description.add(doneHomeworkList.get(i).description);
+        }
 
-        underHeader.setText("" + doneHomeworkList.size());
-
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.listview_layout, R.id.txt, subject) {
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.listview_layout, R.id.txt, description) {
             @Override
             public View getView(int position, View cachedView, ViewGroup parent) {
                 View view = super.getView(position, cachedView, parent);
                 TextView beskrivelse = (TextView) view.findViewById(R.id.txt);
-                beskrivelse.setText(subject.get(position));
+                beskrivelse.setText(description.get(position));
                 ImageView billede = (ImageView) view.findViewById(R.id.course);
-                billede.setImageResource(groups.get(position));
+                billede.setImageResource(course.get(position));
                 return view;
             }
         };
-        groupList.setAdapter(adapter);
+        doneHomeworkListView.setAdapter(adapter);
 
         return root;
-    }
-
-    public void update(int course, String description) {
-        groups.add(course);
-        subject.add(description);
     }
 
     @Override

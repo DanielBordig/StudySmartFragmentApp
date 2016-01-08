@@ -7,14 +7,22 @@ import java.util.ArrayList;
  */
 public class HomeworkDAO {
 
-    ArrayList<HomeworkDTO> doneHomeworkList = new ArrayList<>();;
+    static ArrayList<HomeworkDTO> doneHomeworkList = new ArrayList<>();
+    static ArrayList<HomeworkDTO> laterHomeworkList = new ArrayList<>();
 
     public HomeworkDAO(){
+
     }
 
-    public void updateDoneHomework(HomeworkDTO doneHomework){
+    public static void updateDoneHomework(HomeworkDTO doneHomework){
         doneHomeworkList.add(doneHomework);
     }
 
-    public ArrayList getDoneHomework(){return doneHomeworkList;}
+    public static void updateLaterHomework(HomeworkDTO doneHomework){
+        laterHomeworkList.add(doneHomework);
+    }
+
+    public static ArrayList getDoneHomework(){return doneHomeworkList;}
+
+    public static ArrayList getLaterHomework(){return laterHomeworkList;}
 }

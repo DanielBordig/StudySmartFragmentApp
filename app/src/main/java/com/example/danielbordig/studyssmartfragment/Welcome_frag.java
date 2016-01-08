@@ -41,12 +41,15 @@ public class Welcome_frag extends Fragment implements Runnable {
         welcomeImage.setImageResource(R.mipmap.studysmartlogo);
         welcomeImage.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.push_up_in));
 
+        if(savedInstanceState==null){
+            handler.postDelayed(this, 1900);
+        }
         return welcomeImage;
     }
 
     @Override
     public void run() {
-        //getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_hwc).commit();
+        getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_hwc).commit();
     }
 
 }

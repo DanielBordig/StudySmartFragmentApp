@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class ReadLater_frag extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private static final String ARG_PARAM1 = "param1";
@@ -19,41 +21,12 @@ public class ReadLater_frag extends Fragment implements AdapterView.OnItemClickL
     private String mParam1;
     private String mParam2;
 
-    TextView Header, UnderHeader;
-    ListView GroupList;
-    // ArrayList<Integer> groups = new ArrayList<Integer>();
-    int[] Groups = {
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.bmp,
-            R.drawable.bmp,
-            R.drawable.ns,
-            R.drawable.ns,
-    };
-
-    String[] Emne = {
-            "Monday - 39 Aug.\n" +
-                    "Session 3 - 13682 pages",
-            "Wednesday - 56 Okt.\n" +
-                    "Session 6 - 583 pages",
-            "Missing description 0",
-            "Missing description 1",
-            "Missing description 2",
-            "Missing description 3",
-            "Missing description 4",
-            "Missing description 5",
-            "Missing description 6",
-            "Missing description 7",
-            "Missing description 8",
-    };
-
-
-
+    TextView header, underHeader;
+    ListView laterHomeworkListView;
+    ArrayList<Integer> course = new ArrayList<>();
+    ArrayList<String> description = new ArrayList<>();
+    HomeworkDAO homeworkDAO = new HomeworkDAO();
+    ArrayList<HomeworkDTO> laterHomeworkList = new ArrayList<>();
 
     public ReadLater_frag() {
         // Required empty public constructor
@@ -73,23 +46,27 @@ public class ReadLater_frag extends Fragment implements AdapterView.OnItemClickL
         View root = inflater.inflate(R.layout.fragment_readlater, container, false);
 
 
-        Header = (TextView) root.findViewById(R.id.headerReadlater);
-        UnderHeader = (TextView) root.findViewById(R.id.underheaderReadlater);
-        GroupList = ( ListView ) root.findViewById(R.id.listReadlater);
+        header = (TextView) root.findViewById(R.id.headerReadlater);
+        underHeader = (TextView) root.findViewById(R.id.underheaderReadlater);
+        laterHomeworkListView = ( ListView ) root.findViewById(R.id.listReadlater);
+        laterHomeworkList = homeworkDAO.getLaterHomework();
+        for(int i = 0; i < laterHomeworkList.size(); i++){
+            course.add(laterHomeworkList.get(i).course);
+            description.add(laterHomeworkList.get(i).description);
+        }
 
-
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.listview_layout, R.id.txt, Emne) {
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.listview_layout, R.id.txt, description) {
             @Override
             public View getView(int position, View cachedView, ViewGroup parent) {
                 View view = super.getView(position, cachedView, parent);
                 TextView beskrivelse = (TextView) view.findViewById(R.id.txt);
-                beskrivelse.setText(Emne[position]);
+                beskrivelse.setText(description.get(position));
                 ImageView billede = (ImageView) view.findViewById(R.id.course);
-                billede.setImageResource(Groups[position]);
+                billede.setImageResource(course.get(position));
                 return view;
             }
         };
-        GroupList.setAdapter(adapter);
+        laterHomeworkListView.setAdapter(adapter);
         return root;
     }
 

@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,46 +20,19 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     private String mParam1;
     private String mParam2;
 
     ListView homeworkCalendarList;
-    Button weekBut, allHomeworkBut, donedone;
+    Button weekBut, allHomeworkBut, donedone, later;
     ArrayList<HashMap<String,String>> hwcList;
     ArrayList<HomeworkDTO> homeworkListWeek;
     ArrayList<HomeworkDTO> homeworkListAll;
     CalendarController cc = new CalendarController();
     ArrayDatabase arrayDatabase = new ArrayDatabase();
     HomeworkDAO homeworkDAO = new HomeworkDAO();
-    Done_frag done = new Done_frag();
-    Fragment done_frag = new Done_frag();
-
-    // Array of integers pointing to course images
-    ArrayList<Integer> coursesWeek = new ArrayList<>();
-
-    ArrayList<Integer> coursesAll = new ArrayList<>();
-
-    // Array of strings storing descriptions for one week of homework
-    ArrayList<String> descriptionsWeek = new ArrayList<>();
-
-    // Array of strings storing descriptions all homework
-    ArrayList<String> descriptionsAll = new ArrayList<>();
-
-    // Array of strings storing details for one week of homework
-    String[] detailsAll = new String[] {
-            "This homework is awesome, you better read it.\nBook: Naruto 1-72",
-            "This homework sucks, and is not recommended as necessary.\nBook: Fifty Shades of Grey",
-            "Missing details 0",
-            "Missing details 1",
-            "Missing details 2",
-            "Missing details 3",
-            "Missing details 4",
-            "Missing details 5",
-            "Missing details 6",
-            "Missing details 7",
-            "Missing details 8"
-    };
+    Fragment fragment_done = new Done_frag();
+    Fragment fragment_later = new ReadLater_frag();
 
     public HWC_frag() {
         // Required empty public constructor
@@ -93,6 +65,9 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
         donedone = (Button) root.findViewById(R.id.donedone);
         donedone.setOnClickListener(this);
 
+        later = (Button) root.findViewById(R.id.later);
+        later.setOnClickListener(this);
+
         homeworkListWeek = new ArrayList<>();
         homeworkListAll = new ArrayList<>();
 
@@ -100,44 +75,9 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
             homeworkListAll.add(new HomeworkDTO(arrayDatabase.coursesAll.get(i), arrayDatabase.descriptionsAll.get(i), arrayDatabase.getDetailsAll().get(i)));
         }
 
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < arrayDatabase.getCoursesWeek().size(); i++){
             homeworkListWeek.add(new HomeworkDTO(arrayDatabase.coursesAll.get(i), arrayDatabase.descriptionsAll.get(i), arrayDatabase.getDetailsAll().get(i)));
         }
-
-        coursesWeek.add(R.drawable.bmp);
-        coursesWeek.add(R.drawable.ns);
-        coursesWeek.add(R.drawable.bmp);
-
-        coursesAll.add(R.drawable.bmp);
-        coursesAll.add(R.drawable.ns);
-        coursesAll.add(R.drawable.bmp);
-        coursesAll.add(R.drawable.ns);
-        coursesAll.add(R.drawable.bmp);
-        coursesAll.add(R.drawable.bmp);
-        coursesAll.add(R.drawable.ns);
-        coursesAll.add(R.drawable.bmp);
-        coursesAll.add(R.drawable.bmp);
-        coursesAll.add(R.drawable.ns);
-        coursesAll.add(R.drawable.ns);
-        coursesAll.add(R.mipmap.fin);
-        coursesAll.add(R.mipmap.ds);
-        coursesAll.add(R.mipmap.mo);
-
-        descriptionsWeek.add("Monday - 39 Aug.\nSession 3 - 13682 pages");
-        descriptionsWeek.add("Wednesday - 56 Okt.\nSession 6 - 583 pages");
-        descriptionsWeek.add("Missing description 0");
-
-        descriptionsAll.add("Monday - 39 Aug.\nSession 3 - 13682 pages");
-        descriptionsAll.add("Wednesday - 56 Okt.\nSession 6 - 583 pages");
-        descriptionsAll.add("Missing description 0");
-        descriptionsAll.add("Missing description 1");
-        descriptionsAll.add("Missing description 2");
-        descriptionsAll.add("Missing description 3");
-        descriptionsAll.add("Missing description 4");
-        descriptionsAll.add("Missing description 5");
-        descriptionsAll.add("Missing description 6");
-        descriptionsAll.add("Missing description 7");
-        descriptionsAll.add("Missing description 8");
 
         // Each row in the list stores course image and description
         hwcList = cc.calenderCreate(homeworkListWeek);
@@ -176,28 +116,29 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
                 homeworkListAll.remove(position);
                 if (position < homeworkListWeek.size()) homeworkListWeek.remove(position);
 
-//                int coursesMove = homeworkListAll.get(position).course;
-//                coursesAll.remove(position);
-//
-//                String descriptionMove = descriptionsAll.get(position);
-//                descriptionsAll.remove(position);
-//                if (position < descriptionsWeek.size()) descriptionsWeek.remove(position);
-
-                //done.update(coursesMove, descriptionMove);
                 if (!weekBut.isClickable())
                     hwcList = cc.calenderCreate(homeworkListWeek);
                 else if (!allHomeworkBut.isClickable())
                     hwcList = cc.calenderCreate(homeworkListAll);
 
                 updateCalender(hwcList);
-                done.update(homeworkMove.course, homeworkMove.description);
                 homeworkDAO.updateDoneHomework(homeworkMove);
             }
         });
         dialog.setPositiveButton("Read Later", new AlertDialog.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(), "trylle trylle og nu er lektien udskudt... næsten", Toast.LENGTH_LONG).show();
+                HomeworkDTO homeworkMove = homeworkListAll.get(position);
+                homeworkListAll.remove(position);
+                if (position < homeworkListWeek.size()) homeworkListWeek.remove(position);
+
+                if (!weekBut.isClickable())
+                    hwcList = cc.calenderCreate(homeworkListWeek);
+                else if (!allHomeworkBut.isClickable())
+                    hwcList = cc.calenderCreate(homeworkListAll);
+
+                updateCalender(hwcList);
+                homeworkDAO.updateLaterHomework(homeworkMove);
             }
         });
         dialog.show();
@@ -227,7 +168,10 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
             updateCalender(hwcList);
         }
         if(v==donedone){
-            getFragmentManager().beginTransaction().replace(R.id.mainFrame, done_frag).commit();
+            getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_done).commit();
+        }
+        if(v==later){
+            getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_later).commit();
         }
     }
 }

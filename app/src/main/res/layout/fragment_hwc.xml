@@ -20,13 +20,19 @@
 
         <Button
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:textAllCaps="false"
+            android:id="@+id/donedone" />
+
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:text="This Week"
             android:textAllCaps="false"
-            android:layout_marginLeft="70dp"
             android:id="@+id/weekBut"
             android:clickable="false" />
-
+        <!--android:layout_marginLeft="70dp"-->
         <Button
             android:layout_width="wrap_content"
             android:layout_height="42dp"
@@ -38,9 +44,9 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Done"
+            android:text="Read Later"
             android:textAllCaps="false"
-            android:id="@+id/donedone" />
+            android:id="@+id/later" />
 
     </LinearLayout>
 
