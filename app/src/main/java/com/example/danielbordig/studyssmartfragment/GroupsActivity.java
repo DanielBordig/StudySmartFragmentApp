@@ -48,3 +48,4 @@ public class GroupsActivity extends Activity implements AdapterView.OnItemSelect
         Toast.makeText(this, "Intet valgt", Toast.LENGTH_SHORT).show();
     }
 }
+ // tesning recommit again
