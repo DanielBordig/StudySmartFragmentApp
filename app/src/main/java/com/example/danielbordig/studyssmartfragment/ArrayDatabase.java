@@ -232,7 +232,14 @@ public class ArrayDatabase {
 
 //All Adders
 
+    public void addStudentList(int a, String b, String c) {
+        studentList.add(new StudentDTO(a, b, c));
+    }
+
 //All Removers
 
+    public void removeStudentList(int a, String b, String c) {
+        studentList.remove(new StudentDTO(a, b, c));
+    }
 
 }
