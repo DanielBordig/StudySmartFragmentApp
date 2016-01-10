@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -28,13 +29,14 @@ public class HWCfirebase extends Activity {
         super.onStart();
         Button weekBut = (Button) findViewById(R.id.weekBut);
         Button allHomeworkBut = (Button) findViewById(R.id.allHomeworkBut);
+        final TextView mTextCondition = (TextView) findViewById(R.id.headerHWC);
 
         mRef = new Firebase("https://studysmart.firebaseio.com/");
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String newCondition = (String) dataSnapshot.getValue();
-                sTextCondition.setText(newCondition);
+                mTextCondition.setText(newCondition);
             }
 
             @Override
@@ -42,16 +44,16 @@ public class HWCfirebase extends Activity {
 
             }
         });
-        weekBut.setOnClickListener(new View.OnClickListener()){
+        weekBut.setOnClickListener(new View.OnClickListener() {
             @Override
-                    public void onClick(View v){
-                mRef.setValues("AllWeeks");
+            public void onClick(View v) {
+            mRef.setValue("WeekHomeworks");
             }
         });
-        allHomeworkBut.setOnClickListener(new View.OnClickListener()){
+        allHomeworkBut.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                mRef.setValues("AllHomeworks");
+            public void onClick(View v) {
+            mRef.setValue("AllHomeworks");
             }
         });
 
