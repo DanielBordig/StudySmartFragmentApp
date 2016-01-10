@@ -7,9 +7,11 @@ import java.util.ArrayList;
  */
 public class ArrayDatabase {
 
-
+    static boolean firstCreate = true;
     //Other ArrayList's
-    ArrayList<StudentDTO> studentList;
+    ArrayList<StudentDTO> studentList = new ArrayList<>();
+    static ArrayList<HomeworkDTO> homeworkWeek = new ArrayList<>();
+    static ArrayList<HomeworkDTO> homeworkAll = new ArrayList<>();
     //Integer ArrayList's
     ArrayList<Integer> coursesAll = new ArrayList<Integer>();
     ArrayList<Integer> coursesWeek = new ArrayList<Integer>();
@@ -21,23 +23,22 @@ public class ArrayDatabase {
     ArrayList<String> descriptionsAll = new ArrayList<String>();
     ArrayList<String> descriptionsWeek = new ArrayList<String>();
     ArrayList<String> detailsAll = new ArrayList<String>();
+    ArrayList<String> detailsWeek = new ArrayList<String>();
     ArrayList<String> emner = new ArrayList<String>();
     ArrayList<String> emnerAll = new ArrayList<String>();
     ArrayList<String> emnerDone = new ArrayList<String>();
     ArrayList<String> emnerReadLater = new ArrayList<String>();
 
-
     public ArrayDatabase() {
-        //Array's containing different types
+//Array's containing different types
         //student info
-        studentList = new ArrayList<StudentDTO>();
         studentList.add(new StudentDTO(1, "Daniel", "qwert"));
         studentList.add(new StudentDTO(2, "Zohra", "12345"));
         studentList.add(new StudentDTO(3, "Geziena", "asdf"));
         studentList.add(new StudentDTO(4, "Nicklas", "zxcv"));
         studentList.add(new StudentDTO(5, "Bob", "trewq"));
         studentList.add(new StudentDTO(6, "q", "q"));
-        //Array's containing Integers
+//Array's containing Integers
         //coursesAll
         coursesAll.add(R.drawable.bmp);
         coursesAll.add(R.drawable.ns);
@@ -93,7 +94,7 @@ public class ArrayDatabase {
         readLater.add(R.drawable.bmp);
         readLater.add(R.drawable.ns);
         readLater.add(R.drawable.ns);
-        //Array's containing Strings
+//Array's containing Strings
         //DescriptionAll
         descriptionsAll.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
         descriptionsAll.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
@@ -122,6 +123,10 @@ public class ArrayDatabase {
         detailsAll.add("Missing details 6");
         detailsAll.add("Missing details 7");
         detailsAll.add("Missing details 8");
+        //DetailsWeek
+        detailsWeek.add("This homework is awesome, you better read it.\nBook: Naruto 1-72");
+        detailsWeek.add("This homework sucks, and is not recommended as necessary.\nBook: Fifty Shades of Grey");
+        detailsWeek.add("Missing details 0");
         //Emner
         emner.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
         emner.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
@@ -162,20 +167,31 @@ public class ArrayDatabase {
         emnerReadLater.add("Missing description 7");
         emnerReadLater.add("Missing description 8");
 
+        if(firstCreate) {
+            //Creating homework
+            for (int i = 0; i < coursesAll.size(); i++) {
+                homeworkAll.add(new HomeworkDTO(coursesAll.get(i), descriptionsAll.get(i), detailsAll.get(i)));
+            }
+            for (int i = 0; i < coursesWeek.size(); i++) {
+                homeworkWeek.add(new HomeworkDTO(coursesWeek.get(i), descriptionsWeek.get(i), detailsWeek.get(i)));
+            }
+            firstCreate = false;
+        }
     }
-
-    ;
 
 
 //All getters
-    //Other Getter's
 
+    //Other Getter's
     public ArrayList<StudentDTO> getStudentList() {
         return studentList;
     }
 
-    //Integer Getter's
+    public ArrayList<HomeworkDTO> getHomeworkListAll() { return homeworkAll; }
 
+    public ArrayList<HomeworkDTO> getHomeworkListWeek() { return homeworkWeek; }
+
+    //Integer Getter's
     public ArrayList<Integer> getCoursesAll() {
         return coursesAll;
     }
@@ -201,7 +217,6 @@ public class ArrayDatabase {
     }
 
     //String Getter's
-
     public ArrayList<String> getDescriptionAll() {
         return descriptionsAll;
     }
@@ -210,9 +225,7 @@ public class ArrayDatabase {
         return descriptionsWeek;
     }
 
-    public ArrayList<String> getDetailsAll() {
-        return detailsAll;
-    }
+    public ArrayList<String> getDetailsAll() { return detailsAll; }
 
     public ArrayList<String> getEmner() {
         return emner;
@@ -226,9 +239,7 @@ public class ArrayDatabase {
         return emnerDone;
     }
 
-    public ArrayList<String> getemnerReadLater() {
-        return emnerReadLater;
-    }
+    public ArrayList<String> getemnerReadLater() { return emnerReadLater; }
 
 //All Adders
 
@@ -237,7 +248,6 @@ public class ArrayDatabase {
     }
 
     //Integer adder's
-
     public void addCoursesAll(int a) {
         coursesAll.add(a);
     }
@@ -263,7 +273,6 @@ public class ArrayDatabase {
     }
 
     //String adder's
-
     public void addDescriptionsAll(String a) {
         descriptionsAll.add(a);
     }
@@ -291,8 +300,6 @@ public class ArrayDatabase {
     public void addEmnerReadLater(String a) {
         emnerReadLater.add(a);
     }
-
-
 
 //All Removers
 
@@ -327,7 +334,6 @@ public class ArrayDatabase {
     }
 
     //String Remover's
-
     public void removeDescriptionsAll(String position) {
         descriptionsAll.remove(position);
     }

@@ -68,16 +68,8 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
         later = (Button) root.findViewById(R.id.later);
         later.setOnClickListener(this);
 
-        homeworkListWeek = new ArrayList<>();
-        homeworkListAll = new ArrayList<>();
-
-        for(int i = 0; i < arrayDatabase.getCoursesAll().size(); i++){
-            homeworkListAll.add(new HomeworkDTO(arrayDatabase.coursesAll.get(i), arrayDatabase.descriptionsAll.get(i), arrayDatabase.getDetailsAll().get(i)));
-        }
-
-        for(int i = 0; i < arrayDatabase.getCoursesWeek().size(); i++){
-            homeworkListWeek.add(new HomeworkDTO(arrayDatabase.coursesAll.get(i), arrayDatabase.descriptionsAll.get(i), arrayDatabase.getDetailsAll().get(i)));
-        }
+        homeworkListWeek = arrayDatabase.getHomeworkListWeek();
+        homeworkListAll = arrayDatabase.getHomeworkListAll();
 
         // Each row in the list stores course image and description
         hwcList = cc.calenderCreate(homeworkListWeek);
@@ -118,7 +110,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
 
                 if (!weekBut.isClickable())
                     hwcList = cc.calenderCreate(homeworkListWeek);
-                else if (!allHomeworkBut.isClickable())
+                else
                     hwcList = cc.calenderCreate(homeworkListAll);
 
                 updateCalender(hwcList);

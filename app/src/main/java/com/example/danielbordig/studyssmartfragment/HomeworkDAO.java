@@ -22,7 +22,7 @@ public class HomeworkDAO {
         laterHomeworkList.add(doneHomework);
     }
 
-    public static ArrayList getDoneHomework(){return doneHomeworkList;}
+    public ArrayList getDoneHomework(){return doneHomeworkList;}
 
-    public static ArrayList getLaterHomework(){return laterHomeworkList;}
+    public ArrayList getLaterHomework(){return laterHomeworkList;}
 }
