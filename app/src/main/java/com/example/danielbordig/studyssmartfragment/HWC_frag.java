@@ -35,7 +35,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
     ArrayList<HomeworkDTO> homeworkListAll;
     ArrayList<String> printingList;
     CalendarController cc = new CalendarController();
-//    ArrayDatabase arrayDatabase = new ArrayDatabase();
+    ArrayDatabase arrayDatabase = new ArrayDatabase();
     HomeworkDAO homeworkDAO = new HomeworkDAO();
     Fragment fragment_done = new Done_frag();
     Fragment fragment_later = new ReadLater_frag();
@@ -76,9 +76,9 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
         later = (Button) root.findViewById(R.id.later);
         later.setOnClickListener(this);
 
-//        homeworkListWeek = arrayDatabase.getHomeworkListWeek();
-//        homeworkListAll = arrayDatabase.getHomeworkListAll();
-//        printingList = arrayDatabase.getPrintingList();
+        homeworkListWeek = arrayDatabase.getHomeworkListWeek();
+        homeworkListAll = arrayDatabase.getHomeworkListAll();
+        printingList = arrayDatabase.getPrintingList();
 
         // Each row in the list stores course image and description
         hwcList = cc.calenderCreate(homeworkListWeek);
