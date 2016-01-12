@@ -14,23 +14,15 @@ import android.support.annotation.DrawableRes;
 
 /**
  * Created on 27-12-2015, 10:01.
- * Project : R-TicTacToe
- *
  * @author rudz
  */
-public class NewGameItem {
+public class GroupImages {
 
-//    public final int itemId;
-//    public final CharSequence itemName;
-//    public final CharSequence description;
     public @DrawableRes
     final int resourceIcon;
 
-    // constructor final int itemId, final CharSequence itemName, final CharSequence description,
-    public NewGameItem(final @DrawableRes int resourceIcon) {
-//        this.itemId = itemId;
-//        this.itemName = itemName;
-//        this.description = description;
+    // constructor
+    public GroupImages(final @DrawableRes int resourceIcon) {
         this.resourceIcon = resourceIcon;
     }
 }

@@ -6,12 +6,21 @@ package com.example.danielbordig.studyssmartfragment;
 public class HomeworkDTO {
 
     int course;
-    String description, detail;
+    String date, description, detail;
 
-    public HomeworkDTO(int course, String description, String detail){
+    public HomeworkDTO(String date, int course, String description, String detail){
+        this.date = date;
         this.course = course;
         this.description = description;
         this.detail = detail;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getCourse(){return course;}

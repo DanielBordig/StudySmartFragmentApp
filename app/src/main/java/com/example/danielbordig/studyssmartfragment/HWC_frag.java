@@ -5,13 +5,17 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,12 +28,14 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
     private String mParam2;
 
     ListView homeworkCalendarList;
+    TextView headerHWC;
     Button weekBut, allHomeworkBut, donedone, later;
     ArrayList<HashMap<String,String>> hwcList;
     ArrayList<HomeworkDTO> homeworkListWeek;
     ArrayList<HomeworkDTO> homeworkListAll;
+    ArrayList<String> printingList;
     CalendarController cc = new CalendarController();
-    ArrayDatabase arrayDatabase = new ArrayDatabase();
+//    ArrayDatabase arrayDatabase = new ArrayDatabase();
     HomeworkDAO homeworkDAO = new HomeworkDAO();
     Fragment fragment_done = new Done_frag();
     Fragment fragment_later = new ReadLater_frag();
@@ -51,6 +57,8 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_hwc, container, false);
 
+        headerHWC = (TextView) root.findViewById(R.id.headerHWC);
+
         weekBut = (Button) root.findViewById(R.id.weekBut);
         weekBut.setTextColor(Color.WHITE);
         weekBut.setBackgroundColor(Color.BLUE);
@@ -68,17 +76,85 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
         later = (Button) root.findViewById(R.id.later);
         later.setOnClickListener(this);
 
-        homeworkListWeek = arrayDatabase.getHomeworkListWeek();
-        homeworkListAll = arrayDatabase.getHomeworkListAll();
+//        homeworkListWeek = arrayDatabase.getHomeworkListWeek();
+//        homeworkListAll = arrayDatabase.getHomeworkListAll();
+//        printingList = arrayDatabase.getPrintingList();
 
         // Each row in the list stores course image and description
         hwcList = cc.calenderCreate(homeworkListWeek);
 
         homeworkCalendarList = ( ListView ) root.findViewById(R.id.listHWC);
-        updateCalender(hwcList);
+        //updateCalender(hwcList);
+        homeworkCalendarList.setAdapter(new MinAdapterMedOverskrifter());
         homeworkCalendarList.setOnItemClickListener(this);
 
         return root;
+    }
+
+    public class MinAdapterMedOverskrifter extends BaseAdapter {
+
+        public int getCount() {
+            return printingList.size();
+        }
+
+        public Object getItem(int position) {
+            return position;
+        }
+
+        public long getItemId(int position) {
+            return position;
+        }
+
+        /**
+         * Skal give typen af elementet der skal vises.
+         * 0 er normale lande, 1 er kategorier og 2 er overskrifter
+         */
+        @Override
+        public int getItemViewType(int position) {
+            String landEllerOverskrift = printingList.get(position);
+            if (landEllerOverskrift.startsWith("date")) return 0;
+            return 1;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 2;
+        }
+
+        public View getView(final int position, View view, ViewGroup parent) {
+            int typen = getItemViewType(position);
+
+            if (view == null) {
+                // Vi skal oprette et nyt view afhængig af typen
+                if (typen == 0) {
+                    view = getActivity().getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
+                } else {
+                    view = getActivity().getLayoutInflater().inflate(R.layout.lekt04_listeelement, null);
+                }
+            }
+
+            String landEllerOverskrift = printingList.get(position);
+            // Sæt indholdet afhængig af typen
+            if (typen == 0) {
+                landEllerOverskrift = landEllerOverskrift.substring(4);
+                    TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                    tv.setTextSize(22);
+                tv.setGravity(Gravity.CENTER);
+                tv.setText(landEllerOverskrift);
+            } else {
+                ImageView im = (ImageView) view.findViewById(R.id.listeelem_billede);
+                im.setImageResource(homeworkListAll.get(position).course);
+                TextView tvo = (TextView) view.findViewById(R.id.listeelem_overskrift);
+                tvo.setText(landEllerOverskrift);
+            }
+
+            return view;
+        }
+
+        @Override
+        public boolean isEnabled(int position) {
+            return getItemViewType(position) > 1;
+        }
     }
 
     public void updateCalender(ArrayList HWC){
@@ -113,7 +189,8 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
                 else
                     hwcList = cc.calenderCreate(homeworkListAll);
 
-                updateCalender(hwcList);
+                //updateCalender(hwcList);
+                homeworkCalendarList.setAdapter(new MinAdapterMedOverskrifter());
                 homeworkDAO.updateDoneHomework(homeworkMove);
             }
         });
@@ -129,7 +206,8 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
                 else if (!allHomeworkBut.isClickable())
                     hwcList = cc.calenderCreate(homeworkListAll);
 
-                updateCalender(hwcList);
+                //updateCalender(hwcList);
+                homeworkCalendarList.setAdapter(new MinAdapterMedOverskrifter());
                 homeworkDAO.updateLaterHomework(homeworkMove);
             }
         });
@@ -147,7 +225,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
             allHomeworkBut.setBackgroundColor(Color.WHITE);
             allHomeworkBut.setClickable(true);
             hwcList = cc.calenderCreate(homeworkListWeek);
-            updateCalender(hwcList);
+            homeworkCalendarList.setAdapter(new MinAdapterMedOverskrifter());
         }
         if(v== allHomeworkBut) {
             allHomeworkBut.setTextColor(Color.WHITE);
@@ -157,7 +235,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
             weekBut.setBackgroundColor(Color.WHITE);
             weekBut.setClickable(true);
             hwcList = cc.calenderCreate(homeworkListAll);
-            updateCalender(hwcList);
+            homeworkCalendarList.setAdapter(new MinAdapterMedOverskrifter());
         }
         if(v==donedone){
             getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_done).commit();

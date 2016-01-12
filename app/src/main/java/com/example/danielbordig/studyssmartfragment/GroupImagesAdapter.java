@@ -17,56 +17,41 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  * Created on 27-12-2015, 09:59.<br>
- * Project : R-TicTacToe<br>
- * Adapter for showing the relevant information about new game selection.
  * @author rudz
  */
-public class NewGameAdapter extends ArrayAdapter<NewGameItem> {
+public class GroupImagesAdapter extends ArrayAdapter<GroupImages> {
 
     private final Context mContext;
     private final int layoutResourceId;
-    private final NewGameItem[] data;
+    private final GroupImages[] data;
     private static ViewHolder viewHolder = new ViewHolder();
 
-    public NewGameAdapter(final Context mContext, final int layoutResourceId, final NewGameItem[] data) {
+    public GroupImagesAdapter(final Context mContext, final int layoutResourceId, final GroupImages[] data) {
         super(mContext, layoutResourceId, data);
 
         this.mContext = mContext;
         this.layoutResourceId = layoutResourceId;
         this.data = data;
-
     }
 
     static class ViewHolder {
-//        TextView textViewItem;
-//        TextView textViewDesc;
-        ImageView icon;
+        ImageView course;
     }
 
     @Override
     public View getView(final int position, final View convertView, final ViewGroup parent) {
         View view = convertView;
-//        if (view == null) {
+        if (view == null) {
             final LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
             view = inflater.inflate(layoutResourceId, parent, false);
-//            viewHolder.textViewItem = (TextView) view.findViewById(R.id.new_game_item);
-//            viewHolder.textViewDesc = (TextView) view.findViewById(R.id.new_game_description);
-            viewHolder.icon = (ImageView) view.findViewById(R.id.new_game_icon);
-//        }
+            viewHolder.course = (ImageView) view.findViewById(R.id.courseImage);
+        }
 
-        final NewGameItem newGameItem = data[position];
-
-//        viewHolder.textViewItem.setText(newGameItem.itemName);
-//        viewHolder.textViewItem.setTag(newGameItem.itemId);
-
-//        viewHolder.textViewDesc.setText(newGameItem.description);
-//        viewHolder.textViewDesc.setTag(newGameItem.itemId);
-
-        viewHolder.icon.setImageResource(newGameItem.resourceIcon);
+        final GroupImages newGameItem = data[position];
+        viewHolder.course.setImageResource(newGameItem.resourceIcon);
 
         return view;
     }

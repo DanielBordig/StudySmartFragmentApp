@@ -6,7 +6,6 @@ import java.util.ArrayList;
  * Created by Nicklas Jensen on 07-01-2016.
  */
 public class ArrayDatabase {
-
     static boolean firstCreate = true;
     //Other ArrayList's
     ArrayList<StudentDTO> studentList = new ArrayList<>();
@@ -20,10 +19,14 @@ public class ArrayDatabase {
     ArrayList<Integer> groupsAll = new ArrayList<Integer>();
     ArrayList<Integer> readLater = new ArrayList<Integer>();
     //String ArrayList's
+    ArrayList<String> datesAll = new ArrayList<>();
+    ArrayList<String> datesWeek = new ArrayList<>();
+    ArrayList<String> knownDates = new ArrayList<>();
     ArrayList<String> descriptionsAll = new ArrayList<String>();
     ArrayList<String> descriptionsWeek = new ArrayList<String>();
     ArrayList<String> detailsAll = new ArrayList<String>();
     ArrayList<String> detailsWeek = new ArrayList<String>();
+    ArrayList<String> printingList = new ArrayList<>();
     ArrayList<String> emner = new ArrayList<String>();
     ArrayList<String> emnerAll = new ArrayList<String>();
     ArrayList<String> emnerDone = new ArrayList<String>();
@@ -95,9 +98,25 @@ public class ArrayDatabase {
         readLater.add(R.drawable.ns);
         readLater.add(R.drawable.ns);
 //Array's containing Strings
+        //DatesAll
+        datesAll.add("Monday - 11 Jan.");
+        datesAll.add("Wednesday - 13 Jan.");
+        datesAll.add("Friday - 15 Jan.");
+        datesAll.add("Friday - 15 Jan.");
+        datesAll.add("Friday - 15 Jan.");
+        datesAll.add("Friday - 15 Jan.");
+        datesAll.add("Friday - 15 Jan.");
+        datesAll.add("Friday - 15 Jan.");
+        datesAll.add("Friday - 15 Jan.");
+        datesAll.add("Friday - 15 Jan.");
+        datesAll.add("Friday - 15 Jan.");
+        //DatesWeek
+        datesWeek.add("Monday - 11 Jan.");
+        datesWeek.add("Wednesday - 13 Jan.");
+        datesWeek.add("Friday - 15 Jan.");
         //DescriptionAll
-        descriptionsAll.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
-        descriptionsAll.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
+        descriptionsAll.add("Session 3 - 13682 pages");
+        descriptionsAll.add("Session 6 - 583 pages");
         descriptionsAll.add("Missing description 0");
         descriptionsAll.add("Missing description 1");
         descriptionsAll.add("Missing description 2");
@@ -168,14 +187,22 @@ public class ArrayDatabase {
         emnerReadLater.add("Missing description 8");
 
         if(firstCreate) {
-            //Creating homework
+//            Creating homework
             for (int i = 0; i < coursesAll.size(); i++) {
-                homeworkAll.add(new HomeworkDTO(coursesAll.get(i), descriptionsAll.get(i), detailsAll.get(i)));
+                homeworkAll.add(new HomeworkDTO(datesAll.get(i), coursesAll.get(i), descriptionsAll.get(i), detailsAll.get(i)));
             }
             for (int i = 0; i < coursesWeek.size(); i++) {
-                homeworkWeek.add(new HomeworkDTO(coursesWeek.get(i), descriptionsWeek.get(i), detailsWeek.get(i)));
+                homeworkWeek.add(new HomeworkDTO(datesWeek.get(i), coursesWeek.get(i), descriptionsWeek.get(i), detailsWeek.get(i)));
             }
-            firstCreate = false;
+            //printingList
+            for(int i = 0; i < homeworkAll.size(); i++ ){
+                if(!knownDates.contains(homeworkAll.get(i).date)){
+                    knownDates.add(homeworkAll.get(i).date);
+                    printingList.add("date"+homeworkAll.get(i).date);
+                }
+                printingList.add(homeworkAll.get(i).description);
+            }
+//            firstCreate = false;
         }
     }
 
@@ -226,6 +253,10 @@ public class ArrayDatabase {
     }
 
     public ArrayList<String> getDetailsAll() { return detailsAll; }
+
+    public ArrayList<String> getPrintingList() {
+        return printingList;
+    }
 
     public ArrayList<String> getEmner() {
         return emner;
