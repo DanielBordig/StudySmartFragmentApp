@@ -11,14 +11,53 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/imageView" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Groups" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView1" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/yourgroupspin" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/imageView2" />
 
         <Spinner
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/yourgroupspin" />
-
+            android:id="@+id/findgroupspin" />
     </LinearLayout>
+
+
 
     <LinearLayout
         android:orientation="horizontal"
@@ -34,8 +73,10 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/findgroupspin" />
+            android:id="@+id/creatgroupspin" />
     </LinearLayout>
+
+
 
     <LinearLayout
         android:orientation="horizontal"
@@ -51,8 +92,10 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/creatgroupspin" />
+            android:id="@+id/deletegroupspin" />
     </LinearLayout>
+
+
 
     <LinearLayout
         android:orientation="horizontal"
@@ -65,28 +108,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageView5" />
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/deletegroupspin" />
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView6" />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/morespin" />
-    </LinearLayout>
+        android:id="@+id/morespin" />
 
 
 </LinearLayout>
