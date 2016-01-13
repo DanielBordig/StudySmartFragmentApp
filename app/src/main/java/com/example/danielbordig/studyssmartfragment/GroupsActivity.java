@@ -14,17 +14,15 @@ public class GroupsActivity extends Activity implements AdapterView.OnItemSelect
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.akt_groups);
+        setContentView(R.layout.fragment_groups);
 
         // setContentView(R.layout.activity_groups);
-        String[] lande = {"Danmark", "Norge", "Sverige", "Finland",
-                "Holland", "Italien", "Tyskland", "Frankrig", "Spanien", "Portugal",
-                "Nepal", "Indien", "Kina", "Japan", "Thailand"};
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        String[] groups = {"your groups", "find groups", "create groups", "delete groups", "more"};
+        Spinner spinner = (Spinner) findViewById(R.id.creatgroupspin);
         spinner.setOnItemSelectedListener(this);
 
         // Standard-udseende
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.spinner_elements, R.id.overskrift, lande);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.spinner_elements, R.id.overskrift, groups);
         //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Eget layout af listeelementerne

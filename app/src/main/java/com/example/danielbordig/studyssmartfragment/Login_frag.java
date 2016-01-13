@@ -32,6 +32,8 @@ public class Login_frag extends Fragment implements View.OnClickListener {
     Fragment fragment_hwc = new HWC_frag();
     Fragment fragment_welcome = new Welcome_frag();
 
+    Fragment fragment_groups = new Groups_Fragment();
+
     public Login_frag() {
         // Required empty public constructor
     }
@@ -59,6 +61,7 @@ public class Login_frag extends Fragment implements View.OnClickListener {
         name = (EditText) root.findViewById(R.id.nameText);
         password = (EditText) root.findViewById(R.id.passwordText);
         loginBut = (Button) root.findViewById(R.id.loginBut);
+
 
         name.setHint("Userame");
         password.setHint("Password");
@@ -97,7 +100,8 @@ public class Login_frag extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity(), "Wrong Password", Toast.LENGTH_LONG).show();
                 }
                 else if(snapshot.child("Userid/" + nameString + "/Active").getValue().equals("Yes") && snapshot.child("Password/" + nameString + "/Kodeord").getValue().equals(passwordString)) {
-                        getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_hwc).commit();
+                        getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_groups).commit();
+                    // her skifteer til fargmen_WHATEVER you want to run
                     } else {
                         Toast.makeText(getActivity(), "Username and/or Password is wrong", Toast.LENGTH_LONG).show();
                     }
