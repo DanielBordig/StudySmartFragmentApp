@@ -48,7 +48,7 @@ public class Done_frag extends Fragment implements AdapterView.OnItemClickListen
         underHeader = (TextView) root.findViewById(R.id.underheaderDone);
         doneHomeworkListView = ( ListView ) root.findViewById(R.id.listDone);
         doneHomeworkList = homeworkDAO.getDoneHomework();
-        for(int i = 0; i < doneHomeworkList.size(); i++){
+        for(int i = doneHomeworkList.size()-1; i >= 0; i--){
             course.add(doneHomeworkList.get(i).course);
             description.add(doneHomeworkList.get(i).description);
         }

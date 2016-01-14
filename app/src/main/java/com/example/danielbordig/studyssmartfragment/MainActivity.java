@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        if (st.visDrawer) actionBarDrawerToggle.syncState();
+
     }
 
 
@@ -126,10 +126,10 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
         Fragment fragment = null;
         switch (pos) {
             case 0:
-                fragment = new HWC_frag();
+                fragment = new HWC_frag_testing();
                 break;
             case 1:
-                fragment = new Groups_Fragment(); // this will make the app crash because, Gezienna is not finished yet with the Groups activity
+                //fragment = new Groups_Fragment(); // this will make the app crash because, Gezienna is not finished yet with the Groups activity
                 break;
             case 2:
                fragment = new Done_frag();

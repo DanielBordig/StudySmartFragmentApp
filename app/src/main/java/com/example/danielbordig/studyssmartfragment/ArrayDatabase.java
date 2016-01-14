@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class ArrayDatabase {
     static boolean firstCreate = true;
+    Database database = new Database();
     //Other ArrayList's
     ArrayList<StudentDTO> studentList = new ArrayList<>();
     static ArrayList<HomeworkDTO> homeworkWeek = new ArrayList<>();
@@ -26,7 +27,8 @@ public class ArrayDatabase {
     ArrayList<String> descriptionsWeek = new ArrayList<String>();
     ArrayList<String> detailsAll = new ArrayList<String>();
     ArrayList<String> detailsWeek = new ArrayList<String>();
-    ArrayList<String> printingList = new ArrayList<>();
+    ArrayList<String> printingListAll = new ArrayList<>();
+    ArrayList<String> printingListWeek = new ArrayList<>();
     ArrayList<String> emner = new ArrayList<String>();
     ArrayList<String> emnerAll = new ArrayList<String>();
     ArrayList<String> emnerDone = new ArrayList<String>();
@@ -187,25 +189,35 @@ public class ArrayDatabase {
         emnerReadLater.add("Missing description 8");
 
         if(firstCreate) {
-//            Creating homework
-            for (int i = 0; i < coursesAll.size(); i++) {
-                homeworkAll.add(new HomeworkDTO(datesAll.get(i), coursesAll.get(i), descriptionsAll.get(i), detailsAll.get(i)));
-            }
+            //Creating homework
+//            for (int i = 0; i < coursesAll.size(); i++) {
+//                homeworkAll.add(new HomeworkDTO(datesAll.get(i), coursesAll.get(i), descriptionsAll.get(i), detailsAll.get(i)));
+//            }
             for (int i = 0; i < coursesWeek.size(); i++) {
                 homeworkWeek.add(new HomeworkDTO(datesWeek.get(i), coursesWeek.get(i), descriptionsWeek.get(i), detailsWeek.get(i)));
             }
-            //printingList
+
+            homeworkAll = database.getHomeworkList();
+
+            //printingListAll
             for(int i = 0; i < homeworkAll.size(); i++ ){
                 if(!knownDates.contains(homeworkAll.get(i).date)){
                     knownDates.add(homeworkAll.get(i).date);
-                    printingList.add("date"+homeworkAll.get(i).date);
+                    printingListAll.add("date" + homeworkAll.get(i).date);
                 }
-                printingList.add(homeworkAll.get(i).description);
+                printingListAll.add(homeworkAll.get(i).description);
             }
-//            firstCreate = false;
+            //printingListWeek
+            for(int i = 0; i < homeworkWeek.size(); i++ ){
+                if(!knownDates.contains(homeworkWeek.get(i).date)){
+                    knownDates.add(homeworkWeek.get(i).date);
+                    printingListWeek.add("date" + homeworkWeek.get(i).date);
+                }
+                printingListWeek.add(homeworkWeek.get(i).description);
+            }
+            firstCreate = false;
         }
     }
-
 
 //All getters
 
@@ -254,8 +266,12 @@ public class ArrayDatabase {
 
     public ArrayList<String> getDetailsAll() { return detailsAll; }
 
-    public ArrayList<String> getPrintingList() {
-        return printingList;
+    public ArrayList<String> getPrintingListAll() {
+        return printingListAll;
+    }
+
+    public ArrayList<String> getPrintingListWeek() {
+        return printingListWeek;
     }
 
     public ArrayList<String> getEmner() {
