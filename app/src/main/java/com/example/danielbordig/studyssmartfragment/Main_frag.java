@@ -42,19 +42,25 @@ public class Main_frag extends Fragment implements View.OnClickListener{
         header = (TextView) root.findViewById(R.id.headerMain);
 
         logoDTU.setOnClickListener(this);
-        logoCBS.setOnClickListener(this);
 
+        System.out.println();
+        logoCBS.setOnClickListener(this);
+        System.out.println(logoCBS.getId());
         return root;
     }
 
+
+
     @Override
     public void onClick(View v) {
+        System.out.println("Onclick for vælg universitet");
+
         if(v==logoDTU){
             getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_login).commit();
         }
         if(v==logoCBS){
             getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_login).commit();
         }
-    }
 
+    }
 }

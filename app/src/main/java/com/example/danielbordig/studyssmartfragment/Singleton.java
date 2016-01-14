@@ -11,7 +11,8 @@ import java.util.ArrayList;
  * Created by Nicklas Jensen on 08-01-2016.
  */
 public class Singleton extends Application{
-
+    public boolean visDrawer =false;
+    DrawerIF drawer;
     public static Singleton st;
     //I aktivitet/frag Singleton st = Singleton.st;
 
@@ -41,7 +42,9 @@ public class Singleton extends Application{
 
 
        // public ArrayList getlist() {return ;}
-
+ void startDrawer(){
+    drawer.setDrawer();
+}
 
 
 

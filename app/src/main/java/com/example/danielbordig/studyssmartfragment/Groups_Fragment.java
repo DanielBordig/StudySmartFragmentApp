@@ -17,6 +17,7 @@ public class Groups_Fragment extends Fragment  implements AdapterView.OnItemSele
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
+    Singleton sg;
 
 
 
@@ -50,14 +51,16 @@ public class Groups_Fragment extends Fragment  implements AdapterView.OnItemSele
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        sg = Singleton.st;
+        sg.visDrawer = true;
     }
 //    int[] pic1 = new int[R.mipmap.create];
 //    int[] pic2 = new int[R.mipmap.delete];
 
     int[] logopic = new int[]{
            // R.mipmap.groupicon,
-            R.mipmap.create,
-            R.mipmap.delete,
+            R.mipmap.bmp,
+            R.mipmap.ns,
             R.mipmap.fin,
             R.mipmap.ds,
             R.mipmap.mo

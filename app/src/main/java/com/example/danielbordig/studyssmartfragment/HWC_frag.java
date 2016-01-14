@@ -27,6 +27,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
     private String mParam1;
     private String mParam2;
 
+    Singleton st;
     ListView homeworkCalendarList;
     TextView headerHWC;
     Button weekBut, allHomeworkBut, donedone, later;
@@ -44,6 +45,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
         // Required empty public constructor
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,10 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        st = Singleton.st;
+        st.visDrawer = true;
+        st.startDrawer();
+
     }
 
     @Override

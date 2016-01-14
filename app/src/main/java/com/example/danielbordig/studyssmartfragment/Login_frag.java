@@ -32,7 +32,7 @@ public class Login_frag extends Fragment implements View.OnClickListener {
     Fragment fragment_hwc = new HWC_frag();
     Fragment fragment_welcome = new Welcome_frag();
 
-    Fragment Grouptxt_frg = new Group_txt_frag();
+    Fragment fragment_groups = new HWC_frag();//Groups_Fragment();
 
     public Login_frag() {
         // Required empty public constructor
@@ -81,7 +81,7 @@ public class Login_frag extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        System.out.println("onklick blev kaldt");
+
         final String nameString = name.getText().toString().trim();
         final String passwordString = password.getText().toString().trim();
         String login = "";
@@ -90,7 +90,6 @@ public class Login_frag extends Fragment implements View.OnClickListener {
         LoginFirebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                System.out.println("ondatachanged blev kaldt");
                 if(nameString.isEmpty() || passwordString.isEmpty()){
                     Toast.makeText(getActivity(), "Fill out all fields", Toast.LENGTH_LONG).show();
                 }
@@ -101,8 +100,7 @@ public class Login_frag extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity(), "Wrong Password", Toast.LENGTH_LONG).show();
                 }
                 else if(snapshot.child("Userid/" + nameString + "/Active").getValue().equals("Yes") && snapshot.child("Password/" + nameString + "/Kodeord").getValue().equals(passwordString)) {
-                    System.out.println("Starter groups fragment");
-                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, Grouptxt_frg).commit();
+                        getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_groups).commit();
                     // her skifteer til fargmen_WHATEVER you want to run
                     } else {
                         Toast.makeText(getActivity(), "Username and/or Password is wrong", Toast.LENGTH_LONG).show();
