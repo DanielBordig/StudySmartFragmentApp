@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -25,19 +26,26 @@ public class Group_txt_frag extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
 
         }
+
+    int[] logopic = new int[]{
+            R.mipmap.groupicon,
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.grouptxt, container, false);
 
-        yourgroup = (TextView)root.findViewById(R.id.yourgroupstxt);
+        ImageView ico = (ImageView) root.findViewById(R.id.grp);
+        ico.setImageResource(logopic[0]);
+
+        yourgroup = (TextView)root.findViewById(R.id.buttyrg);
         yourgroup.setOnClickListener(this);
-        findgroups = (TextView)root.findViewById(R.id.findgroupstxt);
+        findgroups = (TextView)root.findViewById(R.id.buttfndg);
         findgroups.setOnClickListener(this);
-        creategroups = (TextView)root.findViewById(R.id.creatgroupstxt);
+        creategroups = (TextView)root.findViewById(R.id.buttcrtg);
         creategroups.setOnClickListener(this);
-        deletegroups= (TextView)root.findViewById(R.id.deletegroupstxt);
+        deletegroups= (TextView)root.findViewById(R.id.buttdelt);
         deletegroups.setOnClickListener(this);
-        moreoption = (TextView)root.findViewById(R.id.morestxt);
+        moreoption = (TextView)root.findViewById(R.id.buttmore);
         moreoption.setOnClickListener(this);
 
 return root;

@@ -3,44 +3,49 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Your Group"
-        android:id="@+id/yourgroupstxt" />
+        android:id="@+id/grp" />
 
-
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Find Groups"
-        android:id="@+id/findgroupstxt" />
+        android:text="your groups"
+        android:id="@+id/buttyrg"
+        android:layout_gravity="left|center_horizontal" />
 
-
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Create Group"
-        android:id="@+id/creatgroupstxt" />
+        android:text="find groups"
+        android:id="@+id/buttfndg"
+        android:layout_gravity="left|center_horizontal" />
 
-
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Delete Group"
-        android:id="@+id/deletegroupstxt" />
+        android:text="create groups"
+        android:id="@+id/buttcrtg"
+        android:layout_gravity="left|center_horizontal" />
 
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="More options"
-        android:id="@+id/morestxt" />
+        android:text="delete groups"
+        android:id="@+id/buttdelt"
+        android:layout_gravity="left|center_horizontal" />
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="more groups"
+        android:id="@+id/buttmore"
+        android:layout_gravity="left|center_horizontal" />
+
 
 
 </LinearLayout>
