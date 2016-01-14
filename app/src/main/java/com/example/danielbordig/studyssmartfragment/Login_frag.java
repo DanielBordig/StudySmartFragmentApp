@@ -19,38 +19,18 @@ import com.firebase.client.ValueEventListener;
 
 public class Login_frag extends Fragment implements View.OnClickListener {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
-
     ImageView logoStudySmart;
     TextView header;
     EditText name, password;
     Button loginBut;
     StudentDAO stuDAO;
-    Fragment fragment_hwc = new HWC_frag();
-    Fragment fragment_welcome = new Welcome_frag();
-
-    Fragment fragment_groups = new HWC_frag();//Groups_Fragment();
 
     public Login_frag() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //FireBase
-        Firebase myFirebaseRef;
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-
-
-        }
     }
 
     @Override
@@ -62,12 +42,11 @@ public class Login_frag extends Fragment implements View.OnClickListener {
         password = (EditText) root.findViewById(R.id.passwordText);
         loginBut = (Button) root.findViewById(R.id.loginBut);
 
-
         name.setHint("Userame");
         password.setHint("Password");
 
         // gør vores login hugtigere, skal slettes senere
-        name.setText("q");
+        name.setText("test");
         password.setText("q");
 
         loginBut.setOnClickListener(this);
@@ -84,7 +63,6 @@ public class Login_frag extends Fragment implements View.OnClickListener {
 
         final String nameString = name.getText().toString().trim();
         final String passwordString = password.getText().toString().trim();
-        String login = "";
 
         Firebase LoginFirebase = new Firebase("https://studysmart.firebaseio.com/CBS/Logins/");
         LoginFirebase.addValueEventListener(new ValueEventListener() {
@@ -100,38 +78,18 @@ public class Login_frag extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity(), "Wrong Password", Toast.LENGTH_LONG).show();
                 }
                 else if(snapshot.child("Userid/" + nameString + "/Active").getValue().equals("Yes") && snapshot.child("Password/" + nameString + "/Kodeord").getValue().equals(passwordString)) {
-                        getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_groups).commit();
-                    // her skifteer til fargmen_WHATEVER you want to run
+
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, new HWC_frag_testing()).commit();
                     } else {
                         Toast.makeText(getActivity(), "Username and/or Password is wrong", Toast.LENGTH_LONG).show();
                     }
                 }
-
-
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
                 System.out.println("The read failed: " + firebaseError.getMessage());
             }
         });
-
-        /*
-        if(nameString.isEmpty() || passwordString.isEmpty()){
-            Toast.makeText(getActivity(), "Fill out all fields", Toast.LENGTH_LONG).show();
-        }
-        else {
-            login = stuDAO.Login(nameString, passwordString);
-        }
-        if(snapshot.child("Active").getValue().equals("Yes") && snapshot.child("Kodeord").getValue().equals(Kodeord)) {
-            getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_hwc).commit();
-        }
-        else if(login.equals("trueName")){
-            Toast.makeText(getActivity(), "Wrong password", Toast.LENGTH_LONG).show();
-        }
-        else if(login.equals("falseUser")){
-            Toast.makeText(getActivity(), "Wrong username", Toast.LENGTH_LONG).show();
-        }
-        */
     }
 
 }

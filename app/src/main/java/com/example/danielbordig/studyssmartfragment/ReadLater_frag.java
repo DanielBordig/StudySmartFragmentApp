@@ -13,13 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ReadLater_frag extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
+public class ReadLater_frag extends Fragment implements AdapterView.OnItemClickListener {
 
     TextView header, underHeader;
     ListView laterHomeworkListView;
@@ -29,22 +23,16 @@ public class ReadLater_frag extends Fragment implements AdapterView.OnItemClickL
     ArrayList<HomeworkDTO> laterHomeworkList = new ArrayList<>();
 
     public ReadLater_frag() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_readlater, container, false);
-
 
         header = (TextView) root.findViewById(R.id.headerReadlater);
         underHeader = (TextView) root.findViewById(R.id.underheaderReadlater);
@@ -68,13 +56,6 @@ public class ReadLater_frag extends Fragment implements AdapterView.OnItemClickL
         };
         laterHomeworkListView.setAdapter(adapter);
         return root;
-    }
-
-
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     @Override

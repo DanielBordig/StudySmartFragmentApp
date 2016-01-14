@@ -24,24 +24,20 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     Singleton st;
-
-
-    Fragment fragment_main = new Main_frag();
+    static Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("StudySmart");
-        getFragmentManager().beginTransaction().add(R.id.mainFrame, fragment_main).commit();
+        getFragmentManager().beginTransaction().add(R.id.mainFrame, new Main_frag()).commit();
+        db = new Database();
         st = Singleton.st;
         st.drawer = this;
-
-
     }
     @Override
     public void setDrawer () {
-
         //We're initiating the components here
         listViewSliding = (ListView) findViewById(R.id.lv_sliding_menu);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -95,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
                 super.onDrawerClosed(drawerView);
                 actionBarDrawerToggle.syncState();
                 invalidateOptionsMenu();
-
             }
         };
 
@@ -115,14 +110,12 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
     }
 
 
     //Create method replace fragment
 
     private void replaceFragment(int pos) {
-        System.out.println("Replacefragment kaldt");
         Fragment fragment = null;
         switch (pos) {
             case 0:

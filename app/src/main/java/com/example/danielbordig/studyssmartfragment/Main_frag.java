@@ -10,27 +10,15 @@ import android.widget.TextView;
 
 public class Main_frag extends Fragment implements View.OnClickListener{
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
-
-
     ImageView logoStudySmart, logoDTU, logoCBS;
     TextView header;
-    Fragment fragment_login = new Login_frag();
 
     public Main_frag() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -42,25 +30,18 @@ public class Main_frag extends Fragment implements View.OnClickListener{
         header = (TextView) root.findViewById(R.id.headerMain);
 
         logoDTU.setOnClickListener(this);
-
-        System.out.println();
         logoCBS.setOnClickListener(this);
-        System.out.println(logoCBS.getId());
+
         return root;
     }
 
-
-
     @Override
     public void onClick(View v) {
-        System.out.println("Onclick for vælg universitet");
-
         if(v==logoDTU){
-            getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_login).commit();
+            getFragmentManager().beginTransaction().replace(R.id.mainFrame, new Login_frag()).commit();
         }
         if(v==logoCBS){
-            getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_login).commit();
+            getFragmentManager().beginTransaction().replace(R.id.mainFrame, new Login_frag()).commit();
         }
-
     }
 }

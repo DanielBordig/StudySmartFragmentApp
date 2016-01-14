@@ -23,10 +23,6 @@ import java.util.HashMap;
 
 public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
     Singleton st;
     ListView homeworkCalendarList;
     TextView headerHWC;
@@ -34,52 +30,22 @@ public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClic
     ArrayList<HomeworkDTO> homeworkListWeek;
     ArrayList<HomeworkDTO> homeworkListAll;
     ArrayList<String> printingList;
-    ArrayDatabase arrayDatabase = new ArrayDatabase();
+    static ArrayDatabase arrayDatabase;
     HomeworkDAO homeworkDAO = new HomeworkDAO();
-    Fragment fragment_done = new Done_frag();
-    Fragment fragment_later = new ReadLater_frag();
+    static boolean firstCreate = true;
 
     public HWC_frag_testing() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(getActivity());
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        if(firstCreate) arrayDatabase = new ArrayDatabase(); firstCreate = false;
         st = Singleton.st;
         st.visDrawer = true;
         st.startDrawer();
     }
-/*
-    @Override
-    public void onStart(){
-        super.onStart();
-        // Get a reference to our posts
-        Firebase ref = new Firebase("https://studysmart.firebaseio.com/HWC/List");
-
-// Attach an listener to read the data at our posts reference
-
-        Log.d("testing", "haliahalsod");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                System.out.println(snapshot.getValue());
-                weekBut.setText("hej");
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                System.out.println("The read failed: " + firebaseError.getMessage());
-                Log.d("testing", "øv bøv");
-            }
-        });
-    }
-*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -171,7 +137,6 @@ public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClic
                 TextView tvo = (TextView) view.findViewById(R.id.listeelem_overskrift);
                 tvo.setText(landEllerOverskrift);
             }
-
             return view;
         }
 
@@ -241,10 +206,10 @@ public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClic
             homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.lekt04_listeelement, homeworkListAll));
         }
         if(v==donedone){
-            getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_done).commit();
+            getFragmentManager().beginTransaction().replace(R.id.mainFrame, new Done_frag()).commit();
         }
         if(v==later){
-            getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_later).commit();
+            getFragmentManager().beginTransaction().replace(R.id.mainFrame, new ReadLater_frag()).commit();
         }
     }
 }

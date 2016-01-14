@@ -13,26 +13,15 @@ import java.util.logging.LogRecord;
 
 public class Welcome_frag extends Fragment implements Runnable {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
     Fragment fragment_hwc = new HWC_frag();
     Handler handler = new Handler();
 
     public Welcome_frag() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override

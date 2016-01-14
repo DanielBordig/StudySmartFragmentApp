@@ -7,13 +7,6 @@ public class StudentDAO {
     ArrayList<StudentDTO> studentList;
 
     public StudentDAO() {
-        studentList = new ArrayList<StudentDTO>();
-        studentList.add(new StudentDTO(1, "Daniel", "qwert"));
-        studentList.add(new StudentDTO(2, "Zohra", "12345"));
-        studentList.add(new StudentDTO(3, "Geziena", "asdf"));
-        studentList.add(new StudentDTO(4, "Nicklas", "zxcv"));
-        studentList.add(new StudentDTO(5, "Bob", "trewq"));
-        studentList.add(new StudentDTO(6, "q", "q"));
     }
 
     public ArrayList<StudentDTO> getStudents(){

@@ -11,7 +11,6 @@ public class HomeworkDAO {
     static ArrayList<HomeworkDTO> laterHomeworkList = new ArrayList<>();
 
     public HomeworkDAO(){
-
     }
 
     public static void updateDoneHomework(HomeworkDTO doneHomework){

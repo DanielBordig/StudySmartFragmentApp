@@ -1,13 +1,17 @@
 package com.example.danielbordig.studyssmartfragment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Nicklas Jensen on 07-01-2016.
  */
 public class ArrayDatabase {
     static boolean firstCreate = true;
-    Database database = new Database();
+
     //Other ArrayList's
     ArrayList<StudentDTO> studentList = new ArrayList<>();
     static ArrayList<HomeworkDTO> homeworkWeek = new ArrayList<>();
@@ -33,172 +37,189 @@ public class ArrayDatabase {
     ArrayList<String> emnerAll = new ArrayList<String>();
     ArrayList<String> emnerDone = new ArrayList<String>();
     ArrayList<String> emnerReadLater = new ArrayList<String>();
+    ArrayList<String> weekDays = new ArrayList<>();
 
         public ArrayDatabase() {
-//Array's containing different types
-        //student info
-        studentList.add(new StudentDTO(1, "Daniel", "qwert"));
-        studentList.add(new StudentDTO(2, "Zohra", "12345"));
-        studentList.add(new StudentDTO(3, "Geziena", "asdf"));
-        studentList.add(new StudentDTO(4, "Nicklas", "zxcv"));
-        studentList.add(new StudentDTO(5, "Bob", "trewq"));
-        studentList.add(new StudentDTO(6, "q", "q"));
-//Array's containing Integers
-        //coursesAll
-        coursesAll.add(R.drawable.bmp);
-        coursesAll.add(R.drawable.ns);
-        coursesAll.add(R.drawable.bmp);
-        coursesAll.add(R.drawable.ns);
-        coursesAll.add(R.drawable.bmp);
-        coursesAll.add(R.drawable.bmp);
-        coursesAll.add(R.drawable.ns);
-        coursesAll.add(R.drawable.bmp);
-        coursesAll.add(R.drawable.bmp);
-        coursesAll.add(R.drawable.ns);
-        coursesAll.add(R.drawable.ns);
-        //coursesWeek
-        coursesWeek.add(R.drawable.bmp);
-        coursesWeek.add(R.drawable.ns);
-        coursesWeek.add(R.drawable.bmp);
-        //Done
-        done.add(R.drawable.bmp);
-        done.add(R.drawable.ns);
-        done.add(R.drawable.bmp);
-        done.add(R.drawable.ns);
-        done.add(R.drawable.bmp);
-        done.add(R.drawable.bmp);
-        done.add(R.drawable.ns);
-        done.add(R.drawable.bmp);
-        done.add(R.drawable.bmp);
-        done.add(R.drawable.ns);
-        done.add(R.drawable.ns);
-        //groups
-        groups.add(R.drawable.bmp);
-        groups.add(R.drawable.ns);
-        groups.add(R.drawable.bmp);
-        groups.add(R.drawable.ns);
-        groups.add(R.drawable.bmp);
-        groups.add(R.drawable.bmp);
-        groups.add(R.drawable.ns);
-        groups.add(R.drawable.bmp);
-        groups.add(R.drawable.bmp);
-        groups.add(R.drawable.ns);
-        groups.add(R.drawable.ns);
-        //GroupsAll
-        groupsAll.add(R.drawable.bmp);
-        groupsAll.add(R.drawable.ns);
-        //ReadLater
-        readLater.add(R.drawable.bmp);
-        readLater.add(R.drawable.ns);
-        readLater.add(R.drawable.bmp);
-        readLater.add(R.drawable.ns);
-        readLater.add(R.drawable.bmp);
-        readLater.add(R.drawable.bmp);
-        readLater.add(R.drawable.ns);
-        readLater.add(R.drawable.bmp);
-        readLater.add(R.drawable.bmp);
-        readLater.add(R.drawable.ns);
-        readLater.add(R.drawable.ns);
-//Array's containing Strings
-        //DatesAll
-        datesAll.add("Monday - 11 Jan.");
-        datesAll.add("Wednesday - 13 Jan.");
-        datesAll.add("Friday - 15 Jan.");
-        datesAll.add("Friday - 15 Jan.");
-        datesAll.add("Friday - 15 Jan.");
-        datesAll.add("Friday - 15 Jan.");
-        datesAll.add("Friday - 15 Jan.");
-        datesAll.add("Friday - 15 Jan.");
-        datesAll.add("Friday - 15 Jan.");
-        datesAll.add("Friday - 15 Jan.");
-        datesAll.add("Friday - 15 Jan.");
-        //DatesWeek
-        datesWeek.add("Monday - 11 Jan.");
-        datesWeek.add("Wednesday - 13 Jan.");
-        datesWeek.add("Friday - 15 Jan.");
-        //DescriptionAll
-        descriptionsAll.add("Session 3 - 13682 pages");
-        descriptionsAll.add("Session 6 - 583 pages");
-        descriptionsAll.add("Missing description 0");
-        descriptionsAll.add("Missing description 1");
-        descriptionsAll.add("Missing description 2");
-        descriptionsAll.add("Missing description 3");
-        descriptionsAll.add("Missing description 4");
-        descriptionsAll.add("Missing description 5");
-        descriptionsAll.add("Missing description 6");
-        descriptionsAll.add("Missing description 7");
-        descriptionsAll.add("Missing description 8");
-        //DescriptionWeek
-        descriptionsWeek.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
-        descriptionsWeek.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
-        descriptionsWeek.add("Missing description 0");
-        //DetailsAll
-        detailsAll.add("This homework is awesome, you better read it.\nBook: Naruto 1-72");
-        detailsAll.add("This homework sucks, and is not recommended as necessary.\nBook: Fifty Shades of Grey");
-        detailsAll.add("Missing details 0");
-        detailsAll.add("Missing details 1");
-        detailsAll.add("Missing details 2");
-        detailsAll.add("Missing details 3");
-        detailsAll.add("Missing details 4");
-        detailsAll.add("Missing details 5");
-        detailsAll.add("Missing details 6");
-        detailsAll.add("Missing details 7");
-        detailsAll.add("Missing details 8");
-        //DetailsWeek
-        detailsWeek.add("This homework is awesome, you better read it.\nBook: Naruto 1-72");
-        detailsWeek.add("This homework sucks, and is not recommended as necessary.\nBook: Fifty Shades of Grey");
-        detailsWeek.add("Missing details 0");
-        //Emner
-        emner.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
-        emner.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
-        emner.add("Missing description 0");
-        emner.add("Missing description 1");
-        emner.add("Missing description 2");
-        emner.add("Missing description 3");
-        emner.add("Missing description 4");
-        emner.add("Missing description 5");
-        emner.add("Missing description 6");
-        emner.add("Missing description 7");
-        emner.add("Missing description 8");
-        //EmnerAll
-        emnerAll.add("This homework is awesome, you better read it.\nBook: Naruto 1-72");
-        emnerAll.add("This homework sucks, and is not recommended as necessary.\nBook: Fifty Shades of Grey");
-        //EmnerDone
-        emnerDone.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
-        emnerDone.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
-        emnerDone.add("Missing description 0");
-        emnerDone.add("Missing description 1");
-        emnerDone.add("Missing description 2");
-        emnerDone.add("Missing description 3");
-        emnerDone.add("Missing description 4");
-        emnerDone.add("Missing description 5");
-        emnerDone.add("Missing description 6");
-        emnerDone.add("Missing description 7");
-        emnerDone.add("Missing description 8");
-        //EmnerReadLater
-        emnerReadLater.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
-        emnerReadLater.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
-        emnerReadLater.add("Missing description 0");
-        emnerReadLater.add("Missing description 1");
-        emnerReadLater.add("Missing description 2");
-        emnerReadLater.add("Missing description 3");
-        emnerReadLater.add("Missing description 4");
-        emnerReadLater.add("Missing description 5");
-        emnerReadLater.add("Missing description 6");
-        emnerReadLater.add("Missing description 7");
-        emnerReadLater.add("Missing description 8");
+        //Array's containing different types
+            //student info
+            studentList.add(new StudentDTO(1, "Daniel", "qwert"));
+            studentList.add(new StudentDTO(2, "Zohra", "12345"));
+            studentList.add(new StudentDTO(3, "Geziena", "asdf"));
+            studentList.add(new StudentDTO(4, "Nicklas", "zxcv"));
+            studentList.add(new StudentDTO(5, "Bob", "trewq"));
+            studentList.add(new StudentDTO(6, "q", "q"));
+        //Array's containing Integers
+            //coursesAll
+            coursesAll.add(R.drawable.bmp);
+            coursesAll.add(R.drawable.ns);
+            coursesAll.add(R.drawable.bmp);
+            coursesAll.add(R.drawable.ns);
+            coursesAll.add(R.drawable.bmp);
+            coursesAll.add(R.drawable.bmp);
+            coursesAll.add(R.drawable.ns);
+            coursesAll.add(R.drawable.bmp);
+            coursesAll.add(R.drawable.bmp);
+            coursesAll.add(R.drawable.ns);
+            coursesAll.add(R.drawable.ns);
+            //coursesWeek
+            coursesWeek.add(R.drawable.bmp);
+            coursesWeek.add(R.drawable.ns);
+            coursesWeek.add(R.drawable.bmp);
+            //Done
+            done.add(R.drawable.bmp);
+            done.add(R.drawable.ns);
+            done.add(R.drawable.bmp);
+            done.add(R.drawable.ns);
+            done.add(R.drawable.bmp);
+            done.add(R.drawable.bmp);
+            done.add(R.drawable.ns);
+            done.add(R.drawable.bmp);
+            done.add(R.drawable.bmp);
+            done.add(R.drawable.ns);
+            done.add(R.drawable.ns);
+            //groups
+            groups.add(R.drawable.bmp);
+            groups.add(R.drawable.ns);
+            groups.add(R.drawable.bmp);
+            groups.add(R.drawable.ns);
+            groups.add(R.drawable.bmp);
+            groups.add(R.drawable.bmp);
+            groups.add(R.drawable.ns);
+            groups.add(R.drawable.bmp);
+            groups.add(R.drawable.bmp);
+            groups.add(R.drawable.ns);
+            groups.add(R.drawable.ns);
+            //GroupsAll
+            groupsAll.add(R.drawable.bmp);
+            groupsAll.add(R.drawable.ns);
+            //ReadLater
+            readLater.add(R.drawable.bmp);
+            readLater.add(R.drawable.ns);
+            readLater.add(R.drawable.bmp);
+            readLater.add(R.drawable.ns);
+            readLater.add(R.drawable.bmp);
+            readLater.add(R.drawable.bmp);
+            readLater.add(R.drawable.ns);
+            readLater.add(R.drawable.bmp);
+            readLater.add(R.drawable.bmp);
+            readLater.add(R.drawable.ns);
+            readLater.add(R.drawable.ns);
+        //Array 's containing Strings
+            //DatesAll
+            datesAll.add("Monday - 11 Jan.");
+            datesAll.add("Wednesday - 13 Jan.");
+            datesAll.add("Friday - 15 Jan.");
+            datesAll.add("Friday - 15 Jan.");
+            datesAll.add("Friday - 15 Jan.");
+            datesAll.add("Friday - 15 Jan.");
+            datesAll.add("Friday - 15 Jan.");
+            datesAll.add("Friday - 15 Jan.");
+            datesAll.add("Friday - 15 Jan.");
+            datesAll.add("Friday - 15 Jan.");
+            datesAll.add("Friday - 15 Jan.");
+            //DatesWeek
+            datesWeek.add("Monday - 11 Jan.");
+            datesWeek.add("Wednesday - 13 Jan.");
+            datesWeek.add("Friday - 15 Jan.");
+            //DescriptionAll
+            descriptionsAll.add("Session 3 - 13682 pages");
+            descriptionsAll.add("Session 6 - 583 pages");
+            descriptionsAll.add("Missing description 0");
+            descriptionsAll.add("Missing description 1");
+            descriptionsAll.add("Missing description 2");
+            descriptionsAll.add("Missing description 3");
+            descriptionsAll.add("Missing description 4");
+            descriptionsAll.add("Missing description 5");
+            descriptionsAll.add("Missing description 6");
+            descriptionsAll.add("Missing description 7");
+            descriptionsAll.add("Missing description 8");
+            //DescriptionWeek
+            descriptionsWeek.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
+            descriptionsWeek.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
+            descriptionsWeek.add("Missing description 0");
+            //DetailsAll
+            detailsAll.add("This homework is awesome, you better read it.\nBook: Naruto 1-72");
+            detailsAll.add("This homework sucks, and is not recommended as necessary.\nBook: Fifty Shades of Grey");
+            detailsAll.add("Missing details 0");
+            detailsAll.add("Missing details 1");
+            detailsAll.add("Missing details 2");
+            detailsAll.add("Missing details 3");
+            detailsAll.add("Missing details 4");
+            detailsAll.add("Missing details 5");
+            detailsAll.add("Missing details 6");
+            detailsAll.add("Missing details 7");
+            detailsAll.add("Missing details 8");
+            //DetailsWeek
+            detailsWeek.add("This homework is awesome, you better read it.\nBook: Naruto 1-72");
+            detailsWeek.add("This homework sucks, and is not recommended as necessary.\nBook: Fifty Shades of Grey");
+            detailsWeek.add("Missing details 0");
+            //Emner
+            emner.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
+            emner.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
+            emner.add("Missing description 0");
+            emner.add("Missing description 1");
+            emner.add("Missing description 2");
+            emner.add("Missing description 3");
+            emner.add("Missing description 4");
+            emner.add("Missing description 5");
+            emner.add("Missing description 6");
+            emner.add("Missing description 7");
+            emner.add("Missing description 8");
+            //EmnerAll
+            emnerAll.add("This homework is awesome, you better read it.\nBook: Naruto 1-72");
+            emnerAll.add("This homework sucks, and is not recommended as necessary.\nBook: Fifty Shades of Grey");
+            //EmnerDone
+            emnerDone.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
+            emnerDone.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
+            emnerDone.add("Missing description 0");
+            emnerDone.add("Missing description 1");
+            emnerDone.add("Missing description 2");
+            emnerDone.add("Missing description 3");
+            emnerDone.add("Missing description 4");
+            emnerDone.add("Missing description 5");
+            emnerDone.add("Missing description 6");
+            emnerDone.add("Missing description 7");
+            emnerDone.add("Missing description 8");
+            //EmnerReadLater
+            emnerReadLater.add("Monday - 39 Aug.\n" + "Session 3 - 13682 pages");
+            emnerReadLater.add("Wednesday - 56 Okt.\n" + "Session 6 - 583 pages");
+            emnerReadLater.add("Missing description 0");
+            emnerReadLater.add("Missing description 1");
+            emnerReadLater.add("Missing description 2");
+            emnerReadLater.add("Missing description 3");
+            emnerReadLater.add("Missing description 4");
+            emnerReadLater.add("Missing description 5");
+            emnerReadLater.add("Missing description 6");
+            emnerReadLater.add("Missing description 7");
+            emnerReadLater.add("Missing description 8");
 
-        if(firstCreate) {
-            //Creating homework
-//            for (int i = 0; i < coursesAll.size(); i++) {
-//                homeworkAll.add(new HomeworkDTO(datesAll.get(i), coursesAll.get(i), descriptionsAll.get(i), detailsAll.get(i)));
-//            }
-            for (int i = 0; i < coursesWeek.size(); i++) {
-                homeworkWeek.add(new HomeworkDTO(datesWeek.get(i), coursesWeek.get(i), descriptionsWeek.get(i), detailsWeek.get(i)));
+            weekDays.add("Monday");
+            weekDays.add("Tuesday");
+            weekDays.add("Wednesday");
+            weekDays.add("Thursday");
+            weekDays.add("Friday");
+            weekDays.add("Saturday");
+            weekDays.add("Sunday");
+
+        if(firstCreate){
+            String test = "hej";
+            System.out.println(test);
+            homeworkAll = MainActivity.db.getHomeworkList();
+            int startDate = getDateNumber(homeworkAll.get(0).date);
+
+            for(int i = 0; i < homeworkAll.size(); i++){
+                int dateNumber = getDateNumber(homeworkAll.get(i).date);
+                if(dateNumber < startDate+7) homeworkWeek.add(homeworkAll.get(i));
+                if(dateNumber > startDate+8) return;
             }
-
-            homeworkAll = database.getHomeworkList();
-
+//            SimpleDateFormat currentFormater = new SimpleDateFormat("dd/mm/yyyy");
+//            try {
+//                Date todayDate = currentFormater.parse("01/01/2016");
+//                test = todayDate.toString();
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//            System.out.println("1: "+test);
             //printingListAll
             for(int i = 0; i < homeworkAll.size(); i++ ){
                 if(!knownDates.contains(homeworkAll.get(i).date)){
@@ -217,6 +238,17 @@ public class ArrayDatabase {
             }
             firstCreate = false;
         }
+    }
+
+    public int getDateNumber(String date){
+        if(date.contains(weekDays.get(0))) date = date.substring(9,11);
+        else if(date.contains(weekDays.get(1))) date = date.substring(10,12);
+        else if(date.contains(weekDays.get(2))) date = date.substring(12,14);
+        else if(date.contains(weekDays.get(3))) date = date.substring(11,13);
+        else if(date.contains(weekDays.get(4))) date = date.substring(9,11);
+        else if(date.contains(weekDays.get(5))) date = date.substring(11,13);
+        else if(date.contains(weekDays.get(6))) date = date.substring(9,11);
+        return Integer.parseInt(date);
     }
 
 //All getters

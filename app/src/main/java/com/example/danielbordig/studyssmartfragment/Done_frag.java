@@ -13,12 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Done_frag extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
+public class Done_frag extends Fragment implements AdapterView.OnItemClickListener {
 
     TextView header, underHeader;
     ListView doneHomeworkListView;
@@ -28,16 +23,11 @@ public class Done_frag extends Fragment implements AdapterView.OnItemClickListen
     ArrayList<HomeworkDTO> doneHomeworkList = new ArrayList<>();
 
     public Done_frag() {
-
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -67,11 +57,6 @@ public class Done_frag extends Fragment implements AdapterView.OnItemClickListen
         doneHomeworkListView.setAdapter(adapter);
 
         return root;
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     @Override

@@ -17,28 +17,20 @@ public class Singleton extends Application{
     public boolean visDrawer = false;
     DrawerIF drawer;
     public static Singleton st;
-    //I aktivitet/frag Singleton st = Singleton.st;
-
-    public void l(String object){
-        Log.d("Test", object);
-    }
 
     //FireBase
-
     Firebase myFirebaseRef;
 
     @Override
     public void onCreate() {
         super.onCreate();
         st = this;
-        l("singleton oncreate");
         Firebase.setAndroidContext(this);
         myFirebaseRef = new Firebase("https://studysmart.firebaseio.com/CBS/Students/Information/144869/HWC/Date");
 
         myFirebaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-            //System.out.println("singleton 1: " + snapshot.getKey());
             }
 
             @Override
@@ -53,8 +45,8 @@ public class Singleton extends Application{
         }
 
 
-       // public ArrayList getlist() {return ;}
- void startDrawer(){
+         // public ArrayList getlist() {return ;}
+         void startDrawer(){
     drawer.setDrawer();
 }
 
