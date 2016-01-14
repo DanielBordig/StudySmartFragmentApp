@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import java.util.ArrayList;
+
 
 public class Groups_Fragment extends Fragment  implements AdapterView.OnItemSelectedListener{
 
@@ -15,13 +17,16 @@ public class Groups_Fragment extends Fragment  implements AdapterView.OnItemSele
     private String mParam1;
     private String mParam2;
 
+  //  ArrayList<Integer> coursesAll = new ArrayList<Integer>();
 
-    String[] groups = { "Unlimited", "1 second",};
-    String[] yourgroups = { "Unlimited", "1 second",};
-    String[] fingroup = { "Unlimited", "1 minute",};
-    String[] crgroup = { "Unlimited", "5", "10", "15",};
+   // int[] yourgroups = { R.mipmap.fin};
+
+    String[] groups = { "BMP","NS","FIN","SD", "MO"};
+    String[] yourgroups = {"BMP","NS","FIN","SD", "MO" };
+    String[] fingroup = {"BMP","NS","FIN","SD", "MO" };
+    String[] crgroup = { "1", "2", "2", "4",};
     String[] delgroup = { "Unlimited", "5", "10", "15",};
-    String[] morgroup = { "Unlimited", "5", "10", "15",};
+    String[] morgroup = { "messages", "discusions", "metups", "exstra",};
 
     //ArrayDatabase arrayDatabase = new ArrayDatabase();
 
@@ -110,7 +115,9 @@ public class Groups_Fragment extends Fragment  implements AdapterView.OnItemSele
         spinner4.setOnItemSelectedListener(this);
         spinner5.setOnItemSelectedListener(this);
         System.out.println("onCreateview slut");
+
         return root;
+
     }
 
 

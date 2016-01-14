@@ -32,7 +32,7 @@ public class ArrayDatabase {
     ArrayList<String> emnerDone = new ArrayList<String>();
     ArrayList<String> emnerReadLater = new ArrayList<String>();
 
-    public ArrayDatabase() {
+        public ArrayDatabase() {
 //Array's containing different types
         //student info
         studentList.add(new StudentDTO(1, "Daniel", "qwert"));
