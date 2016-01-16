@@ -28,7 +28,7 @@ public class HWCfirebase extends Activity {
     protected void onStart(){
         super.onStart();
         Button weekBut = (Button) findViewById(R.id.weekBut);
-        Button allHomeworkBut = (Button) findViewById(R.id.allHomeworkBut);
+        Button allHomeworkBut = (Button) findViewById(R.id.futureHomeworkBut);
         final TextView mTextCondition = (TextView) findViewById(R.id.headerHWC);
 
         mRef = new Firebase("https://studysmart.firebaseio.com/");

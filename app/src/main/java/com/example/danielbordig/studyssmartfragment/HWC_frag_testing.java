@@ -13,22 +13,20 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     Singleton st;
     ListView homeworkCalendarList;
     TextView headerHWC;
-    Button weekBut, allHomeworkBut, donedone, later;
+    Button weekBut, futureHomeworkBut;
     ArrayList<HomeworkDTO> homeworkListWeek;
-    ArrayList<HomeworkDTO> homeworkListAll;
+    ArrayList<HomeworkDTO> homeworkListFuture;
     ArrayList<String> printingList;
     static ArrayDatabase arrayDatabase;
     HomeworkDAO homeworkDAO = new HomeworkDAO();
@@ -59,23 +57,17 @@ public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClic
         weekBut.setOnClickListener(this);
         weekBut.setClickable(false);
 
-        allHomeworkBut = (Button) root.findViewById(R.id.allHomeworkBut);
-        allHomeworkBut.setTextColor(Color.BLACK);
-        allHomeworkBut.setBackgroundColor(Color.WHITE);
-        allHomeworkBut.setOnClickListener(this);
+        futureHomeworkBut = (Button) root.findViewById(R.id.futureHomeworkBut);
+        futureHomeworkBut.setTextColor(Color.BLACK);
+        futureHomeworkBut.setBackgroundColor(Color.WHITE);
+        futureHomeworkBut.setOnClickListener(this);
 
-        donedone = (Button) root.findViewById(R.id.donedone);
-        donedone.setOnClickListener(this);
-
-        later = (Button) root.findViewById(R.id.later);
-        later.setOnClickListener(this);
-
-        homeworkListWeek = arrayDatabase.getHomeworkListWeek();
-        homeworkListAll = arrayDatabase.getHomeworkListAll();
+        homeworkListWeek = arrayDatabase.getHomeworkWeekList();
+        homeworkListFuture = arrayDatabase.getHomeworkFutureList();
         printingList = arrayDatabase.getPrintingListAll();
 
         homeworkCalendarList = ( ListView ) root.findViewById(R.id.listHWC);
-        HomeworkAdapter homeworkAdapter = new HomeworkAdapter(getActivity(),R.layout.lekt04_listeelement, homeworkListWeek);
+        HomeworkAdapter homeworkAdapter = new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListWeek);
         homeworkCalendarList.setAdapter(homeworkAdapter);
         homeworkCalendarList.setOnItemClickListener(this);
 
@@ -120,7 +112,7 @@ public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClic
                 if (typen == 0) {
                     view = getActivity().getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
                 } else {
-                    view = getActivity().getLayoutInflater().inflate(R.layout.lekt04_listeelement, null);
+                    view = getActivity().getLayoutInflater().inflate(R.layout.listview_hwc_layout, null);
                 }
             }
 
@@ -133,7 +125,7 @@ public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClic
                 tv.setText(landEllerOverskrift);
             } else {
                 ImageView im = (ImageView) view.findViewById(R.id.listeelem_billede);
-//                im.setImageResource(homeworkListAll.get(position).course);
+//                im.setImageResource(homeworkListFuture.get(position).course);
                 TextView tvo = (TextView) view.findViewById(R.id.listeelem_overskrift);
                 tvo.setText(landEllerOverskrift);
             }
@@ -148,21 +140,23 @@ public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, final long id) {
-        String deta = homeworkListAll.get(position).detail;
+        String detail = "";
+        if(futureHomeworkBut.isClickable()) detail = homeworkListWeek.get(position).detail;
+        if(weekBut.isClickable()) detail = homeworkListFuture.get(position).detail;
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         dialog.setTitle("Homework details:");
-        dialog.setMessage(deta);
+        dialog.setMessage(detail);
         dialog.setNegativeButton("Done", new AlertDialog.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                HomeworkDTO homeworkMove = homeworkListAll.get(position);
-                homeworkListAll.remove(position);
+                HomeworkDTO homeworkMove = homeworkListFuture.get(position);
+                homeworkListFuture.remove(position);
                 if (position < homeworkListWeek.size()) homeworkListWeek.remove(position);
 
                 if (!weekBut.isClickable()) {
-                    homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.lekt04_listeelement, homeworkListWeek));
-                } else if (!allHomeworkBut.isClickable()) {
-                    homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.lekt04_listeelement, homeworkListAll));
+                    homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListWeek));
+                } else if (!futureHomeworkBut.isClickable()) {
+                    homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListFuture));
                 }
                 homeworkDAO.updateDoneHomework(homeworkMove);
             }
@@ -170,14 +164,14 @@ public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClic
         dialog.setPositiveButton("Read Later", new AlertDialog.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                HomeworkDTO homeworkMove = homeworkListAll.get(position);
-                homeworkListAll.remove(position);
+                HomeworkDTO homeworkMove = homeworkListFuture.get(position);
+                homeworkListFuture.remove(position);
                 if (position < homeworkListWeek.size()) homeworkListWeek.remove(position);
 
                 if (!weekBut.isClickable()) {
-                    homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.lekt04_listeelement, homeworkListWeek));
-                } else if (!allHomeworkBut.isClickable()) {
-                    homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.lekt04_listeelement, homeworkListAll));
+                    homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListWeek));
+                } else if (!futureHomeworkBut.isClickable()) {
+                    homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListFuture));
                 }
                 homeworkDAO.updateLaterHomework(homeworkMove);
             }
@@ -191,25 +185,19 @@ public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClic
             weekBut.setTextColor(Color.WHITE);
             weekBut.setBackgroundColor(Color.BLUE);
             weekBut.setClickable(false);
-            allHomeworkBut.setTextColor(Color.BLACK);
-            allHomeworkBut.setBackgroundColor(Color.WHITE);
-            allHomeworkBut.setClickable(true);
-            homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.lekt04_listeelement, homeworkListWeek));
+            futureHomeworkBut.setTextColor(Color.BLACK);
+            futureHomeworkBut.setBackgroundColor(Color.WHITE);
+            futureHomeworkBut.setClickable(true);
+            homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListWeek));
         }
-        if(v== allHomeworkBut) {
-            allHomeworkBut.setTextColor(Color.WHITE);
-            allHomeworkBut.setBackgroundColor(Color.BLUE);
-            allHomeworkBut.setClickable(false);
+        if(v== futureHomeworkBut) {
+            futureHomeworkBut.setTextColor(Color.WHITE);
+            futureHomeworkBut.setBackgroundColor(Color.BLUE);
+            futureHomeworkBut.setClickable(false);
             weekBut.setTextColor(Color.BLACK);
             weekBut.setBackgroundColor(Color.WHITE);
             weekBut.setClickable(true);
-            homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.lekt04_listeelement, homeworkListAll));
-        }
-        if(v==donedone){
-            getFragmentManager().beginTransaction().replace(R.id.mainFrame, new Done_frag()).commit();
-        }
-        if(v==later){
-            getFragmentManager().beginTransaction().replace(R.id.mainFrame, new ReadLater_frag()).commit();
+            homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListFuture));
         }
     }
 }

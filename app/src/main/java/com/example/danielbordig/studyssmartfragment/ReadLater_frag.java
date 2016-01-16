@@ -1,6 +1,8 @@
 package com.example.danielbordig.studyssmartfragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +19,9 @@ public class ReadLater_frag extends Fragment implements AdapterView.OnItemClickL
 
     TextView header, underHeader;
     ListView laterHomeworkListView;
-    ArrayList<Integer> course = new ArrayList<>();
-    ArrayList<String> description = new ArrayList<>();
     HomeworkDAO homeworkDAO = new HomeworkDAO();
     ArrayList<HomeworkDTO> laterHomeworkList = new ArrayList<>();
+    HomeworkAdapter homeworkAdapter;
 
     public ReadLater_frag() {
     }
@@ -38,28 +39,35 @@ public class ReadLater_frag extends Fragment implements AdapterView.OnItemClickL
         underHeader = (TextView) root.findViewById(R.id.underheaderReadlater);
         laterHomeworkListView = ( ListView ) root.findViewById(R.id.listReadlater);
         laterHomeworkList = homeworkDAO.getLaterHomework();
-        for(int i = 0; i < laterHomeworkList.size(); i++){
-            course.add(laterHomeworkList.get(i).course);
-            description.add(laterHomeworkList.get(i).description);
-        }
+        homeworkAdapter = new HomeworkAdapter(getActivity(), R.layout.listview_hwc_layout, laterHomeworkList);
 
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.listview_layout, R.id.txt, description) {
-            @Override
-            public View getView(int position, View cachedView, ViewGroup parent) {
-                View view = super.getView(position, cachedView, parent);
-                TextView beskrivelse = (TextView) view.findViewById(R.id.txt);
-                beskrivelse.setText(description.get(position));
-                ImageView billede = (ImageView) view.findViewById(R.id.course);
-                billede.setImageResource(course.get(position));
-                return view;
-            }
-        };
-        laterHomeworkListView.setAdapter(adapter);
+        laterHomeworkListView.setAdapter(homeworkAdapter);
+        laterHomeworkListView.setOnItemClickListener(this);
+
         return root;
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        String detail = laterHomeworkList.get(position).detail;
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        dialog.setTitle("Homework details:");
+        dialog.setMessage(detail);
+        dialog.setNegativeButton("Done", new AlertDialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                HomeworkDTO homeworkMove = laterHomeworkList.get(position);
+                laterHomeworkList.remove(position);
+                laterHomeworkListView.setAdapter(homeworkAdapter);
+                homeworkDAO.updateDoneHomework(homeworkMove);
+            }
+        });
+        dialog.setPositiveButton("OK", new AlertDialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

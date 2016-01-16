@@ -130,6 +130,9 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
             case 3:
                 fragment = new ReadLater_frag();
                 break;
+            case 4:
+                fragment = new OldHomework_frag();
+                break;
         }
 
         if(null!=fragment) {

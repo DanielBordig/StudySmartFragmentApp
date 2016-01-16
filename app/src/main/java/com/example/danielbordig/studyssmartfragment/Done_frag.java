@@ -1,6 +1,8 @@
 package com.example.danielbordig.studyssmartfragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +19,10 @@ public class Done_frag extends Fragment implements AdapterView.OnItemClickListen
 
     TextView header, underHeader;
     ListView doneHomeworkListView;
-    ArrayList<Integer> course = new ArrayList<>();
-    ArrayList<String> description = new ArrayList<>();
     HomeworkDAO homeworkDAO = new HomeworkDAO();
+    ArrayList<HomeworkDTO> tempdoneHomeworkList = new ArrayList<>();
     ArrayList<HomeworkDTO> doneHomeworkList = new ArrayList<>();
+    HomeworkAdapter homeworkAdapter;
 
     public Done_frag() {
     }
@@ -37,30 +39,31 @@ public class Done_frag extends Fragment implements AdapterView.OnItemClickListen
         header = (TextView) root.findViewById(R.id.headerDone);
         underHeader = (TextView) root.findViewById(R.id.underheaderDone);
         doneHomeworkListView = ( ListView ) root.findViewById(R.id.listDone);
-        doneHomeworkList = homeworkDAO.getDoneHomework();
-        for(int i = doneHomeworkList.size()-1; i >= 0; i--){
-            course.add(doneHomeworkList.get(i).course);
-            description.add(doneHomeworkList.get(i).description);
+        tempdoneHomeworkList = homeworkDAO.getDoneHomework();
+        for(int i = tempdoneHomeworkList.size()-1; i >= 0; i--){
+            doneHomeworkList.add(new HomeworkDTO(tempdoneHomeworkList.get(i).date, tempdoneHomeworkList.get(i).course,
+                    tempdoneHomeworkList.get(i).description, tempdoneHomeworkList.get(i).detail));
         }
 
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.listview_layout, R.id.txt, description) {
-            @Override
-            public View getView(int position, View cachedView, ViewGroup parent) {
-                View view = super.getView(position, cachedView, parent);
-                TextView beskrivelse = (TextView) view.findViewById(R.id.txt);
-                beskrivelse.setText(description.get(position));
-                ImageView billede = (ImageView) view.findViewById(R.id.course);
-                billede.setImageResource(course.get(position));
-                return view;
-            }
-        };
-        doneHomeworkListView.setAdapter(adapter);
+        homeworkAdapter = new HomeworkAdapter(getActivity(), R.layout.listview_hwc_layout, doneHomeworkList);
+        doneHomeworkListView.setAdapter(homeworkAdapter);
+        doneHomeworkListView.setOnItemClickListener(this);
 
         return root;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        String detail = doneHomeworkList.get(position).detail;
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        dialog.setTitle("Homework details:");
+        dialog.setMessage(detail);
+        dialog.setPositiveButton("OK", new AlertDialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

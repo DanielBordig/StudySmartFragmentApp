@@ -35,7 +35,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
     ArrayList<HomeworkDTO> homeworkListWeek;
     ArrayList<HomeworkDTO> homeworkListAll;
     ArrayList<String> printingList;
-//    ArrayDatabase arrayDatabase = new ArrayDatabase();
+    //    ArrayDatabase arrayDatabase = new ArrayDatabase();
     HomeworkDAO homeworkDAO = new HomeworkDAO();
     Fragment fragment_done = new Done_frag();
     Fragment fragment_later = new ReadLater_frag();
@@ -70,26 +70,20 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
         weekBut.setOnClickListener(this);
         weekBut.setClickable(false);
 
-        allHomeworkBut = (Button) root.findViewById(R.id.allHomeworkBut);
+        allHomeworkBut = (Button) root.findViewById(R.id.futureHomeworkBut);
         allHomeworkBut.setTextColor(Color.BLACK);
         allHomeworkBut.setBackgroundColor(Color.WHITE);
         allHomeworkBut.setOnClickListener(this);
 
-        donedone = (Button) root.findViewById(R.id.donedone);
-        donedone.setOnClickListener(this);
-
-        later = (Button) root.findViewById(R.id.later);
-        later.setOnClickListener(this);
-
-//        homeworkListWeek = arrayDatabase.getHomeworkListWeek();
-//        homeworkListAll = arrayDatabase.getHomeworkListAll();
+//        homeworkListWeek = arrayDatabase.getHomeworkWeekList();
+//        homeworkListFuture = arrayDatabase.getHomeworkAllList();
 //        printingListAll = arrayDatabase.getPrintingListAll();
 
         // Each row in the list stores course image and description
 
         homeworkCalendarList = ( ListView ) root.findViewById(R.id.listHWC);
         //updateCalender(hwcList);
-        HomeworkAdapter homeworkAdapter = new HomeworkAdapter(getActivity(),R.layout.lekt04_listeelement, homeworkListWeek);
+        HomeworkAdapter homeworkAdapter = new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListWeek);
         homeworkCalendarList.setAdapter(homeworkAdapter);
         homeworkCalendarList.setOnItemClickListener(this);
 
@@ -134,7 +128,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
                 if (typen == 0) {
                     view = getActivity().getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
                 } else {
-                    view = getActivity().getLayoutInflater().inflate(R.layout.lekt04_listeelement, null);
+                    view = getActivity().getLayoutInflater().inflate(R.layout.listview_hwc_layout, null);
                 }
             }
 
@@ -142,13 +136,13 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
             // Sæt indholdet afhængig af typen
             if (typen == 0) {
                 landEllerOverskrift = landEllerOverskrift.substring(4);
-                    TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                    tv.setTextSize(22);
+                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                tv.setTextSize(22);
                 tv.setGravity(Gravity.CENTER);
                 tv.setText(landEllerOverskrift);
             } else {
                 ImageView im = (ImageView) view.findViewById(R.id.listeelem_billede);
-                //im.setImageResource(homeworkListAll.get(position).course);
+                //im.setImageResource(homeworkListFuture.get(position).course);
                 TextView tvo = (TextView) view.findViewById(R.id.listeelem_overskrift);
                 tvo.setText(landEllerOverskrift);
             }
