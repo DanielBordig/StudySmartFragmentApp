@@ -264,7 +264,6 @@ public class ArrayDatabase {
                     if(homeworkDay > currentDay+8) break;
                 }
             }
-
 //            //printingListAll
 //            for(int i = 0; i < homeworkAll.size(); i++ ){
 //                if(!knownDates.contains(homeworkAll.get(i).date)){
