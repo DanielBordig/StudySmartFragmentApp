@@ -23,6 +23,8 @@ public class ArrayDatabase {
     ArrayList<Integer> groups = new ArrayList<Integer>();
     ArrayList<Integer> groupsAll = new ArrayList<Integer>();
     ArrayList<Integer> readLater = new ArrayList<Integer>();
+    ArrayList<Integer> printingCourseFuture = new ArrayList<>();
+    ArrayList<Integer> printingCourseWeek = new ArrayList<>();
     //String ArrayList's
     ArrayList<String> datesAll = new ArrayList<>();
     ArrayList<String> datesWeek = new ArrayList<>();
@@ -31,7 +33,7 @@ public class ArrayDatabase {
     ArrayList<String> descriptionsWeek = new ArrayList<String>();
     ArrayList<String> detailsAll = new ArrayList<String>();
     ArrayList<String> detailsWeek = new ArrayList<String>();
-    ArrayList<String> printingListAll = new ArrayList<>();
+    ArrayList<String> printingListFuture = new ArrayList<>();
     ArrayList<String> printingListWeek = new ArrayList<>();
     ArrayList<String> emner = new ArrayList<String>();
     ArrayList<String> emnerAll = new ArrayList<String>();
@@ -264,22 +266,27 @@ public class ArrayDatabase {
                     if(homeworkDay > currentDay+8) break;
                 }
             }
-//            //printingListAll
-//            for(int i = 0; i < homeworkAll.size(); i++ ){
-//                if(!knownDates.contains(homeworkAll.get(i).date)){
-//                    knownDates.add(homeworkAll.get(i).date);
-//                    printingListAll.add("date" + homeworkAll.get(i).date);
-//                }
-//                printingListAll.add(homeworkAll.get(i).description);
-//            }
-//            //printingListWeek
-//            for(int i = 0; i < homeworkWeek.size(); i++ ){
-//                if(!knownDates.contains(homeworkWeek.get(i).date)){
-//                    knownDates.add(homeworkWeek.get(i).date);
-//                    printingListWeek.add("date" + homeworkWeek.get(i).date);
-//                }
-//                printingListWeek.add(homeworkWeek.get(i).description);
-//            }
+            //printingListFuture
+            for(int i = 0; i < homeworkFuture.size(); i++){
+                if(!knownDates.contains(homeworkFuture.get(i).date)){
+                    knownDates.add(homeworkFuture.get(i).date);
+                    printingListFuture.add("date" + homeworkFuture.get(i).date);
+                    printingCourseFuture.add(R.drawable.blank);
+                }
+                printingListFuture.add(homeworkFuture.get(i).description);
+                printingCourseFuture.add(homeworkFuture.get(i).course);
+            }
+            knownDates.clear();
+            //printingListWeek
+            for(int i = 0; i < homeworkWeek.size(); i++){
+                if(!knownDates.contains(homeworkWeek.get(i).date)){
+                    knownDates.add(homeworkWeek.get(i).date);
+                    printingListWeek.add("date" + homeworkWeek.get(i).date);
+                    printingCourseWeek.add(R.drawable.blank);
+                }
+                printingListWeek.add(homeworkWeek.get(i).description);
+                printingCourseWeek.add(homeworkWeek.get(i).course);
+            }
             firstCreate = false;
         }
     }
@@ -356,6 +363,14 @@ public class ArrayDatabase {
         return readLater;
     }
 
+    public ArrayList<Integer> getPrintingCourseFuture() {
+        return printingCourseFuture;
+    }
+
+    public ArrayList<Integer> getPrintingCourseWeek() {
+        return printingCourseWeek;
+    }
+
     //String Getter's
     public ArrayList<String> getDescriptionAll() {
         return descriptionsAll;
@@ -367,8 +382,8 @@ public class ArrayDatabase {
 
     public ArrayList<String> getDetailsAll() { return detailsAll; }
 
-    public ArrayList<String> getPrintingListAll() {
-        return printingListAll;
+    public ArrayList<String> getPrintingListFuture() {
+        return printingListFuture;
     }
 
     public ArrayList<String> getPrintingListWeek() {
@@ -509,6 +524,5 @@ public class ArrayDatabase {
     public void removeEmnerReadLater(String position) {
         emnerReadLater.remove(position);
     }
-
 
 }

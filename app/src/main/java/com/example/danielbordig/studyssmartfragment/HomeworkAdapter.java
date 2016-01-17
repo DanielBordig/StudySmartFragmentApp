@@ -21,7 +21,6 @@ public class HomeworkAdapter extends ArrayAdapter<HomeworkDTO> {
     private final ArrayList<HomeworkDTO> data;
     private static ViewHolder viewHolder = new ViewHolder();
 
-
     public HomeworkAdapter(final Context mContext, final int layoutResourceId, final ArrayList<HomeworkDTO> data) {
         super(mContext, layoutResourceId, data);
 
@@ -36,20 +35,13 @@ public class HomeworkAdapter extends ArrayAdapter<HomeworkDTO> {
     }
 
     @Override
-    public int getItemViewType(int position) {
-        String landEllerOverskrift = data.get(position).date;
-        if (landEllerOverskrift.startsWith("date")) return 0;
-        return 1;
-    }
-
-    @Override
     public View getView(final int position, final View convertView, final ViewGroup parent) {
         View view;
 //        if (view == null) {
             final LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
             view = inflater.inflate(layoutResourceId, parent, false);
-            viewHolder.course = (ImageView) view.findViewById(R.id.listeelem_billede);
-            viewHolder.description = (TextView) view.findViewById(R.id.listeelem_overskrift);
+            viewHolder.course = (ImageView) view.findViewById(R.id.homeworkCourseImage);
+            viewHolder.description = (TextView) view.findViewById(R.id.descriptionView);
 //        }
 
         final HomeworkDTO homework = data.get(position);

@@ -47,7 +47,7 @@ public class GroupImagesAdapter extends ArrayAdapter<GroupImages> {
         if (view == null) {
             final LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
             view = inflater.inflate(layoutResourceId, parent, false);
-            viewHolder.course = (ImageView) view.findViewById(R.id.courseImage);
+            //viewHolder.course = (ImageView) view.findViewById(R.id.courseImage);
         }
 
         final GroupImages newGameItem = data[position];

@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
         listSliding.add(new ItemSlideMenu(R.drawable.ic_action_hwc, "HWC"));
         listSliding.add(new ItemSlideMenu(R.drawable.ic_action_sgm, "SGM"));
         listSliding.add(new ItemSlideMenu(R.drawable.ic_action_done, "Done"));
-        listSliding.add(new ItemSlideMenu(R.drawable.ic_action_rl, "ReadLater"));
+        listSliding.add(new ItemSlideMenu(R.drawable.ic_action_rl, "Read Later"));
+        listSliding.add(new ItemSlideMenu(R.drawable.ic_action_old, "Former Homework"));
         adapter = new SlidingMenuAdapter(this, listSliding);
         listViewSliding.setAdapter(adapter);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

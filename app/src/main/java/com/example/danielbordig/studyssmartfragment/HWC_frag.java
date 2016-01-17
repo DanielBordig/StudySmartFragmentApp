@@ -77,7 +77,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
 
 //        homeworkListWeek = arrayDatabase.getHomeworkWeekList();
 //        homeworkListFuture = arrayDatabase.getHomeworkAllList();
-//        printingListAll = arrayDatabase.getPrintingListAll();
+//        printingListFuture = arrayDatabase.getPrintingListFuture();
 
         // Each row in the list stores course image and description
 
@@ -141,10 +141,10 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
                 tv.setGravity(Gravity.CENTER);
                 tv.setText(landEllerOverskrift);
             } else {
-                ImageView im = (ImageView) view.findViewById(R.id.listeelem_billede);
+                //ImageView im = (ImageView) view.findViewById(R.id.listeelem_billede);
                 //im.setImageResource(homeworkListFuture.get(position).course);
-                TextView tvo = (TextView) view.findViewById(R.id.listeelem_overskrift);
-                tvo.setText(landEllerOverskrift);
+                //TextView tvo = (TextView) view.findViewById(R.id.listeelem_overskrift);
+                //tvo.setText(landEllerOverskrift);
             }
 
             return view;

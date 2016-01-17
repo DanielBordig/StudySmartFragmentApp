@@ -1,7 +1,9 @@
 package com.example.danielbordig.studyssmartfragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,12 +24,17 @@ import java.util.ArrayList;
 public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     Singleton st;
+    int offset = 0;
     ListView homeworkCalendarList;
     TextView headerHWC;
     Button weekBut, futureHomeworkBut;
     ArrayList<HomeworkDTO> homeworkListWeek;
     ArrayList<HomeworkDTO> homeworkListFuture;
-    ArrayList<String> printingList;
+    ArrayList<String> printingListDesciptionWeek;
+    ArrayList<Integer> printingListCourseWeek;
+    ArrayList<String> printingListDesciptionFuture;
+    ArrayList<Integer> printingListCourseFuture;
+    ArrayList<Integer> offsetPosition;
     static ArrayDatabase arrayDatabase;
     HomeworkDAO homeworkDAO = new HomeworkDAO();
     static boolean firstCreate = true;
@@ -64,99 +71,52 @@ public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClic
 
         homeworkListWeek = arrayDatabase.getHomeworkWeekList();
         homeworkListFuture = arrayDatabase.getHomeworkFutureList();
-        printingList = arrayDatabase.getPrintingListAll();
+        printingListDesciptionWeek = arrayDatabase.getPrintingListWeek();
+        printingListCourseWeek = arrayDatabase.getPrintingCourseWeek();
+        printingListDesciptionFuture = arrayDatabase.getPrintingListFuture();
+        printingListCourseFuture = arrayDatabase.getPrintingCourseFuture();
+        offsetPosition = new ArrayList<>();
+
+        for(int i = 0; i < printingListDesciptionFuture.size(); i++){
+            if(printingListDesciptionFuture.get(i).startsWith("date")) offset++;
+            offsetPosition.add(offset);
+        }
 
         homeworkCalendarList = ( ListView ) root.findViewById(R.id.listHWC);
-        HomeworkAdapter homeworkAdapter = new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListWeek);
-        homeworkCalendarList.setAdapter(homeworkAdapter);
+        HomeworkWithTitlesAdapter homeworkWithTitlesAdapter = new HomeworkWithTitlesAdapter(getActivity(), R.layout.listview_hwc_layout,
+                                                                                            printingListDesciptionWeek, printingListCourseWeek);
+        homeworkCalendarList.setAdapter(homeworkWithTitlesAdapter);
         homeworkCalendarList.setOnItemClickListener(this);
 
         return root;
     }
 
-    public class MinAdapterMedOverskrifter extends BaseAdapter {
-
-        public int getCount() {
-            return printingList.size();
-        }
-
-        public Object getItem(int position) {
-            return position;
-        }
-
-        public long getItemId(int position) {
-            return position;
-        }
-
-        /**
-         * Skal give typen af elementet der skal vises.
-         * 0 er normale lande, 1 er kategorier og 2 er overskrifter
-         */
-        @Override
-        public int getItemViewType(int position) {
-            String landEllerOverskrift = printingList.get(position);
-            if (landEllerOverskrift.startsWith("date")) return 0;
-            return 1;
-        }
-
-        @Override
-        public int getViewTypeCount() {
-            return 2;
-        }
-
-        public View getView(final int position, View view, ViewGroup parent) {
-            int typen = getItemViewType(position);
-
-            if (view == null) {
-                // Vi skal oprette et nyt view afhængig af typen
-                if (typen == 0) {
-                    view = getActivity().getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
-                } else {
-                    view = getActivity().getLayoutInflater().inflate(R.layout.listview_hwc_layout, null);
-                }
-            }
-
-            String landEllerOverskrift = printingList.get(position);
-            // Sæt indholdet afhængig af typen
-            if (typen == 0) {
-                landEllerOverskrift = landEllerOverskrift.substring(4);
-                TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                tv.setTextSize(22);
-                tv.setText(landEllerOverskrift);
-            } else {
-                ImageView im = (ImageView) view.findViewById(R.id.listeelem_billede);
-//                im.setImageResource(homeworkListFuture.get(position).course);
-                TextView tvo = (TextView) view.findViewById(R.id.listeelem_overskrift);
-                tvo.setText(landEllerOverskrift);
-            }
-            return view;
-        }
-
-        @Override
-        public boolean isEnabled(int position) {
-            return getItemViewType(position) > 1;
-        }
-    }
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, final long id) {
         String detail = "";
-        if(futureHomeworkBut.isClickable()) detail = homeworkListWeek.get(position).detail;
-        if(weekBut.isClickable()) detail = homeworkListFuture.get(position).detail;
+        if(futureHomeworkBut.isClickable()) detail = homeworkListWeek.get(position-offsetPosition.get(position)).detail;
+        if(weekBut.isClickable()) detail = homeworkListFuture.get(position-offsetPosition.get(position)).detail;
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         dialog.setTitle("Homework details:");
         dialog.setMessage(detail);
         dialog.setNegativeButton("Done", new AlertDialog.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                HomeworkDTO homeworkMove = homeworkListFuture.get(position);
-                homeworkListFuture.remove(position);
-                if (position < homeworkListWeek.size()) homeworkListWeek.remove(position);
+                HomeworkDTO homeworkMove = homeworkListFuture.get(position-offsetPosition.get(position));
+                homeworkListFuture.remove(position - offsetPosition.get(position));
+                if (position < printingListDesciptionWeek.size()){
+                    printingListDesciptionWeek.remove(position);
+                    printingListCourseWeek.remove(position);
+                    printingListDesciptionFuture.remove(position);
+                    printingListCourseFuture.remove(position);
+                }
 
                 if (!weekBut.isClickable()) {
-                    homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListWeek));
+                    homeworkCalendarList.setAdapter(new HomeworkWithTitlesAdapter(getActivity(), R.layout.listview_hwc_layout,
+                                                    printingListDesciptionWeek, printingListCourseWeek));
                 } else if (!futureHomeworkBut.isClickable()) {
-                    homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListFuture));
+                    homeworkCalendarList.setAdapter(new HomeworkWithTitlesAdapter(getActivity(), R.layout.listview_hwc_layout,
+                                                    printingListDesciptionFuture, printingListCourseFuture));
                 }
                 homeworkDAO.updateDoneHomework(homeworkMove);
             }
@@ -164,14 +124,21 @@ public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClic
         dialog.setPositiveButton("Read Later", new AlertDialog.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                HomeworkDTO homeworkMove = homeworkListFuture.get(position);
-                homeworkListFuture.remove(position);
-                if (position < homeworkListWeek.size()) homeworkListWeek.remove(position);
+                HomeworkDTO homeworkMove = homeworkListFuture.get(position-offsetPosition.get(position));
+                homeworkListFuture.remove(position-offsetPosition.get(position));
+                if (position < printingListDesciptionWeek.size()){
+                    printingListDesciptionWeek.remove(position);
+                    printingListCourseWeek.remove(position);
+                    printingListDesciptionFuture.remove(position);
+                    printingListCourseFuture.remove(position);
+                }
 
                 if (!weekBut.isClickable()) {
-                    homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListWeek));
+                    homeworkCalendarList.setAdapter(new HomeworkWithTitlesAdapter(getActivity(), R.layout.listview_hwc_layout,
+                                                    printingListDesciptionWeek, printingListCourseWeek));
                 } else if (!futureHomeworkBut.isClickable()) {
-                    homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListFuture));
+                    homeworkCalendarList.setAdapter(new HomeworkWithTitlesAdapter(getActivity(), R.layout.listview_hwc_layout,
+                                                    printingListDesciptionFuture, printingListCourseFuture));
                 }
                 homeworkDAO.updateLaterHomework(homeworkMove);
             }
@@ -188,7 +155,8 @@ public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClic
             futureHomeworkBut.setTextColor(Color.BLACK);
             futureHomeworkBut.setBackgroundColor(Color.WHITE);
             futureHomeworkBut.setClickable(true);
-            homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListWeek));
+            homeworkCalendarList.setAdapter(new HomeworkWithTitlesAdapter(getActivity(), R.layout.listview_hwc_layout,
+                                            printingListDesciptionWeek, printingListCourseWeek));
         }
         if(v== futureHomeworkBut) {
             futureHomeworkBut.setTextColor(Color.WHITE);
@@ -197,7 +165,8 @@ public class HWC_frag_testing extends Fragment implements AdapterView.OnItemClic
             weekBut.setTextColor(Color.BLACK);
             weekBut.setBackgroundColor(Color.WHITE);
             weekBut.setClickable(true);
-            homeworkCalendarList.setAdapter(new HomeworkAdapter(getActivity(),R.layout.listview_hwc_layout, homeworkListFuture));
+            homeworkCalendarList.setAdapter(new HomeworkWithTitlesAdapter(getActivity(), R.layout.listview_hwc_layout,
+                                            printingListDesciptionFuture, printingListCourseFuture));
         }
     }
 }
