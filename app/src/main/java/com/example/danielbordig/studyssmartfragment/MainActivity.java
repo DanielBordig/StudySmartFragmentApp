@@ -7,7 +7,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
         Fragment fragment = null;
         switch (pos) {
             case 0:
-                fragment = new HWC_frag_testing();
+                fragment = new HWC_frag();
                 break;
             case 1:
                 //fragment = new Groups_Fragment(); // this will make the app crash because, Gezienna is not finished yet with the Groups activity

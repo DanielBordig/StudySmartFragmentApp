@@ -38,7 +38,7 @@ public class OldHomework_frag extends Fragment implements AdapterView.OnItemClic
         headerOldHomework = (TextView) root.findViewById(R.id.headerOldHomework);
         listOldHomework = (ListView) root.findViewById(R.id.listOldHomework);
 
-        oldHomework = HWC_frag_testing.arrayDatabase.getOldHomeworkList();
+        oldHomework = HWC_frag.arrayDatabase.getOldHomeworkList();
         homeworkAdapter = new HomeworkAdapter(getActivity(), R.layout.listview_hwc_layout, oldHomework);
         listOldHomework.setAdapter(homeworkAdapter);
         listOldHomework.setOnItemClickListener(this);

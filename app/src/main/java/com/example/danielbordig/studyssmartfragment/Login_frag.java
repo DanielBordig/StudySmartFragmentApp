@@ -78,10 +78,7 @@ public class Login_frag extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity(), "Wrong Password", Toast.LENGTH_LONG).show();
                 }
                 else if(snapshot.child("Userid/" + nameString + "/Active").getValue().equals("Yes") && snapshot.child("Password/" + nameString + "/Kodeord").getValue().equals(passwordString)) {
-
-                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, new HWC_frag_testing()).commit();
-                    } else {
-                        Toast.makeText(getActivity(), "Username and/or Password is wrong", Toast.LENGTH_LONG).show();
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, new HWC_frag()).commit();
                     }
                 }
 

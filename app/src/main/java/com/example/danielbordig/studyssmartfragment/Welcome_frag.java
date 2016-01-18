@@ -9,11 +9,8 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import java.util.logging.LogRecord;
-
 public class Welcome_frag extends Fragment implements Runnable {
 
-    Fragment fragment_hwc = new HWC_frag();
     Handler handler = new Handler();
 
     public Welcome_frag() {
@@ -38,7 +35,7 @@ public class Welcome_frag extends Fragment implements Runnable {
 
     @Override
     public void run() {
-        getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment_hwc).commit();
+        getFragmentManager().beginTransaction().replace(R.id.mainFrame, new HWC_frag()).commit();
     }
 
 }

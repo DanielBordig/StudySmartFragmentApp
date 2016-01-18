@@ -42,4 +42,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/noRemainingHomework"
+        android:textSize="18dp"
+        android:gravity="center" />
+
 </LinearLayout>
