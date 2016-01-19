@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Database {
 
     Firebase databasefire = new Firebase("https://studysmart.firebaseio.com/CBS/Students/Information/144869/HWC");
+    Firebase database1 = new Firebase("https://studysmart.firebaseio.com/CBS/Students/Information/144869/SGM");
     ArrayList<String> monthAll;
     ArrayList<Long> dayAll;
     ArrayList<String> courseAll;
@@ -21,6 +22,8 @@ public class Database {
     ArrayList<String> homework;
     ArrayList<HomeworkDTO> homeworkList;
     ArrayList<Integer> courseImages;
+    ArrayList<String> existingGroups;
+    ArrayList<String> yourGroups;
 
         public Database() {
             monthAll = new ArrayList<>();
@@ -34,6 +37,8 @@ public class Database {
             homework = new ArrayList<>();
             homeworkList = new ArrayList<>();
             courseImages = new ArrayList<>();
+            existingGroups = new ArrayList<>();
+            yourGroups = new ArrayList<>();
 
         databasefire.addValueEventListener(new ValueEventListener() {
             @Override
@@ -64,9 +69,32 @@ public class Database {
             }
 
         });
+
+            database1.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    for(int i = 1; i < dataSnapshot.child("/ExistingGroups").getChildrenCount()+1; i++){
+                        existingGroups.add((String) dataSnapshot.child("/ExistingGroups/" + i).getValue());
+                    }
+
+                    for(int i = 1; i < existingGroups.size()+1; i++){
+                        for(int j = 1; j < dataSnapshot.child("/your groups/"+existingGroups.get(i-1)).getChildrenCount()+1; j++){
+                            yourGroups.add((String) dataSnapshot.child("/your groups/" + existingGroups.get(i-1) + "/" + j).getValue());
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
     }
 
      public ArrayList<HomeworkDTO> getHomeworkList(){
       return homeworkList;
      }
+
+    public ArrayList<String> getYourGroups() { return yourGroups; }
 }

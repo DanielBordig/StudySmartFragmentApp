@@ -9,21 +9,21 @@
         android:id="@+id/grp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="your groups"
         android:id="@+id/buttyrg"
         android:layout_gravity="left|center_horizontal" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="find groups"
         android:id="@+id/buttfndg"
         android:layout_gravity="left|center_horizontal" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="create groups"
         android:id="@+id/buttcrtg"
@@ -31,7 +31,7 @@
 
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="delete groups"
         android:id="@+id/buttdelt"
@@ -40,7 +40,7 @@
 
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="more groups"
         android:id="@+id/buttmore"

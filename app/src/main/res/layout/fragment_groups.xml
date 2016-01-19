@@ -3,24 +3,30 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal">-->
 
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/imageView" />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <!--<Spinner-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/Groups" />-->
-    <!--</LinearLayout>-->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView0" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=  ""
+            android:id="@+id/text0" />
 
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/zero" />
 
+    </LinearLayout>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +37,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView1" />
 
-            <Spinner
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=  "Your Groups"
+            android:id="@+id/textView" />
+
+        <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/yourgroupspin" />
@@ -51,8 +64,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageView2" />
 
-        <Spinner
+        <TextView
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text= "Find Groups"
+            android:id="@+id/textView1" />
+        <Spinner
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/findgroupspin" />
     </LinearLayout>
@@ -69,9 +88,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView3" />
-
-        <Spinner
+        <TextView
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Create Groups"
+            android:id="@+id/textView3" />
+        <Spinner
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/creatgroupspin" />
     </LinearLayout>
@@ -88,13 +112,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView4" />
-
-        <Spinner
+        <TextView
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Delete Groups"
+            android:id="@+id/textView4" />
+        <Spinner
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/deletegroupspin" />
     </LinearLayout>
-
 
 
     <LinearLayout
@@ -107,13 +135,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView5" />
-
-    </LinearLayout>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="More"
+            android:id="@+id/textView5" />
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/morespin" />
 
+    </LinearLayout>
 
 </LinearLayout>

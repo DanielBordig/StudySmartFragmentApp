@@ -1,6 +1,7 @@
 package com.example.danielbordig.studyssmartfragment;
 
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,36 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
-import java.util.ArrayList;
+import com.firebase.client.Firebase;
+import com.firebase.client.ValueEventListener;
 
 
-public class Groups_Fragment extends Fragment  implements AdapterView.OnItemSelectedListener{
+public class Groups_Fragment extends Fragment implements View.OnClickListener {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
-    Singleton sg;
+    private Spinner spinner0, spinner1, spinner2, spinner3,spinner4, spinner5;
 
-
-
-    GroupImages[] test = new GroupImages[]{
-        new GroupImages(R.mipmap.bmp),
-        new GroupImages(R.mipmap.ds),
-        new GroupImages(R.mipmap.fin),
-        new GroupImages(R.mipmap.bmp),
-        new GroupImages(R.mipmap.bmp),
-        new GroupImages(R.mipmap.bmp),
-        new GroupImages(R.mipmap.bmp),
-    };
-
-
-////    String[] groups = {""};
-   String[] yourgroups = {"BMP","NS","FIN","SD", "MO" };
-   String[] fingroup = {"BMP","NS","FIN","SD", "MO" };
-   String[] crgroup = { "1", "2", "2", "4",};
-   String[] delgroup = { "Unlimited", "5", "10", "15",};
-   String[] morgroup = { "messages", "discusions", "metups", "exstra",};
+    String[] zer = {""};
+    String[] yourgroups = {"","", "", "", "", ""};
+    String[] fingroup = {"", "", "", "", ""};
+    String[] crgroup = {"", "", ""};
+    String[] delgroup = {"", "", "", "",};
+    String[] morgroup = {"", "", "", "", ""};
 
 
     public Groups_Fragment() {
@@ -51,95 +40,345 @@ public class Groups_Fragment extends Fragment  implements AdapterView.OnItemSele
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        sg = Singleton.st;
-        sg.visDrawer = true;
+
+
     }
-//    int[] pic1 = new int[R.mipmap.create];
-//    int[] pic2 = new int[R.mipmap.delete];
 
     int[] logopic = new int[]{
-           // R.mipmap.groupicon,
+            R.mipmap.studyicon,
+            R.mipmap.findico,
+            R.mipmap.create,
+            R.mipmap.deicon,
+            R.mipmap.moreico,
+    };
+
+
+    int[] logopic2 = new int[]{
+            R.mipmap.empty,
             R.mipmap.bmp,
             R.mipmap.ns,
             R.mipmap.fin,
             R.mipmap.ds,
-            R.mipmap.mo
-   };
+            R.mipmap.mo,
+    };
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_groups, container, false);
         System.out.println("ocreatview start");
 
-      // ImageView  ico = (ImageView) root.findViewById(R.id.imageView);
-        ImageView  iv = (ImageView) root.findViewById(R.id.imageView1);
-        ImageView  iv2 = (ImageView) root.findViewById(R.id.imageView2);
-        ImageView  iv3 = (ImageView) root.findViewById(R.id.imageView3);
-        ImageView  iv4 = (ImageView) root.findViewById(R.id.imageView4);
-        ImageView  iv5 = (ImageView) root.findViewById(R.id.imageView5);
 
-       // ico.setImageResource(logopic[0]);
+
+       //ImageView  ico = (ImageView) root.findViewById(R.id.imageView);
+        ImageView iv = (ImageView) root.findViewById(R.id.imageView1);
+        ImageView iv2 = (ImageView) root.findViewById(R.id.imageView2);
+        ImageView iv3 = (ImageView) root.findViewById(R.id.imageView3);
+        ImageView iv4 = (ImageView) root.findViewById(R.id.imageView4);
+        ImageView iv5 = (ImageView) root.findViewById(R.id.imageView5);
+
+//        name.setHint("Userame");
+//        password.setHint("Password");
+
+        //loginBut.setOnClickListener(this)
+
+        //ico.setImageResource(logopic[0]);
         iv.setImageResource(logopic[0]);
         iv2.setImageResource(logopic[1]);
         iv3.setImageResource(logopic[2]);
         iv4.setImageResource(logopic[3]);
         iv5.setImageResource(logopic[4]);
 
-       // Spinner spinner =  (Spinner) root.findViewById(R.id.grp);
-        Spinner spinner1 = (Spinner) root.findViewById(R.id.yourgroupspin);
-        Spinner spinner2 = (Spinner) root.findViewById(R.id.findgroupspin);
-        Spinner spinner3 = (Spinner) root.findViewById(R.id.creatgroupspin);
-        Spinner spinner4 = (Spinner) root.findViewById(R.id.deletegroupspin);
-        Spinner spinner5 = (Spinner) root.findViewById(R.id.morespin);
+        spinner0 =  (Spinner) root.findViewById(R.id.zero);
 
-       // ArrayAdapter adapter = new ArrayAdapter(getActivity(),R.layout.spinner_elements, R.id.overskrift,groups);
+        spinner1 = (Spinner) root.findViewById(R.id.yourgroupspin);
 
-        ArrayAdapter adapter1 = new ArrayAdapter(getActivity(),R.layout.spinner_elements, R.id.overskrift,yourgroups);
-//        {
-//            @Override
-//            public View getView(int position, View cachedView, ViewGroup parent) {
-//                View view = super.getView(position, cachedView, parent);
-//
-//                Button beskrivelse = (Button) view.findViewById(R.id.grp);
-//                beskrivelse.setText("");
-//                ImageView billede = (ImageView) view.findViewById(R.id.imageView6);
-//               billede.setImageResource(logopic[position]);
-//                return view;
-//            }
-//        };
+        spinner2 = (Spinner) root.findViewById(R.id.findgroupspin);
 
 
-        GroupImagesAdapter adape = new GroupImagesAdapter(getActivity(),R.layout.spinner_elements, test);
-
-        ArrayAdapter adapter2 = new ArrayAdapter(getActivity(),R.layout.spinner_elements, R.id.overskrift, fingroup);
-        ArrayAdapter adapter3 = new ArrayAdapter(getActivity(),R.layout.spinner_elements, R.id.overskrift, crgroup);
-        ArrayAdapter adapter4 = new ArrayAdapter(getActivity(),R.layout.spinner_elements, R.id.overskrift, delgroup);
-        ArrayAdapter adapter5 = new ArrayAdapter(getActivity(),R.layout.spinner_elements, R.id.overskrift, morgroup);
+        spinner3 = (Spinner) root.findViewById(R.id.creatgroupspin);
 
 
-
-       // spinner.setAdapter(adapter);
-//        spinner1.setAdapter(adapter1);
-//        spinner2.setAdapter(adapter2);
-//        spinner3.setAdapter(adapter3);
-//        spinner4.setAdapter(adapter4);
-//        spinner5.setAdapter(adapter5);
+        spinner4 = (Spinner) root.findViewById(R.id.deletegroupspin);
 
 
+        spinner5 = (Spinner) root.findViewById(R.id.morespin);
 
-        spinner1.setAdapter(adape);
-        spinner2.setAdapter(adapter1);
+        ArrayAdapter adapter0 = new ArrayAdapter(getActivity(), R.layout.spinner_elements, R.id.overskrift, zer) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View v = super.getDropDownView(position, convertView, parent);
+
+                ImageView i = (ImageView) v.findViewById(R.id.spinnerimage);
+                i.setImageResource(logopic2[position]);
+
+                TextView t = (TextView) v.findViewById(R.id.overskrift);
+                t.setText("");
+
+                return v;
+            }
+        };
+
+        ArrayAdapter adapter1 = new ArrayAdapter(getActivity(), R.layout.spinner_elements, R.id.overskrift, yourgroups) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View v = super.getDropDownView(position, convertView, parent);
+
+                ImageView i = (ImageView) v.findViewById(R.id.spinnerimage);
+                i.setImageResource(logopic2[position]);
+
+                TextView t = (TextView) v.findViewById(R.id.overskrift);
+                t.setText("");
+
+                return v;
+            }
+        };
+
+       // adapter1.setDropDownViewResource(R.layout.spinner_elements);
+
+        ArrayAdapter adapter2 = new ArrayAdapter(getActivity(), R.layout.spinner_elements, R.id.overskrift, fingroup) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View v = super.getDropDownView(position, convertView, parent);
+
+                ImageView i = (ImageView) v.findViewById(R.id.spinnerimage);
+                i.setImageResource(logopic2[position]);
+
+                TextView t = (TextView) v.findViewById(R.id.overskrift);
+                t.setText("");
+
+                return v;
+            }
+        };
+
+        ArrayAdapter adapter3 = new ArrayAdapter(getActivity(), R.layout.spinner_elements, R.id.overskrift, crgroup) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View v = super.getDropDownView(position, convertView, parent);
+
+                ImageView i = (ImageView) v.findViewById(R.id.spinnerimage);
+                i.setImageResource(logopic2[position]);
+
+                TextView t = (TextView) v.findViewById(R.id.overskrift);
+                t.setText("");
+
+                return v;
+            }
+        };
+
+
+        ArrayAdapter adapter4 = new ArrayAdapter(getActivity(), R.layout.spinner_elements, R.id.overskrift, delgroup) {
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View v = super.getDropDownView(position, convertView, parent);
+
+                ImageView i = (ImageView) v.findViewById(R.id.spinnerimage);
+                i.setImageResource(logopic2[position]);
+
+                TextView t = (TextView) v.findViewById(R.id.overskrift);
+                t.setText("");
+
+                return v;
+            }
+        };
+
+        ArrayAdapter adapter5 = new ArrayAdapter(getActivity(), R.layout.spinner_elements, R.id.overskrift, morgroup) {
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View v = super.getDropDownView(position, convertView, parent);
+
+                ImageView i = (ImageView) v.findViewById(R.id.spinnerimage);
+                i.setImageResource(logopic2[position]);
+
+                TextView t = (TextView) v.findViewById(R.id.overskrift);
+                t.setText("");
+
+                return v;
+            }
+        };
+
+
+        spinner1.setAdapter(adapter1);
+        spinner2.setAdapter(adapter2);
         spinner3.setAdapter(adapter3);
         spinner4.setAdapter(adapter4);
         spinner5.setAdapter(adapter5);
 
-        spinner1.setOnItemSelectedListener(this);
-        spinner2.setOnItemSelectedListener(this);
-        spinner3.setOnItemSelectedListener(this);
-        spinner4.setOnItemSelectedListener(this);
-        spinner5.setOnItemSelectedListener(this);
-        System.out.println("onCreateview slut");
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+
+                }
+                else if (position==1){
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.bmp);
+                    Fragment fragment = new Studyhomework();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
+                }
+                else if (position==2){
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.ns);
+                    Fragment fragment = new Studyhomework();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
+                }
+                else if (position==3){
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.fin);
+                    Fragment fragment = new Studyhomework();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
+
+                }
+                else if (position==4){
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.ds);
+                    Fragment fragment = new Studyhomework();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
+                }
+                else if (position==5) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.mo);
+                    Fragment fragment = new Studyhomework();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+                    view = getActivity().getLayoutInflater().inflate(R.layout.activity_main, null);
+                }
+                else if (position==1){
+
+                }
+                else if (position==2){
+
+                }
+                else if (position==3){
+
+
+                }
+                else if (position==4){
+
+                }
+                else if (position==5) {
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+
+                }
+                else if (position==1){
+
+                }
+                else if (position==2){
+
+                }
+                else if (position==3){
+
+
+                }
+                else if (position==4){
+
+                }
+                else if (position==5) {
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+                }
+                else if (position==1){
+
+                }
+                else if (position==2){
+
+                }
+                else if (position==3){
+
+
+                }
+                else if (position==4){
+
+                }
+                else if (position==5) {
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+
+                }
+                else if (position==1){
+
+                }
+                else if (position==2){
+
+                }
+                else if (position==3){
+
+
+                }
+                else if (position==4){
+
+                }
+                else if (position==5) {
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    System.out.println("onCreateview slut");
 
         return root;
 
@@ -147,12 +386,13 @@ public class Groups_Fragment extends Fragment  implements AdapterView.OnItemSele
 
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
+    public void onClick(View v) {
+//        Toast.makeText(Studyhomework).this,
+//                "OnClickListener : " +
+//                        "\nSpinner 1 : "+ String.valueOf(spinner1.getSelectedItem()) +
+//                        "\nSpinner 2 : "+ String.valueOf(spinner2.getSelectedItem()),
+//                Toast.LENGTH_SHORT).show;
     }
 }
+
+
