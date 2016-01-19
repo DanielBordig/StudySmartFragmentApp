@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
                 fragment = new HWC_frag();
                 break;
             case 1:
-                //fragment = new Groups_Fragment(); // this will make the app crash because, Gezienna is not finished yet with the Groups activity
+                fragment = new Groups_Fragment();// Works fine now!
                 break;
             case 2:
                fragment = new Done_frag();
