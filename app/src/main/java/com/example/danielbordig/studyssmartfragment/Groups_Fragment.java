@@ -19,14 +19,15 @@ public class Groups_Fragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
+
     private Spinner spinner0, spinner1, spinner2, spinner3,spinner4, spinner5;
 
     String[] zer = {""};
     String[] yourgroups = {"","", "", "", "", ""};
-    String[] fingroup = {"", "", "", "", ""};
-    String[] crgroup = {"", "", ""};
-    String[] delgroup = {"", "", "", "",};
-    String[] morgroup = {"", "", "", "", ""};
+    String[] fingroup = {"", "", "", "", "", ""};
+    String[] crgroup = {"", "", "","", "", ""};
+    String[] delgroup = {"", "", "", "","",""};
+    String[] morgroup = {"", "", ""};
 
 
     public Groups_Fragment() {
@@ -53,6 +54,9 @@ public class Groups_Fragment extends Fragment implements View.OnClickListener {
     };
 
 
+    String[] more2 =new String[]{
+            "Messages", "Discussions", "Bullitenboard",
+    };
     int[] logopic2 = new int[]{
             R.mipmap.empty,
             R.mipmap.bmp,
@@ -90,18 +94,10 @@ public class Groups_Fragment extends Fragment implements View.OnClickListener {
         iv5.setImageResource(logopic[4]);
 
         spinner0 =  (Spinner) root.findViewById(R.id.zero);
-
         spinner1 = (Spinner) root.findViewById(R.id.yourgroupspin);
-
         spinner2 = (Spinner) root.findViewById(R.id.findgroupspin);
-
-
         spinner3 = (Spinner) root.findViewById(R.id.creatgroupspin);
-
-
         spinner4 = (Spinner) root.findViewById(R.id.deletegroupspin);
-
-
         spinner5 = (Spinner) root.findViewById(R.id.morespin);
 
         ArrayAdapter adapter0 = new ArrayAdapter(getActivity(), R.layout.spinner_elements, R.id.overskrift, zer) {
@@ -189,11 +185,11 @@ public class Groups_Fragment extends Fragment implements View.OnClickListener {
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View v = super.getDropDownView(position, convertView, parent);
 
-                ImageView i = (ImageView) v.findViewById(R.id.spinnerimage);
-                i.setImageResource(logopic2[position]);
+               // ImageView i = (ImageView) v.findViewById(R.id.spinnerimage);
+                //i.setImageResource(logopic2[position]);
 
                 TextView t = (TextView) v.findViewById(R.id.overskrift);
-                t.setText("");
+                t.setText(more2[position]);
 
                 return v;
             }
@@ -261,25 +257,46 @@ public class Groups_Fragment extends Fragment implements View.OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position==0){
-                    view = getActivity().getLayoutInflater().inflate(R.layout.activity_main, null);
+
                 }
                 else if (position==1){
-
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.bmp);
+                    Fragment fragment = new Studyhomework();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
                 }
                 else if (position==2){
-
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.ns);
+                    Fragment fragment = new Studyhomework();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
                 }
                 else if (position==3){
-
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.fin);
+                    Fragment fragment = new Studyhomework();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
 
                 }
                 else if (position==4){
-
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.ds);
+                    Fragment fragment = new Studyhomework();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
                 }
                 else if (position==5) {
-
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.mo);
+                    Fragment fragment = new Studyhomework();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
                 }
             }
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -295,20 +312,40 @@ public class Groups_Fragment extends Fragment implements View.OnClickListener {
 
                 }
                 else if (position==1){
-
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.bmp);
+                    Fragment fragment = new CreateGroups_frag();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
                 }
                 else if (position==2){
-
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.ns);
+                    Fragment fragment = new CreateGroups_frag();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
                 }
                 else if (position==3){
-
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.fin);
+                    Fragment fragment = new CreateGroups_frag();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
 
                 }
                 else if (position==4){
-
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.ds);
+                    Fragment fragment = new CreateGroups_frag();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
                 }
                 else if (position==5) {
-
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("group",R.mipmap.mo);
+                    Fragment fragment = new CreateGroups_frag();
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
                 }
             }
 
@@ -378,7 +415,6 @@ public class Groups_Fragment extends Fragment implements View.OnClickListener {
 
             }
         });
-    System.out.println("onCreateview slut");
 
         return root;
 
@@ -387,11 +423,7 @@ public class Groups_Fragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-//        Toast.makeText(Studyhomework).this,
-//                "OnClickListener : " +
-//                        "\nSpinner 1 : "+ String.valueOf(spinner1.getSelectedItem()) +
-//                        "\nSpinner 2 : "+ String.valueOf(spinner2.getSelectedItem()),
-//                Toast.LENGTH_SHORT).show;
+
     }
 }
 
