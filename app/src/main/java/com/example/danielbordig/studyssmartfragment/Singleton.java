@@ -17,6 +17,9 @@ public class Singleton extends Application{
     public boolean visDrawer = false;
     DrawerIF drawer;
     public static Singleton st;
+    public static String user = "";
+    public static String userHWC = "";
+    public static String userSGM = "";
 
     //FireBase
     Firebase myFirebaseRef;
@@ -26,18 +29,18 @@ public class Singleton extends Application{
         super.onCreate();
         st = this;
         Firebase.setAndroidContext(this);
-        myFirebaseRef = new Firebase("https://studysmart.firebaseio.com/CBS/Students/Information/144869/HWC/Date");
+        myFirebaseRef = new Firebase("https://studysmart.firebaseio.com/CBS/Students/Information/144869/HWC");
+        System.out.println("test: " + myFirebaseRef.child("ok").getKey());
+                myFirebaseRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                    }
 
-        myFirebaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                System.out.println("The read failed: " + firebaseError.getMessage());
-            }
-        });
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+                        System.out.println("The read failed: " + firebaseError.getMessage());
+                    }
+                });
     }
         //setter
         public void setMessage(String message) {

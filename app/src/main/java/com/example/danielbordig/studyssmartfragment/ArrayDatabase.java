@@ -220,7 +220,7 @@ public class ArrayDatabase {
         daysOfMonths.add(31);
 
         if(firstCreate){
-            homeworkAll = MainActivity.db.getHomeworkList();
+            homeworkAll = Login_frag.db.getHomeworkList();
             SimpleDateFormat dateFormater = new SimpleDateFormat("dd/MM/yyyy");
             Date date = new Date();
             String currentDate = dateFormater.format(date);

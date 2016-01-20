@@ -11,8 +11,8 @@ public class Database {
 
     int doneCount;
     int laterCount;
-    Firebase databaseHWC = new Firebase("https://studysmart.firebaseio.com/CBS/Students/Information/144869/HWC");
-    Firebase databaseSGM = new Firebase("https://studysmart.firebaseio.com/CBS/Students/Information/144869/SGM");
+    Firebase databaseHWC = new Firebase("https://studysmart.firebaseio.com/"+Singleton.userHWC);
+    Firebase databaseSGM = new Firebase("https://studysmart.firebaseio.com/"+Singleton.userSGM);
     ArrayList<String> monthAll;
     ArrayList<Long> dayAll;
     ArrayList<String> courseAll;

@@ -19,6 +19,7 @@ import com.firebase.client.ValueEventListener;
 
 public class Login_frag extends Fragment implements View.OnClickListener {
 
+    public static Database db;
     ImageView logoStudySmart;
     TextView header;
     EditText name, password;
@@ -78,7 +79,10 @@ public class Login_frag extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity(), "Wrong Password", Toast.LENGTH_LONG).show();
                 }
                 else if(snapshot.child("Userid/" + nameString + "/Active").getValue().equals("Yes") && snapshot.child("Password/" + nameString + "/Kodeord").getValue().equals(passwordString)) {
-                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, new Groups_Fragment()).commit();
+                    Singleton.userHWC = "CBS/Students/Information/"+nameString+"/HWC";
+                    Singleton.userSGM = "CBS/Students/Information/"+nameString+"/SGM";
+                    db = new Database();
+                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, new HWC_frag()).commit();
                     }
                 }
 

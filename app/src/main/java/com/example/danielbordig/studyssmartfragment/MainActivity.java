@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     Singleton st;
-    static Database db;
+   // static Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
         setContentView(R.layout.activity_main);
         setTitle("StudySmart");
         getFragmentManager().beginTransaction().add(R.id.mainFrame, new Main_frag()).commit();
-        db = new Database();
+     //   db = new Database();
         st = Singleton.st;
         st.drawer = this;
     }

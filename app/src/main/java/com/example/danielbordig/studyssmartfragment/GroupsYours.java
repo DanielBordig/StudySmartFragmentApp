@@ -32,11 +32,11 @@ public class GroupsYours extends Fragment {
 
         bmphmwrk = (ListView)  root.findViewById(R.id.bmphmwrk);
 
-        bmpGroups = MainActivity.db.getBmpGroups();
-        nsGroups = MainActivity.db.getNsGroups();
-        finGroups = MainActivity.db.getFinGroups();
-        dsGroups = MainActivity.db.getDsGroups();
-        moGroups = MainActivity.db.getMoGroups();
+        bmpGroups = Login_frag.db.getBmpGroups();
+        nsGroups = Login_frag.db.getNsGroups();
+        finGroups = Login_frag.db.getFinGroups();
+        dsGroups = Login_frag.db.getDsGroups();
+        moGroups = Login_frag.db.getMoGroups();
 
         if(bundle.get("group").equals(R.mipmap.bmp)) bmphmwrk.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, bmpGroups));
         else if(bundle.get("group").equals(R.mipmap.ns)) bmphmwrk.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, nsGroups));

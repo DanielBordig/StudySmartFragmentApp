@@ -122,7 +122,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
                             printingListDesciptionFuture, printingListCourseFuture));
                 }
                 homeworkDAO.updateDoneHomework(homeworkMove);
-                MainActivity.db.movedToDone(homeworkMove);
+                Login_frag.db.movedToDone(homeworkMove);
 
                 if(!weekBut.isClickable() && printingListDesciptionWeek.isEmpty()) noRemainingHomework.setText("No more homework this week");
                 if(!futureHomeworkBut.isClickable() && printingListDesciptionFuture.isEmpty()) noRemainingHomework.setText("No more future homework at the moment");
@@ -150,7 +150,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
                             printingListDesciptionFuture, printingListCourseFuture));
                 }
                 homeworkDAO.updateLaterHomework(homeworkMove);
-                MainActivity.db.movedToLater(homeworkMove);
+                Login_frag.db.movedToLater(homeworkMove);
 
                 if(!weekBut.isClickable() && printingListDesciptionWeek.isEmpty()) noRemainingHomework.setText("No more homework this week");
                 if(!futureHomeworkBut.isClickable() && printingListDesciptionFuture.isEmpty()) noRemainingHomework.setText("No more future homework at the moment");
