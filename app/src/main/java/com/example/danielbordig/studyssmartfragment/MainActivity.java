@@ -146,7 +146,6 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.mainFrame, fragment);
-            transaction.addToBackStack(null);
             transaction.commit();
         }
     }

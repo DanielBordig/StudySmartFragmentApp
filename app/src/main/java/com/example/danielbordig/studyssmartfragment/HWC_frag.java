@@ -52,7 +52,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_hwc, container, false);
 
-        headerHWC = (TextView) root.findViewById(R.id.headerHWC);
+        //headerHWC = (TextView) root.findViewById(R.id.headerHWC);
         noRemainingHomework = (TextView) root.findViewById(R.id.noRemainingHomework);
 
         weekBut = (Button) root.findViewById(R.id.weekBut);
@@ -122,6 +122,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
                             printingListDesciptionFuture, printingListCourseFuture));
                 }
                 homeworkDAO.updateDoneHomework(homeworkMove);
+                MainActivity.db.movedToDone(homeworkMove);
 
                 if(!weekBut.isClickable() && printingListDesciptionWeek.isEmpty()) noRemainingHomework.setText("No more homework this week");
                 if(!futureHomeworkBut.isClickable() && printingListDesciptionFuture.isEmpty()) noRemainingHomework.setText("No more future homework at the moment");

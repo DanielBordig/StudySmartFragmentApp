@@ -1,7 +1,9 @@
 package com.example.danielbordig.studyssmartfragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by jose on 1/18/2016.
  */
-public class Studyhomework extends Fragment {
+public class GroupsYours extends Fragment {
 
     ListView bmphmwrk;
     ArrayList<String> bmpGroups, nsGroups, finGroups, dsGroups, moGroups;

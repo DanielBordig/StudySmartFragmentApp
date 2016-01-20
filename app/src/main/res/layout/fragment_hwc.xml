@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView
+    TextView
         android:id="@+id/headerHWC"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -25,6 +25,7 @@
             android:textAllCaps="false"
             android:id="@+id/weekBut"
             android:layout_marginLeft="85dp"
+            android:layout_marginTop="10dp"
             android:clickable="false" />
 
         <Button
@@ -33,6 +34,7 @@
             android:text="Future Homework"
             android:textAllCaps="false"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/futureHomeworkBut" />
 
     </LinearLayout>

@@ -36,7 +36,7 @@ public class Done_frag extends Fragment implements AdapterView.OnItemClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_done, container, false);
 
-        header = (TextView) root.findViewById(R.id.headerDone);
+        //header = (TextView) root.findViewById(R.id.headerDone);
         underHeader = (TextView) root.findViewById(R.id.underheaderDone);
         doneHomeworkListView = ( ListView ) root.findViewById(R.id.listDone);
         tempdoneHomeworkList = homeworkDAO.getDoneHomework();

@@ -23,14 +23,8 @@ public class GroupsActivity extends Activity implements AdapterView.OnItemSelect
 
         // Standard-udseende
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.spinner_elements, R.id.overskrift, groups);
-        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Eget layout af listeelementerne
-       // ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listview_hwc_layout, R.id.listeelem_overskrift, lande);
-        //adapter.setDropDownViewResource(R.layout.listview_hwc_layout);
 
         spinner.setAdapter(adapter);
-        //spinner.setPrompt("Vælg et land");
 
     }
 

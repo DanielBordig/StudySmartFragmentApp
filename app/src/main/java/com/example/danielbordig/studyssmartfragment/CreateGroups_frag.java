@@ -23,7 +23,7 @@ public class CreateGroups_frag extends Fragment implements View.OnClickListener{
 
     TextView name,time, location, literature;
     EditText subject;
-    EditText nam, tim,loca,liter;
+    EditText nam, tim, loca,liter;
     Button submitbutt;
 
     public CreateGroups_frag() {
@@ -31,7 +31,6 @@ public class CreateGroups_frag extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -59,7 +58,6 @@ public class CreateGroups_frag extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-
         String nyGroup = "";
         nyGroup += "Name: " + nam.getText() + "\n";
         nyGroup += "Subject: " + subject.getText() + "\n";

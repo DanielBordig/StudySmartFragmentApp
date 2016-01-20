@@ -17,7 +17,8 @@ import com.firebase.client.ValueEventListener;
 public class HWCfirebase extends Activity {
 
     private Firebase mRef;
-   @Override
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -29,14 +30,14 @@ public class HWCfirebase extends Activity {
         super.onStart();
         Button weekBut = (Button) findViewById(R.id.weekBut);
         Button allHomeworkBut = (Button) findViewById(R.id.futureHomeworkBut);
-        final TextView mTextCondition = (TextView) findViewById(R.id.headerHWC);
+        //final TextView mTextCondition = (TextView) findViewById(R.id.headerHWC);
 
         mRef = new Firebase("https://studysmart.firebaseio.com/");
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String newCondition = (String) dataSnapshot.getValue();
-                mTextCondition.setText(newCondition);
+                //mTextCondition.setText(newCondition);
             }
 
             @Override

@@ -35,7 +35,7 @@ public class OldHomework_frag extends Fragment implements AdapterView.OnItemClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_old_homework, container, false);
 
-        headerOldHomework = (TextView) root.findViewById(R.id.headerOldHomework);
+        //headerOldHomework = (TextView) root.findViewById(R.id.headerOldHomework);
         listOldHomework = (ListView) root.findViewById(R.id.listOldHomework);
 
         oldHomework = HWC_frag.arrayDatabase.getOldHomeworkList();

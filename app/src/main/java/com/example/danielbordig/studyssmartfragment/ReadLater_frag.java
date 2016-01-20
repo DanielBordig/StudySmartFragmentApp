@@ -35,7 +35,7 @@ public class ReadLater_frag extends Fragment implements AdapterView.OnItemClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_readlater, container, false);
 
-        header = (TextView) root.findViewById(R.id.headerReadlater);
+        //header = (TextView) root.findViewById(R.id.headerReadlater);
         underHeader = (TextView) root.findViewById(R.id.underheaderReadlater);
         laterHomeworkListView = ( ListView ) root.findViewById(R.id.listReadlater);
         laterHomeworkList = homeworkDAO.getLaterHomework();

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 public class Database {
 
+    int doneCount;
+    int laterCount;
     Firebase databaseHWC = new Firebase("https://studysmart.firebaseio.com/CBS/Students/Information/144869/HWC");
     Firebase databaseSGM = new Firebase("https://studysmart.firebaseio.com/CBS/Students/Information/144869/SGM");
     ArrayList<String> monthAll;
@@ -49,6 +51,10 @@ public class Database {
             public void onDataChange(DataSnapshot snapshot) {
                 courseImages.add(R.drawable.bmp);
                 courseImages.add(R.drawable.ns);
+                courseImages.add(R.drawable.fin);
+                courseImages.add(R.drawable.ds);
+                courseImages.add(R.drawable.mo);
+                doneCount = (int) snapshot.child("/DoneHomework").getChildrenCount()-1;
 
                 for (int i = 1; i < snapshot.child("/ExistingDates").getChildrenCount() + 1; i++) {
                     existingDates.add((String) snapshot.child("/ExistingDates/" + i).getValue());
@@ -74,7 +80,6 @@ public class Database {
             }
 
         });
-
 
             databaseSGM. addValueEventListener(new ValueEventListener() {
                 @Override
@@ -109,7 +114,19 @@ public class Database {
             });
     }
 
-     public ArrayList<HomeworkDTO> getHomeworkList(){
+    public void movedToDone(HomeworkDTO doneHomework){
+        doneCount++;
+        String done = "";
+        for(int i = 0; i < courseImages.size(); i++){
+            if(courseImages.get(i).equals(doneHomework.course)) done += i+",";
+        }
+        done += doneHomework.description+",";
+        done += doneHomework.detail;
+        databaseHWC.child("/DoneHomework/"+doneCount).setValue(done);
+        databaseHWC.child("/Date/"+doneHomework.date+"/1").removeValue();
+    }
+
+    public ArrayList<HomeworkDTO> getHomeworkList(){
       return homeworkList;
      }
 

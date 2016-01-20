@@ -55,7 +55,6 @@ public class HomeworkWithTitlesAdapter extends ArrayAdapter<String> {
             titleOrNot = titleOrNot.substring(4);
             TextView textView = (TextView) view.findViewById(android.R.id.text1);
             textView.setTextSize(22);
-            //textView.setTextIsSelectable(false);
             textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             textView.setText(titleOrNot);
         } else {
