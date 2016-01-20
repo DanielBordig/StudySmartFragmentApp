@@ -94,11 +94,15 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, final long id) {
-        String detail = "";
-        if(!weekBut.isClickable()) detail = homeworkListWeek.get(position-offsetPosition.get(position)).detail;
-        if(!futureHomeworkBut.isClickable()) detail = homeworkListFuture.get(position-offsetPosition.get(position)).detail;
+        String detail;
+        String dialogTitle;
+        // homeworkListWeek and hommeworkListFuture have the same homework in the first indexes
+        // so we can just use homeworkListFuture to get the correct details even if the user
+        // has tapped on a homework in the weekly list on the interface
+        detail = homeworkListFuture.get(position-offsetPosition.get(position)).detail;
+        dialogTitle = homeworkListFuture.get(position-offsetPosition.get(position)).description;
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        dialog.setTitle("Homework details:");
+        dialog.setTitle(dialogTitle);
         dialog.setMessage(detail);
         dialog.setNegativeButton("Done", new AlertDialog.OnClickListener() {
             @Override

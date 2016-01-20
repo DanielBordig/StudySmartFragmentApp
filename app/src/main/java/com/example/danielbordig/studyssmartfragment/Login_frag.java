@@ -11,13 +11,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Handler;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-public class Login_frag extends Fragment implements View.OnClickListener {
+public class Login_frag extends Fragment implements View.OnClickListener, Runnable {
 
     public static Database db;
     ImageView logoStudySmart;
@@ -25,6 +26,7 @@ public class Login_frag extends Fragment implements View.OnClickListener {
     EditText name, password;
     Button loginBut;
     StudentDAO stuDAO;
+    Handler handler = new Handler();
 
     public Login_frag() {
     }
@@ -47,8 +49,8 @@ public class Login_frag extends Fragment implements View.OnClickListener {
         password.setHint("Password");
 
         // gør vores login hugtigere, skal slettes senere
-        name.setText("test");
-        password.setText("q");
+        name.setText("144869");
+        password.setText("qwert14853");
 
         loginBut.setOnClickListener(this);
         loginBut.setBackgroundColor(Color.BLUE);
@@ -82,7 +84,14 @@ public class Login_frag extends Fragment implements View.OnClickListener {
                     Singleton.userHWC = "CBS/Students/Information/"+nameString+"/HWC";
                     Singleton.userSGM = "CBS/Students/Information/"+nameString+"/SGM";
                     db = new Database();
-                    getFragmentManager().beginTransaction().replace(R.id.mainFrame, new HWC_frag()).commit();
+
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getFragmentManager().beginTransaction().replace(R.id.mainFrame, new HWC_frag()).commit();
+                        }
+                    }, 2000);
+
                     }
                 }
 
@@ -93,4 +102,8 @@ public class Login_frag extends Fragment implements View.OnClickListener {
         });
     }
 
+    @Override
+    public void run() {
+
+    }
 }
