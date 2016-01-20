@@ -11,6 +11,7 @@ public class Database {
 
     int doneCount;
     int laterCount;
+    HomeworkDAO homeworkDAO = new HomeworkDAO();
     Firebase databaseHWC = new Firebase("https://studysmart.firebaseio.com/"+Singleton.userHWC);
     Firebase databaseSGM = new Firebase("https://studysmart.firebaseio.com/"+Singleton.userSGM);
     ArrayList<String> monthAll;
@@ -23,6 +24,8 @@ public class Database {
     ArrayList<String> existingDates;
     ArrayList<String> homework;
     ArrayList<HomeworkDTO> homeworkList;
+    ArrayList<HomeworkDTO> doneHomeworkList;
+    ArrayList<HomeworkDTO> laterHomeworkList;
     ArrayList<Integer> courseImages;
     ArrayList<String> existingGroups;
     ArrayList<String> bmpGroups, nsGroups,finGroups, dsGroups,moGroups ;
@@ -38,6 +41,8 @@ public class Database {
             existingDates = new ArrayList<>();
             homework = new ArrayList<>();
             homeworkList = new ArrayList<>();
+            doneHomeworkList = new ArrayList<>();
+            laterHomeworkList = new ArrayList<>();
             courseImages = new ArrayList<>();
             existingGroups = new ArrayList<>();
             bmpGroups = new ArrayList<>();
@@ -55,13 +60,15 @@ public class Database {
         databaseHWC.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                // bruges i movedToDone
                 doneCount = (int) snapshot.child("/DoneHomework").getChildrenCount()-1;
+                // bruges i movedToLater
                 laterCount = (int) snapshot.child("/ReadLaterHomework").getChildrenCount()-1;
-
+                // finder alle kendte datoer
                 for (int i = 1; i < snapshot.child("/ExistingDates").getChildrenCount() + 1; i++) {
                     existingDates.add((String) snapshot.child("/ExistingDates/" + i).getValue());
                 }
-
+                // henter all lektier ud fra deres datoer
                 for (int i = 1; i < existingDates.size() + 1; i++) {
                     int amount = (int) snapshot.child("/Date/" + existingDates.get(i - 1)).getChildrenCount() + 1;
                     for (int j = 1; j < amount; j++) {
@@ -72,6 +79,7 @@ public class Database {
                         else amount++;
                     }
                 }
+                // slitter informationerne rigtigt op så de kan laves til en homeworkDTO
                 for (int i = 0; i < homework.size(); i++) {
                     homeworkInformation.add(homework.get(i).split(","));
                 }
@@ -79,12 +87,41 @@ public class Database {
                     String[] temp = homeworkInformation.get(i);
                     homeworkList.add(new HomeworkDTO(Integer.parseInt(temp[0]),temp[1], courseImages.get(Integer.parseInt(temp[2])), temp[3], temp[4]));
                 }
+                // henter alle done homework
+                homework.clear();
+                homeworkInformation.clear();
+                for(int i = 1; i < snapshot.child("/DoneHomework").getChildrenCount(); i++){
+                                                                                //bare en tilfældig dato. skal ikke bruges
+                    homework.add(snapshot.child("/DoneHomework/" + i).getKey() + "," + existingDates.get(i - 1) + ","
+                            + snapshot.child("/DoneHomework/" +i).getValue());
+                }
+                for (int i = 0; i < homework.size(); i++) {
+                    homeworkInformation.add(homework.get(i).split(","));
+                }
+                for (int i = 0; i < homeworkInformation.size(); i++) {
+                    String[] temp = homeworkInformation.get(i);
+                    doneHomeworkList.add(new HomeworkDTO(Integer.parseInt(temp[0]), temp[1], courseImages.get(Integer.parseInt(temp[2])), temp[3], temp[4]));
+                }
+                // henter  alle read later homework
+                homework.clear();
+                homeworkInformation.clear();
+                for(int i = 1; i < snapshot.child("/ReadLaterHomework").getChildrenCount(); i++){
+                    snapshot.child("/ReadLaterHomework/" +i).getValue();               //bare en tilfældig dato. skal ikke bruges
+                    homework.add(snapshot.child("/ReadLaterHomework/" + i).getKey() + "," + existingDates.get(i - 1) + ","
+                            + snapshot.child("/ReadLaterHomework/" +i).getValue());
+                }
+                for (int i = 0; i < homework.size(); i++) {
+                    homeworkInformation.add(homework.get(i).split(","));
+                }
+                for (int i = 0; i < homeworkInformation.size(); i++) {
+                    String[] temp = homeworkInformation.get(i);
+                    laterHomeworkList.add(new HomeworkDTO(Integer.parseInt(temp[0]), temp[1], courseImages.get(Integer.parseInt(temp[2])), temp[3], temp[4]));
+                }
             }
             @Override
             public void onCancelled(FirebaseError firebaseError) {
                 System.out.println("The read failed: " + firebaseError.getMessage());
             }
-
         });
 
             databaseSGM. addValueEventListener(new ValueEventListener() {
@@ -119,7 +156,7 @@ public class Database {
             });
     }
 
-    public void movedToDone(HomeworkDTO doneHomework){
+    public void movedToDone(HomeworkDTO doneHomework, String from){
         doneCount++;
         String done = "";
         for(int i = 0; i < courseImages.size(); i++){
@@ -128,7 +165,8 @@ public class Database {
         done += doneHomework.description+",";
         done += doneHomework.detail;
         databaseHWC.child("/DoneHomework/"+doneCount).setValue(done);
-        databaseHWC.child("/Date/"+doneHomework.date+"/"+doneHomework.dbId).removeValue();
+        if(from.equals("HWC")) databaseHWC.child("/Date/"+doneHomework.date+"/" + doneHomework.dbId).removeValue();
+        if(from.equals("Read later")) databaseHWC.child("/ReadLaterHomework/"+ doneHomework.dbId).removeValue();
     }
 
     public void movedToLater(HomeworkDTO readLaterHomework){
@@ -146,6 +184,14 @@ public class Database {
     public ArrayList<HomeworkDTO> getHomeworkList(){
       return homeworkList;
      }
+
+    public ArrayList<HomeworkDTO> getDoneHomeworkList() {
+        return doneHomeworkList;
+    }
+
+    public ArrayList<HomeworkDTO> getLaterHomeworkList() {
+        return laterHomeworkList;
+    }
 
     public ArrayList<String> getBmpGroups() {return bmpGroups;}
     public ArrayList<String> getNsGroups() { return nsGroups; }

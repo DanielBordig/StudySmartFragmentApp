@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,10 +15,10 @@ import java.util.ArrayList;
 
 public class Done_frag extends Fragment implements AdapterView.OnItemClickListener {
 
-    TextView header, underHeader;
+    TextView header, noRemainingDoneHomework;
     ListView doneHomeworkListView;
     HomeworkDAO homeworkDAO = new HomeworkDAO();
-    ArrayList<HomeworkDTO> tempdoneHomeworkList = new ArrayList<>();
+    ArrayList<HomeworkDTO> tempDoneHomeworkList = new ArrayList<>();
     ArrayList<HomeworkDTO> doneHomeworkList = new ArrayList<>();
     HomeworkAdapter homeworkAdapter;
 
@@ -36,18 +34,20 @@ public class Done_frag extends Fragment implements AdapterView.OnItemClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_done, container, false);
 
-        //header = (TextView) root.findViewById(R.id.headerDone);
-        underHeader = (TextView) root.findViewById(R.id.underheaderDone);
+        header = (TextView) root.findViewById(R.id.headerDone);
         doneHomeworkListView = ( ListView ) root.findViewById(R.id.listDone);
-        tempdoneHomeworkList = homeworkDAO.getDoneHomework();
-        for(int i = tempdoneHomeworkList.size()-1; i >= 0; i--){
-            doneHomeworkList.add(new HomeworkDTO(tempdoneHomeworkList.get(i).dbId,tempdoneHomeworkList.get(i).date, tempdoneHomeworkList.get(i).course,
-                    tempdoneHomeworkList.get(i).description, tempdoneHomeworkList.get(i).detail));
+        noRemainingDoneHomework = (TextView) root.findViewById(R.id.noRemainingDoneHomework);
+
+        tempDoneHomeworkList = homeworkDAO.getDoneHomework();
+        for(int i = tempDoneHomeworkList.size()-1; i >= 0; i--){
+            doneHomeworkList.add(new HomeworkDTO(tempDoneHomeworkList.get(i).dbId, tempDoneHomeworkList.get(i).date, tempDoneHomeworkList.get(i).course,
+                    tempDoneHomeworkList.get(i).description, tempDoneHomeworkList.get(i).detail));
         }
 
         homeworkAdapter = new HomeworkAdapter(getActivity(), R.layout.listview_hwc_layout, doneHomeworkList);
         doneHomeworkListView.setAdapter(homeworkAdapter);
         doneHomeworkListView.setOnItemClickListener(this);
+        if(doneHomeworkList.isEmpty()) noRemainingDoneHomework.setText("No homework marked as done");
 
         return root;
     }
@@ -55,8 +55,9 @@ public class Done_frag extends Fragment implements AdapterView.OnItemClickListen
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String detail = doneHomeworkList.get(position).detail;
+        String dialogTitle = doneHomeworkList.get(position).description;
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        dialog.setTitle("Homework details:");
+        dialog.setTitle(dialogTitle);
         dialog.setMessage(detail);
         dialog.setPositiveButton("OK", new AlertDialog.OnClickListener() {
             @Override

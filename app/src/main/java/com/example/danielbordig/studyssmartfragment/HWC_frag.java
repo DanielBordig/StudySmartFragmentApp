@@ -94,13 +94,11 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, final long id) {
-        String detail;
-        String dialogTitle;
         // homeworkListWeek and hommeworkListFuture have the same homework in the first indexes
         // so we can just use homeworkListFuture to get the correct details even if the user
         // has tapped on a homework in the weekly list on the interface
-        detail = homeworkListFuture.get(position-offsetPosition.get(position)).detail;
-        dialogTitle = homeworkListFuture.get(position-offsetPosition.get(position)).description;
+        String detail = homeworkListFuture.get(position-offsetPosition.get(position)).detail;
+        String dialogTitle = homeworkListFuture.get(position-offsetPosition.get(position)).description;
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         dialog.setTitle(dialogTitle);
         dialog.setMessage(detail);
@@ -126,7 +124,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
                             printingListDesciptionFuture, printingListCourseFuture));
                 }
                 homeworkDAO.updateDoneHomework(homeworkMove);
-                Login_frag.db.movedToDone(homeworkMove);
+                Login_frag.db.movedToDone(homeworkMove, "HWC");
 
                 if(!weekBut.isClickable() && printingListDesciptionWeek.isEmpty()) noRemainingHomework.setText("No more homework this week");
                 if(!futureHomeworkBut.isClickable() && printingListDesciptionFuture.isEmpty()) noRemainingHomework.setText("No more future homework at the moment");

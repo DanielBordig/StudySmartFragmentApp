@@ -312,6 +312,8 @@ public class Groups_Fragment extends Fragment implements View.OnClickListener {
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                // have not been implemented
                 if(position==0){
                 }
                 else if (position==1){
@@ -342,6 +344,8 @@ public class Groups_Fragment extends Fragment implements View.OnClickListener {
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                // have not been implemented
                 if(position==0){
 
                 }

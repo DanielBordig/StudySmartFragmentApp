@@ -48,8 +48,9 @@ public class OldHomework_frag extends Fragment implements AdapterView.OnItemClic
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
         String detail = oldHomework.get(position).detail;
+        String dialogTitle = oldHomework.get(position).description;
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        dialog.setTitle("Homework details:");
+        dialog.setTitle(dialogTitle);
         dialog.setMessage(detail);
         dialog.setNegativeButton("Done", new AlertDialog.OnClickListener() {
             @Override

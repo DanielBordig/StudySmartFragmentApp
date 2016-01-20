@@ -30,7 +30,6 @@ public class Singleton extends Application{
         st = this;
         Firebase.setAndroidContext(this);
         myFirebaseRef = new Firebase("https://studysmart.firebaseio.com/CBS/Students/Information/144869/HWC");
-        System.out.println("test: " + myFirebaseRef.child("ok").getKey());
                 myFirebaseRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {

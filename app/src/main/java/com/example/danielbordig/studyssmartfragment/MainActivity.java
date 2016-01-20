@@ -22,16 +22,16 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
     private android.widget.ListView listViewSliding;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    public static boolean stayLoggedIn = false;
     Singleton st;
-   // static Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("StudySmart");
-        getFragmentManager().beginTransaction().add(R.id.mainFrame, new Main_frag()).commit();
-     //   db = new Database();
+        if(stayLoggedIn) getFragmentManager().beginTransaction().add(R.id.mainFrame, new HWC_frag()).commit();
+        else getFragmentManager().beginTransaction().add(R.id.mainFrame, new Main_frag()).commit();
         st = Singleton.st;
         st.drawer = this;
     }

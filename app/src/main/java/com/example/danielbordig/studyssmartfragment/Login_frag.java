@@ -1,5 +1,6 @@
 package com.example.danielbordig.studyssmartfragment;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -27,6 +28,7 @@ public class Login_frag extends Fragment implements View.OnClickListener, Runnab
     Button loginBut;
     StudentDAO stuDAO;
     Handler handler = new Handler();
+    ProgressDialog progressDialog;
 
     public Login_frag() {
     }
@@ -47,6 +49,7 @@ public class Login_frag extends Fragment implements View.OnClickListener, Runnab
 
         name.setHint("Userame");
         password.setHint("Password");
+        progressDialog = new ProgressDialog(getActivity());
 
         // gør vores login hugtigere, skal slettes senere
         name.setText("144869");
@@ -85,10 +88,17 @@ public class Login_frag extends Fragment implements View.OnClickListener, Runnab
                     Singleton.userSGM = "CBS/Students/Information/"+nameString+"/SGM";
                     db = new Database();
 
+                    progressDialog.setCancelable(false);
+                    progressDialog.setTitle("Loggin in");
+                    progressDialog.setMessage("Processing");
+                    progressDialog.show();
+
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             getFragmentManager().beginTransaction().replace(R.id.mainFrame, new HWC_frag()).commit();
+                            MainActivity.stayLoggedIn = true;
+                            progressDialog.dismiss();
                         }
                     }, 2000);
 
