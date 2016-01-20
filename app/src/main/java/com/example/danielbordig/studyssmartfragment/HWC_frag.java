@@ -150,6 +150,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
                             printingListDesciptionFuture, printingListCourseFuture));
                 }
                 homeworkDAO.updateLaterHomework(homeworkMove);
+                MainActivity.db.movedToLater(homeworkMove);
 
                 if(!weekBut.isClickable() && printingListDesciptionWeek.isEmpty()) noRemainingHomework.setText("No more homework this week");
                 if(!futureHomeworkBut.isClickable() && printingListDesciptionFuture.isEmpty()) noRemainingHomework.setText("No more future homework at the moment");
@@ -205,7 +206,7 @@ public class HWC_frag extends Fragment implements AdapterView.OnItemClickListene
             weekBut.setBackgroundColor(Color.WHITE);
             weekBut.setClickable(true);
             homeworkCalendarList.setAdapter(new HomeworkWithTitlesAdapter(getActivity(), R.layout.listview_hwc_layout,
-                                            printingListDesciptionFuture, printingListCourseFuture));
+                    printingListDesciptionFuture, printingListCourseFuture));
             if(printingListDesciptionFuture.isEmpty()) noRemainingHomework.setText("No more future homework at the moment");
             else noRemainingHomework.setText("");
         }

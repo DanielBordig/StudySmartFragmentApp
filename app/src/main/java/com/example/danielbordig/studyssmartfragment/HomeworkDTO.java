@@ -5,15 +5,18 @@ package com.example.danielbordig.studyssmartfragment;
  */
 public class HomeworkDTO {
 
-    int course;
+    int dbId, course;
     String date, description, detail;
 
-    public HomeworkDTO(String date, int course, String description, String detail){
+    public HomeworkDTO(int dbId, String date, int course, String description, String detail){
+        this.dbId = dbId;
         this.date = date;
         this.course = course;
         this.description = description;
         this.detail = detail;
     }
+
+    public int getDbId() {return dbId;}
 
     public String getDate() {
         return date;
