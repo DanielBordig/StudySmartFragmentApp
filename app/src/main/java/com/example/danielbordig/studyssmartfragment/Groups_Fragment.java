@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 
 
-public class Groups_Fragment extends Fragment implements View.OnClickListener {
+public class Groups_Fragment extends Fragment {
 
     private Spinner spinner1, spinner2, spinner3,spinner4, spinner5;
 
@@ -317,20 +317,19 @@ public class Groups_Fragment extends Fragment implements View.OnClickListener {
                 if(position==0){
                 }
                 else if (position==1){
-
+                    Toast.makeText(getActivity(),"No implementation yet", Toast.LENGTH_SHORT).show();
                 }
                 else if (position==2){
-
+                    Toast.makeText(getActivity(),"No implementation yet", Toast.LENGTH_SHORT).show();
                 }
                 else if (position==3){
-
-
+                    Toast.makeText(getActivity(),"No implementation yet", Toast.LENGTH_SHORT).show();
                 }
                 else if (position==4){
-
+                    Toast.makeText(getActivity(),"No implementation yet", Toast.LENGTH_SHORT).show();
                 }
                 else if (position==5) {
-
+                    Toast.makeText(getActivity(),"No implementation yet", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -350,20 +349,13 @@ public class Groups_Fragment extends Fragment implements View.OnClickListener {
 
                 }
                 else if (position==1){
-
+                    Toast.makeText(getActivity(),"No implementation yet", Toast.LENGTH_SHORT).show();
                 }
                 else if (position==2){
-
+                    Toast.makeText(getActivity(),"No implementation yet", Toast.LENGTH_SHORT).show();
                 }
                 else if (position==3){
-
-
-                }
-                else if (position==4){
-
-                }
-                else if (position==5) {
-
+                    Toast.makeText(getActivity(),"No implementation yet", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -374,12 +366,6 @@ public class Groups_Fragment extends Fragment implements View.OnClickListener {
         });
 
         return root;
-
-    }
-
-
-    @Override
-    public void onClick(View v) {
 
     }
 }

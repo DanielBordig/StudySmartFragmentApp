@@ -70,12 +70,17 @@ public class Login_frag extends Fragment implements View.OnClickListener, Runnab
         final String nameString = name.getText().toString().trim();
         final String passwordString = password.getText().toString().trim();
 
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Loggin in");
+        progressDialog.setMessage("Processing");
+        progressDialog.show();
+
         Firebase LoginFirebase = new Firebase("https://studysmart.firebaseio.com/CBS/Logins/");
         LoginFirebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(nameString.isEmpty() || passwordString.isEmpty()){
-                    Toast.makeText(getActivity(), "Fill out all fields", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Fill out both fields", Toast.LENGTH_LONG).show();
                 }
                 else if((snapshot.child("Userid/" + nameString).getValue() == null)){
                     Toast.makeText(getActivity(), "User doesn't exist", Toast.LENGTH_LONG).show();
@@ -87,11 +92,6 @@ public class Login_frag extends Fragment implements View.OnClickListener, Runnab
                     Singleton.userHWC = "CBS/Students/Information/"+nameString+"/HWC";
                     Singleton.userSGM = "CBS/Students/Information/"+nameString+"/SGM";
                     db = new Database();
-
-                    progressDialog.setCancelable(false);
-                    progressDialog.setTitle("Loggin in");
-                    progressDialog.setMessage("Processing");
-                    progressDialog.show();
 
                     handler.postDelayed(new Runnable() {
                         @Override

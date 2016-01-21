@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     public static boolean stayLoggedIn = false;
+    int backCount = 0;
     Singleton st;
 
     @Override
@@ -38,8 +39,11 @@ public class MainActivity extends AppCompatActivity implements DrawerIF{
 
     @Override
     public void onBackPressed() {
-        if(getFragmentManager().getBackStackEntryCount()==0) super.onBackPressed();
-        else getFragmentManager().popBackStack();
+        if(getFragmentManager().getBackStackEntryCount()==backCount) super.onBackPressed();
+        else {
+            getFragmentManager().beginTransaction().replace(R.id.mainFrame, new Groups_Fragment()).commit();
+            backCount++;
+        }
     }
 
     @Override
