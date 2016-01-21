@@ -45,4 +45,11 @@
         android:id="@+id/loginBut"
         android:layout_gravity="center_horizontal|bottom" />
 
+    <TextView
+        android:layout_width="164dp"
+        android:layout_height="138dp"
+        android:text="Usernames:\n- Jacob\n- Ian\n- Censor\nPassword er hardcoded"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal|bottom" />
+
 </FrameLayout>

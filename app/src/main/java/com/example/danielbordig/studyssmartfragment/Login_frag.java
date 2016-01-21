@@ -52,7 +52,7 @@ public class Login_frag extends Fragment implements View.OnClickListener, Runnab
         progressDialog = new ProgressDialog(getActivity());
 
         // gør vores login hugtigere, skal slettes senere
-        name.setText("144869");
+        name.setText("");
         password.setText("qwert14853");
 
         loginBut.setOnClickListener(this);
